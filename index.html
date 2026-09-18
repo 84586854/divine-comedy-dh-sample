@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0c0b0b" />
+    <meta
+      name="description"
+      content="《神曲》规则怪谈数字人文网页小样：在叙事选择中追溯但丁原文与历史语境。"
+    />
+    <title>进入此门者｜《神曲》异常旅行档案</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c0b0b'/%3E%3Cpath d='M13 48 32 10l19 38H13Z' fill='none' stroke='%23e8dfcb' stroke-width='4'/%3E%3Ccircle cx='32' cy='36' r='7' fill='%23b33a2f'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#case-file">跳到当前档案</a>
+
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="返回档案顶部">
+        <span class="brand-mark" aria-hidden="true">△</span>
+        <span>彼岸通行局</span>
+      </a>
+      <div class="registry">异常旅行档案 · 样本 01</div>
+      <button class="text-button" id="aboutButton" type="button" aria-expanded="false">
+        项目说明
+      </button>
+    </header>
+
+    <aside class="about-panel" id="aboutPanel" hidden>
+      <div>
+        <p class="eyebrow">DIGITAL HUMANITIES PROTOTYPE</p>
+        <h2>这不是“但丁主题鬼屋”</h2>
+        <p>
+          每条怪谈规则都连接到具体篇章、人物证词与解释争议。玩法负责制造疑问，文献层负责让用户核对证据。
+        </p>
+      </div>
+      <button class="close-button" id="closeAbout" type="button" aria-label="关闭项目说明">×</button>
+    </aside>
+
+    <main id="top" class="shell">
+      <section class="atlas" aria-labelledby="atlas-title">
+        <div class="atlas-heading">
+          <p class="eyebrow">ROUTE / 1300</p>
+          <h1 id="atlas-title">三界通行图</h1>
+          <p>你仍然活着。请勿让守门者发现你有影子。</p>
+        </div>
+
+        <nav class="realm-list" aria-label="选择旅行区域">
+          <button class="realm-button is-active" data-realm="inferno" type="button" aria-current="page">
+            <span class="realm-number">Ⅰ</span>
+            <span><strong>地狱</strong><small>已固定的选择</small></span>
+            <span class="realm-status">正在进入</span>
+          </button>
+          <button class="realm-button" data-realm="purgatorio" type="button">
+            <span class="realm-number">Ⅱ</span>
+            <span><strong>炼狱</strong><small>仍可改变的欲望</small></span>
+            <span class="realm-status">待解锁</span>
+          </button>
+          <button class="realm-button" data-realm="paradiso" type="button">
+            <span class="realm-number">Ⅲ</span>
+            <span><strong>天堂</strong><small>观看能力的边界</small></span>
+            <span class="realm-status">待解锁</span>
+          </button>
+        </nav>
+
+        <div class="diagram-wrap" aria-label="当前区域结构示意图">
+          <svg class="realm-diagram" viewBox="0 0 420 380" role="img" aria-labelledby="diagramTitle diagramDesc">
+            <title id="diagramTitle">地狱漏斗结构</title>
+            <desc id="diagramDesc">九层地狱逐步向地心收窄，当前定位在第二圈。</desc>
+            <g class="diagram-lines" fill="none">
+              <path d="M38 44h344L240 330h-60L38 44Z" />
+              <path d="M60 88h300" />
+              <path d="M78 126h264" />
+              <path d="M97 164h226" />
+              <path d="M116 202h188" />
+              <path d="M135 240h150" />
+              <path d="M154 278h112" />
+            </g>
+            <g class="diagram-labels">
+              <text x="30" y="38">入口</text>
+              <text x="370" y="115">Ⅱ</text>
+              <text x="192" y="352">地心</text>
+            </g>
+            <circle class="locator-pulse" cx="334" cy="111" r="15" />
+            <circle class="locator" cx="334" cy="111" r="5" />
+          </svg>
+          <div class="coordinate">
+            <span>当前位置</span>
+            <strong id="locationLabel">第二圈 · 风暴带</strong>
+          </div>
+        </div>
+
+        <div class="traveler-state" aria-label="旅行者状态">
+          <div><span>呼吸</span><strong>可见</strong></div>
+          <div><span>影子</span><strong>异常</strong></div>
+          <div><span>引路人</span><strong id="guideLabel">维吉尔</strong></div>
+        </div>
+      </section>
+
+      <section class="dossier" id="case-file" aria-labelledby="case-title">
+        <div class="dossier-header">
+          <div>
+            <p class="eyebrow" id="caseIndex">TRANSMISSION / INFERNO 05</p>
+            <h2 id="case-title">不要回答风中的名字</h2>
+          </div>
+          <div class="seal" aria-label="档案风险等级">
+            <span>风险</span><strong id="riskLabel">叙事感染</strong>
+          </div>
+        </div>
+
+        <article class="rule-card">
+          <div class="rule-number" aria-hidden="true" id="ruleNumber">04</div>
+          <div>
+            <p class="rule-label">访客规则</p>
+            <p class="rule-copy" id="ruleCopy">
+              风中有人准确叫出你的名字时，不要立刻回答。先问她：是谁替你选择了这条路？
+            </p>
+          </div>
+        </article>
+
+        <section class="encounter" aria-labelledby="encounter-title">
+          <div class="encounter-meta">
+            <span id="speakerLabel">证词人 F-05</span>
+            <span>记录完整度 92%</span>
+          </div>
+          <blockquote id="testimony">
+            “是爱情使我们走向同一个结局。那本书、那个作者，以及我们读到的那一刻，都不再让我们回头。”
+          </blockquote>
+          <h3 id="encounter-title">她是在忏悔，还是在重新书写责任？</h3>
+
+          <div class="choice-grid" id="choiceGrid">
+            <button class="choice" type="button" data-choice="trust">
+              <span class="choice-key">A</span>
+              <span><strong>相信她</strong><small>爱情夺走了选择能力</small></span>
+            </button>
+            <button class="choice" type="button" data-choice="inspect">
+              <span class="choice-key">B</span>
+              <span><strong>检查措辞</strong><small>是谁在句子中承担行动？</small></span>
+            </button>
+          </div>
+
+          <div class="result" id="result" role="status" aria-live="polite" hidden>
+            <p class="eyebrow" id="resultLabel">判断记录</p>
+            <h3 id="resultTitle"></h3>
+            <p id="resultText"></p>
+          </div>
+        </section>
+
+        <section class="source-layer" aria-labelledby="source-heading">
+          <button class="source-toggle" id="sourceToggle" type="button" aria-expanded="false">
+            <span>
+              <small>原作依据</small>
+              <strong id="source-heading">为什么会有这条规则？</strong>
+            </span>
+            <span class="toggle-icon" aria-hidden="true">＋</span>
+          </button>
+          <div class="source-content" id="sourceContent" hidden>
+            <div class="source-citation">
+              <span>篇章</span>
+              <strong id="citationLabel">《地狱篇》第五歌</strong>
+            </div>
+            <div>
+              <p id="sourceText">
+                弗兰切斯卡把行动的主语交给“爱情”和“书”，将自己的选择描述成无法抗拒的外力。旅行者但丁被她的语言打动而昏倒；但诗人同时邀请读者检查这套漂亮说辞。
+              </p>
+              <a id="sourceLink" href="https://digitaldante.columbia.edu/dante/divine-comedy/inferno/inferno-5/inferno-05/" target="_blank" rel="noreferrer">
+                查看 Digital Dante 文本与评注 ↗
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <footer class="dossier-footer">
+          <p><span class="live-dot" aria-hidden="true"></span> 这是一个单场景原型。三界按钮可切换不同的叙事机制。</p>
+          <button class="reset-button" id="resetButton" type="button">清除本次判断</button>
+        </footer>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
