@@ -158,13 +158,27 @@ let currentIndex = 0;
 let activeRealmFilter = "all";
 let activeDictionary = dictionaries[0].id;
 let showingAllLines = false;
+let gamePhase = 0;
 let state = loadState();
+
+const travelerRoles = {
+  wanderer: { name: "迷途者", will: 55, mercy: 55, insight: 55 },
+  witness: { name: "见证者", will: 46, mercy: 74, insight: 46 },
+  reader: { name: "校勘者", will: 52, mercy: 42, insight: 74 },
+};
+
+const choiceEffects = {
+  sympathy: { mercy: 8, insight: -2 }, reader: { mercy: 3, insight: 6 }, system: { will: 7, mercy: -2 }, language: { insight: 8, mercy: -1 },
+  confession: { mercy: 5, will: -2 }, discipline: { will: 8, mercy: -1 }, relation: { mercy: 5, insight: 4 }, symbol: { insight: 7 },
+  doctrine: { will: 5, insight: 4, mercy: -2 }, image: { mercy: 4, insight: 3 }, limit: { insight: 7, will: 2 }, revision: { will: 3, mercy: 3, insight: 5 },
+};
 
 function loadState() {
   try {
-    return JSON.parse(localStorage.getItem(storageKey)) || { visited: [], decisions: {}, ledger: [] };
+    const saved = JSON.parse(localStorage.getItem(storageKey)) || {};
+    return { visited: [], decisions: {}, ledger: [], role: null, currentIndex: 0, completed: false, ...saved };
   } catch {
-    return { visited: [], decisions: {}, ledger: [] };
+    return { visited: [], decisions: {}, ledger: [], role: null, currentIndex: 0, completed: false };
   }
 }
 
@@ -179,6 +193,62 @@ function escapeHtml(value = "") {
 function formatNumber(value) { return new Intl.NumberFormat("zh-CN").format(value); }
 function titleFor(canto) { return cantoTitles[canto.realm][canto.canto - 1] || `第${canto.canto}歌`; }
 function protocolFor(canto) { return deepCases[canto.id] || { ...realmProtocols[canto.realm], title: titleFor(canto) }; }
+
+function clampStat(value) { return Math.max(0, Math.min(100, value)); }
+
+function travelerStats() {
+  const base = travelerRoles[state.role] || travelerRoles.wanderer;
+  const stats = { will: base.will, mercy: base.mercy, insight: base.insight };
+  Object.values(state.decisions).forEach((decision) => {
+    const effect = choiceEffects[decision.choice] || {};
+    for (const key of Object.keys(stats)) stats[key] = clampStat(stats[key] + (effect[key] || 0));
+  });
+  return stats;
+}
+
+function guideFor(canto) {
+  if (canto.realm === "paradiso" && canto.canto >= 31) return { name: "圣伯尔纳", role: "最后的凝视引路人", emblem: "B" };
+  if (canto.realm === "paradiso" || (canto.realm === "purgatorio" && canto.canto >= 30)) return { name: "贝雅特丽齐", role: "启示与判断的引路人", emblem: "B" };
+  return { name: "维吉尔", role: "理性与诗歌的引路人", emblem: "V" };
+}
+
+function gameScriptFor(canto) {
+  const title = titleFor(canto);
+  const guide = guideFor(canto);
+  const deepScripts = {
+    "inf-05": {
+      arrival: "风暴把灵魂卷成一条永不落地的队列。一个女人在风中准确说出了你的名字。",
+      guide: "不要急着回答。她的痛苦是真的，她为痛苦安排的因果未必都是真的。听她怎样使用“爱情”这个主语。",
+      objective: "目标：在同情弗兰切斯卡之前，找出她叙述中被转移的责任。",
+    },
+    "pur-09": {
+      arrival: "你在门前醒来。三层台阶颜色各异，守门者的剑尖已经在你的额头留下七个记号。",
+      guide: "门可以打开，改变却不能被代办。记住每一个消失的字母都必须对应一段真实的攀登。",
+      objective: "目标：通过炼狱之门，并判断承认错误是否等于完成改变。",
+    },
+    "par-33": {
+      arrival: "白玫瑰退入光中。三个圆环同时出现，而你的记忆已经开始跟不上所见。",
+      guide: "不要把语言的失败当作旅程失败。你必须决定：留下一个完整赝品，还是留下可供后来者修订的空白。",
+      objective: "目标：完成最后凝视，并决定这本规则手册应当如何收尾。",
+    },
+  };
+  if (deepScripts[canto.id]) return deepScripts[canto.id];
+  if (canto.realm === "inferno") return {
+    arrival: `你沿岩壁进入“${title}”。空气里没有风，远处的声音却不断把过去说成命运。`,
+    guide: `${guide.name}压低声音：“这里的灵魂并不只受刑；他们还在反复解释自己。先听，再检查是谁在句子中行动。”`,
+    objective: `目标：穿过“${title}”，辨认证词、刑罚与选择之间的关系。`,
+  };
+  if (canto.realm === "purgatorio") return {
+    arrival: `你抵达“${title}”。山路向上延伸，脚下每一级台阶都要求身体重复一次已经知道的道理。`,
+    guide: `${guide.name}说：“这里的人仍能改变。不要只看他们承认了什么，要看欲望怎样在时间里重新学会行动。”`,
+    objective: `目标：完成“${title}”的训练，并判断改变是否真正留下痕迹。`,
+  };
+  return {
+    arrival: `你进入“${title}”。光并不刺眼；刺眼的是你突然发现，过去能够使用的分类正在失去边界。`,
+    guide: `${guide.name}提醒你：“不要把看见误作占有。记录你理解了什么，也记录理解在哪一步无法继续。”`,
+    objective: `目标：承受“${title}”的观看，并为语言的边界留下证据。`,
+  };
+}
 
 function scenePosition(canto) {
   if (canto.realm === "inferno") {
@@ -195,6 +265,180 @@ function scenePosition(canto) {
   if (canto.canto <= 9) return "50% 78%";
   if (canto.canto <= 22) return "50% 51%";
   return "50% 20%";
+}
+
+function animateStep() {
+  const screen = $("#gameScreen");
+  screen.classList.remove("is-walking");
+  requestAnimationFrame(() => {
+    screen.classList.add("is-walking");
+    window.setTimeout(() => screen.classList.remove("is-walking"), 1050);
+  });
+}
+
+function updateGameStats() {
+  const stats = travelerStats();
+  $("#willValue").textContent = stats.will;
+  $("#mercyValue").textContent = stats.mercy;
+  $("#insightValue").textContent = stats.insight;
+  $("#willMeter").style.width = `${stats.will}%`;
+  $("#mercyMeter").style.width = `${stats.mercy}%`;
+  $("#insightMeter").style.width = `${stats.insight}%`;
+  $("#playerRole").textContent = state.role ? `${travelerRoles[state.role].name} · 仍然活着` : "仍然活着的旅者";
+}
+
+function renderGamePhase() {
+  const canto = corpus.cantos[currentIndex];
+  const protocol = protocolFor(canto);
+  const script = gameScriptFor(canto);
+  const guide = guideFor(canto);
+  const choiceGrid = $("#gameChoiceGrid");
+  const result = $("#gameResult");
+  const continueButton = $("#gameContinueButton");
+
+  choiceGrid.hidden = true;
+  result.hidden = true;
+  continueButton.hidden = false;
+  continueButton.disabled = false;
+
+  if (gamePhase === 0) {
+    $("#dialogueSpeaker").textContent = "环境";
+    $("#phaseLabel").textContent = "抵达 · 1 / 3";
+    $("#gameDialogue").textContent = script.arrival;
+    continueButton.innerHTML = "听取引路人 <span>→</span>";
+    return;
+  }
+
+  if (gamePhase === 1) {
+    $("#dialogueSpeaker").textContent = guide.name;
+    $("#phaseLabel").textContent = "同行 · 2 / 3";
+    $("#gameDialogue").textContent = script.guide;
+    continueButton.innerHTML = "面对本歌规则 <span>→</span>";
+    return;
+  }
+
+  if (gamePhase === 2) {
+    $("#dialogueSpeaker").textContent = "你的判断";
+    $("#phaseLabel").textContent = "抉择 · 3 / 3";
+    $("#gameDialogue").textContent = typeof protocol.rule === "function" ? protocol.rule(titleFor(canto)) : protocol.rule;
+    choiceGrid.innerHTML = protocol.choices.map((choice, choiceIndex) => `
+      <button class="game-choice" data-game-choice="${choice.key}" type="button">
+        <span>${String.fromCharCode(65 + choiceIndex)}</span><strong>${escapeHtml(choice.title)}</strong><small>${escapeHtml(choice.subtitle)}</small>
+      </button>`).join("");
+    choiceGrid.hidden = false;
+    continueButton.hidden = true;
+    return;
+  }
+
+  const decision = state.decisions[canto.id];
+  const choice = protocol.choices.find((item) => item.key === decision?.choice);
+  $("#dialogueSpeaker").textContent = "判断回执";
+  $("#phaseLabel").textContent = "通行 · 已记录";
+  $("#gameDialogue").textContent = choice ? `你的选择触发了“${choice.error}”记录。它不是失败判定，而是下一次判断的线索。` : "你的判断已经写入旅程档案。";
+  $("#gameResultTitle").textContent = choice?.resultTitle || "道路暂时放行";
+  $("#gameResultText").textContent = choice?.result || "你可以继续前行，也可以进入原文档案核对证据。";
+  result.hidden = false;
+  continueButton.innerHTML = currentIndex === corpus.cantos.length - 1 ? "完成最后凝视 <span>→</span>" : "继续前行 <span>→</span>";
+}
+
+function renderGameCanto(canto) {
+  const scene = realmScenes[canto.realm];
+  const guide = guideFor(canto);
+  const script = gameScriptFor(canto);
+  gamePhase = 0;
+
+  $("#gameScreen").className = `game-screen realm-${canto.realm}${canto.id === "inf-05" ? " case-wind" : ""}${canto.id === "pur-09" ? " case-gate" : ""}${canto.id === "par-33" ? " case-trinity" : ""}`;
+  $("#gameBackdrop").src = scene.src;
+  $("#gameBackdrop").alt = scene.alt;
+  $("#gameBackdrop").style.objectPosition = scenePosition(canto);
+  $("#gameRealm").textContent = realmMeta[canto.realm].en;
+  $("#gameCounter").textContent = `${String(canto.global).padStart(3, "0")} / 100`;
+  $("#topRegistry").textContent = `${realmMeta[canto.realm].zh} · ${String(canto.global).padStart(3, "0")} / 100`;
+  $("#gameLocation").textContent = `${realmMeta[canto.realm].zh} · 第${canto.canto}歌`;
+  $("#gameTitle").textContent = titleFor(canto);
+  $("#gameObjective").textContent = script.objective;
+  $("#guideEmblem").textContent = guide.emblem;
+  $("#guideName").textContent = guide.name;
+  $("#guideRole").textContent = guide.role;
+  updateGameStats();
+  renderGamePhase();
+}
+
+function chooseGameBranch(choiceKey) {
+  chooseBranch(choiceKey);
+  gamePhase = 3;
+  updateGameStats();
+  renderGamePhase();
+}
+
+function renderEnding() {
+  const stats = travelerStats();
+  const values = Object.values(stats);
+  const spread = Math.max(...values) - Math.min(...values);
+  let ending = {
+    title: "可修订结局：仍在转动的手册",
+    text: "你没有焚毁规则，也没有把规则当成永恒真理。三界关闭在身后，手册却留下空白页：后来者可以凭证据改写它。旅程结束，判断仍然开放。",
+  };
+  if (spread > 18 && stats.will === Math.max(...values)) ending = {
+    title: "封闭结局：最后一条规则",
+    text: "你安全走完三界，却把每一种遭遇都压进同一套秩序。手册变得无懈可击，也变得像地狱一样不能改变。",
+  };
+  if (spread > 18 && stats.insight === Math.max(...values) && stats.mercy < 55) ending = {
+    title: "失语结局：无人被听见",
+    text: "你识破了几乎所有修辞机关，却开始怀疑每一种证词。档案保持精确，人物从其中消失；开放性变成了不再承担判断。",
+  };
+
+  state.completed = true;
+  state.currentIndex = currentIndex;
+  saveState();
+  gamePhase = 4;
+  $("#gameLocation").textContent = "旅程终点 · 结局回执";
+  $("#gameTitle").textContent = ending.title;
+  $("#gameObjective").textContent = `最终状态：意志 ${stats.will} · 怜悯 ${stats.mercy} · 辨识 ${stats.insight}`;
+  $("#dialogueSpeaker").textContent = "档案管理员";
+  $("#phaseLabel").textContent = "结局 · 可重新进入";
+  $("#gameDialogue").textContent = "你再次看见星辰。现在需要回答的不是“是否通关”，而是你用什么方式走完了这条路。";
+  $("#gameChoiceGrid").hidden = true;
+  $("#gameResultTitle").textContent = ending.title;
+  $("#gameResultText").textContent = ending.text;
+  $("#gameResult").hidden = false;
+  $("#gameContinueButton").hidden = true;
+}
+
+function advanceGame() {
+  if (gamePhase < 2) {
+    gamePhase += 1;
+    animateStep();
+    renderGamePhase();
+    return;
+  }
+  if (gamePhase === 3) {
+    if (currentIndex === corpus.cantos.length - 1) {
+      renderEnding();
+      return;
+    }
+    animateStep();
+    renderCanto(currentIndex + 1);
+  }
+}
+
+function selectTravelerRole(roleKey) {
+  if (!corpus || !travelerRoles[roleKey]) return;
+  state = { visited: [], decisions: {}, ledger: [], role: roleKey, currentIndex: 0, completed: false };
+  saveState();
+  $("#roleGate").hidden = true;
+  renderLedger();
+  renderCanto(0);
+  animateStep();
+}
+
+function restartJourney() {
+  if (!window.confirm("重新开始会清除当前旅程中的选择与错误账本。继续吗？")) return;
+  state = { visited: [], decisions: {}, ledger: [], role: null, currentIndex: 0, completed: false };
+  saveState();
+  renderLedger();
+  renderCanto(0);
+  $("#roleGate").hidden = false;
 }
 
 function switchView(viewName) {
@@ -253,6 +497,7 @@ function renderCanto(index, options = {}) {
   const canto = corpus.cantos[currentIndex];
   const protocol = protocolFor(canto);
   showingAllLines = false;
+  state.currentIndex = currentIndex;
   if (!state.visited.includes(canto.id)) state.visited.push(canto.id);
   saveState();
 
@@ -280,6 +525,7 @@ function renderCanto(index, options = {}) {
   $("#previousCanto").disabled = currentIndex === 0;
   $("#nextCanto").disabled = currentIndex === corpus.cantos.length - 1;
   renderAtlas();
+  renderGameCanto(canto);
   if (options.scroll) $("#casePanel").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -294,6 +540,7 @@ function chooseBranch(choiceKey) {
   state.ledger = state.ledger.slice(0, 100);
   saveState();
   renderDecision(canto, protocol);
+  updateGameStats();
 }
 
 function runSearch() {
@@ -357,7 +604,30 @@ function openCantoById(id, scroll = true) {
 }
 
 function bindEvents() {
-  $("#startButton").addEventListener("click", () => $("#workspace").scrollIntoView({ behavior: "smooth" }));
+  $("#gameContinueButton").addEventListener("click", advanceGame);
+  $("#gameChoiceGrid").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-game-choice]");
+    if (button) chooseGameBranch(button.dataset.gameChoice);
+  });
+  $$("[data-role]", $("#roleGate")).forEach((button) => button.addEventListener("click", () => selectTravelerRole(button.dataset.role)));
+  $("#gameEvidenceButton").addEventListener("click", () => {
+    $("#corpusSearch").value = "";
+    switchView("archive");
+    $("#archiveView").scrollIntoView({ behavior: "smooth" });
+  });
+  $("#gameMapButton").addEventListener("click", () => {
+    switchView("journey");
+    $("#workspace").scrollIntoView({ behavior: "smooth" });
+  });
+  $("#gameManualButton").addEventListener("click", () => {
+    switchView("manual");
+    $("#workspace").scrollIntoView({ behavior: "smooth" });
+  });
+  $("#restartJourneyButton").addEventListener("click", restartJourney);
+  $("#openArchiveButton").addEventListener("click", () => {
+    switchView("archive");
+    $("#workspace").scrollIntoView({ behavior: "smooth" });
+  });
   $$(".mode-tab").forEach((button) => button.addEventListener("click", () => switchView(button.dataset.view)));
   $$(".filter-chip").forEach((button) => button.addEventListener("click", () => {
     activeRealmFilter = button.dataset.realm;
@@ -389,13 +659,29 @@ function bindEvents() {
     activeDictionary = button.dataset.dictionary;
     renderManual();
   });
-  $("#clearLedger").addEventListener("click", () => { state.decisions = {}; state.ledger = []; saveState(); renderLedger(); renderCanto(currentIndex); });
+  $("#clearLedger").addEventListener("click", () => { state.decisions = {}; state.ledger = []; saveState(); renderLedger(); renderCanto(currentIndex); updateGameStats(); });
   $("#aboutButton").addEventListener("click", () => {
     const open = $("#aboutButton").getAttribute("aria-expanded") === "true";
     $("#aboutButton").setAttribute("aria-expanded", String(!open));
     $("#aboutPanel").hidden = open;
   });
   $("#closeAbout").addEventListener("click", () => { $("#aboutPanel").hidden = true; $("#aboutButton").setAttribute("aria-expanded", "false"); $("#aboutButton").focus(); });
+  document.addEventListener("keydown", (event) => {
+    if (event.target.matches("input, select, textarea, button, a")) return;
+    if (event.key.toLocaleLowerCase() === "m") {
+      switchView("journey");
+      $("#workspace").scrollIntoView({ behavior: "smooth" });
+    }
+    if (event.key.toLocaleLowerCase() === "r") {
+      switchView("manual");
+      $("#workspace").scrollIntoView({ behavior: "smooth" });
+    }
+    if ((event.key === "Enter" || event.key === " ") && !$("#roleGate").hidden && !state.role) return;
+    if ((event.key === "Enter" || event.key === " ") && !$("#gameContinueButton").hidden && !$("#gameContinueButton").disabled) {
+      event.preventDefault();
+      advanceGame();
+    }
+  });
 }
 
 async function init() {
@@ -406,10 +692,12 @@ async function init() {
     const response = await fetch("corpus.json");
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     corpus = await response.json();
-    $("#cantoCount").textContent = formatNumber(corpus.meta.cantoCount);
-    $("#lineCount").textContent = formatNumber(corpus.meta.lineCount);
     $("#archiveResultCount").textContent = formatNumber(corpus.meta.lineCount);
-    renderCanto(0);
+    currentIndex = Math.max(0, Math.min(Number(state.currentIndex) || 0, corpus.cantos.length - 1));
+    renderCanto(currentIndex);
+    $("#roleGate").hidden = Boolean(state.role);
+    if (state.completed && currentIndex === corpus.cantos.length - 1) renderEnding();
+    $("#gameContinueButton").disabled = false;
     $("#loadingState").hidden = true;
     $("#caseContent").hidden = false;
   } catch (error) {

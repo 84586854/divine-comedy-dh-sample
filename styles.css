@@ -81,6 +81,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   cursor: pointer;
 }
 .topbar .plain-button { justify-self: end; }
+.top-actions { justify-self: end; display: flex; align-items: center; gap: 1rem; }
 .plain-button.small { color: var(--muted); font-size: .82rem; }
 .plain-button:hover, .text-link:hover { color: var(--red); }
 .icon-button { align-self: flex-start; color: var(--muted); font-size: 2rem; line-height: 1; }
@@ -188,6 +189,142 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-stats strong, .hero-stats span { display: block; }
 .hero-stats strong { font-family: ui-monospace, monospace; font-size: clamp(2rem, 4vw, 4rem); font-weight: 400; line-height: 1; }
 .hero-stats span { margin-top: .85rem; color: var(--muted); font-size: .76rem; }
+
+.game-screen {
+  --realm-accent: #d5533f;
+  position: relative;
+  min-height: max(720px, calc(100svh - 64px));
+  overflow: hidden;
+  isolation: isolate;
+  background: #080706;
+}
+.game-screen.realm-purgatorio { --realm-accent: #d5a35c; }
+.game-screen.realm-paradiso { --realm-accent: #cddff0; }
+.game-backdrop {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  object-fit: cover;
+  filter: saturate(.9) contrast(1.08) brightness(.68);
+  transform: scale(1.04);
+  animation: game-breathe 20s ease-in-out infinite alternate;
+  transition: filter .6s ease, opacity .5s ease;
+}
+.game-screen.is-walking .game-backdrop { animation: game-step 1.05s cubic-bezier(.2,.8,.2,1); }
+.game-screen.realm-paradiso .game-backdrop { filter: saturate(.92) contrast(1.02) brightness(.82); }
+.game-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(5,4,3,.74), transparent 24%, transparent 53%, rgba(5,4,3,.92) 92%),
+    linear-gradient(90deg, rgba(5,4,3,.7), transparent 35%, transparent 70%, rgba(5,4,3,.48)),
+    radial-gradient(circle at center, transparent 35%, rgba(5,4,3,.55));
+  pointer-events: none;
+}
+.game-screen .scene-drift, .game-screen .game-particles, .game-screen .game-rings { z-index: 2; }
+.game-hud {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: minmax(220px,.8fr) minmax(340px,1.2fr) minmax(150px,.5fr);
+  gap: .75rem;
+  align-items: stretch;
+}
+.player-card, .state-meters, .journey-counter, .guide-card, .location-card, .dialogue-panel, .game-toolbar {
+  border: 1px solid rgba(233,224,204,.28);
+  background: rgba(8,7,6,.72);
+  box-shadow: 0 12px 45px rgba(0,0,0,.28);
+  backdrop-filter: blur(12px);
+}
+.player-card { display: flex; align-items: center; gap: .75rem; padding: .7rem .85rem; }
+.player-sigil { display: grid; flex: 0 0 40px; width: 40px; height: 40px; place-items: center; border: 1px solid var(--realm-accent); color: var(--realm-accent); font-size: 1.12rem; }
+.player-card span, .player-card strong, .guide-card span, .guide-card strong, .guide-card small { display: block; }
+.player-card span, .guide-card span, .guide-card small { color: var(--muted); font-size: .75rem; }
+.player-card strong { font-size: .92rem; }
+.state-meters { display: grid; grid-template-columns: repeat(3,1fr); gap: .9rem; padding: .75rem 1rem; }
+.state-meters div { min-width: 0; }
+.state-meters span { display: flex; justify-content: space-between; gap: .4rem; color: var(--paper-dim); font-size: .75rem; }
+.state-meters b { color: var(--paper); font-family: ui-monospace, monospace; font-weight: 400; }
+.state-meters i { display: block; height: 3px; margin-top: .45rem; background: rgba(233,224,204,.14); overflow: hidden; }
+.state-meters em { display: block; width: 50%; height: 100%; background: var(--realm-accent); transition: width .45s ease; }
+.journey-counter { display: grid; align-content: center; justify-items: end; padding: .65rem .85rem; }
+.journey-counter span { color: var(--realm-accent); font-family: ui-monospace, monospace; font-size: .73rem; letter-spacing: .15em; }
+.journey-counter strong { font-family: ui-monospace, monospace; font-size: 1rem; }
+
+.location-card {
+  position: absolute;
+  top: 7.2rem;
+  left: 1.5rem;
+  z-index: 5;
+  max-width: min(580px, 52vw);
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--realm-accent);
+  animation: dialogue-in .45s ease both;
+}
+.location-card span { color: var(--realm-accent); font-family: ui-monospace, monospace; font-size: .76rem; letter-spacing: .1em; }
+.location-card h1 { margin: .05rem 0; font-size: clamp(2rem,4.2vw,4.6rem); font-weight: 500; letter-spacing: -.055em; line-height: 1.08; text-shadow: 0 3px 22px #000; }
+.location-card p { margin: .25rem 0 0; color: var(--paper-dim); }
+
+.guide-card {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 15.9rem;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  min-width: 230px;
+  padding: .75rem .9rem;
+  border-color: color-mix(in srgb, var(--realm-accent) 56%, transparent);
+  animation: guide-enter .55s ease both;
+}
+.guide-emblem { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid var(--realm-accent); border-radius: 50%; color: var(--realm-accent); font-family: Georgia, serif; font-size: 1.35rem; }
+.guide-card strong { font-size: 1rem; }.guide-card small { margin-top: .05rem; }
+
+.dialogue-panel {
+  position: absolute;
+  left: 1.5rem;
+  right: 12rem;
+  bottom: 1.5rem;
+  z-index: 8;
+  min-height: 13.6rem;
+  padding: 1rem 1.2rem;
+  border-top: 2px solid var(--realm-accent);
+}
+.dialogue-meta { display: flex; justify-content: space-between; gap: 1rem; color: var(--realm-accent); font-family: ui-monospace, monospace; font-size: .76rem; letter-spacing: .08em; }
+.dialogue-copy { max-width: 920px; min-height: 3.7rem; margin: .8rem 0; font-size: clamp(1.05rem,1.5vw,1.3rem); line-height: 1.65; text-shadow: 0 2px 9px #000; }
+.dialogue-copy.is-changing { animation: dialogue-in .38s ease both; }
+.dialogue-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: .7rem; }
+.game-text-button { padding: .5rem 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.game-text-button:hover { color: var(--paper); }
+.game-continue { min-width: 180px; padding: .72rem 1rem; border: 1px solid var(--realm-accent); background: var(--realm-accent); color: #100d09; cursor: pointer; font-weight: 700; }
+.game-continue:disabled { opacity: .46; cursor: wait; }.game-continue span { margin-left: .5rem; }
+.game-choice-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .55rem; margin: .6rem 0; }
+.game-choice-grid[hidden], .game-result[hidden], .game-continue[hidden] { display: none; }
+.game-choice { min-height: 82px; padding: .65rem .8rem; border: 1px solid rgba(233,224,204,.25); background: rgba(5,4,3,.56); color: var(--paper); cursor: pointer; text-align: left; }
+.game-choice:hover, .game-choice.is-selected { border-color: var(--realm-accent); background: color-mix(in srgb, var(--realm-accent) 12%, rgba(5,4,3,.74)); }
+.game-choice strong, .game-choice small { display: block; }.game-choice strong { margin-bottom: .1rem; }.game-choice small { color: var(--muted); line-height: 1.35; }
+.game-result { margin: .65rem 0; padding: .65rem .8rem; border-left: 2px solid var(--realm-accent); background: rgba(0,0,0,.22); }
+.game-result p { margin: .2rem 0 0; color: var(--paper-dim); }
+
+.game-toolbar { position: absolute; right: 1.5rem; bottom: 1.5rem; z-index: 8; display: grid; width: 9.5rem; }
+.game-toolbar button { display: flex; justify-content: space-between; gap: .5rem; padding: .8rem; border: 0; border-bottom: 1px solid rgba(233,224,204,.18); background: transparent; color: var(--paper-dim); cursor: pointer; text-align: left; }
+.game-toolbar button:last-child { border-bottom: 0; }.game-toolbar button:hover { background: rgba(233,224,204,.08); color: var(--paper); }.game-toolbar small { color: var(--realm-accent); font-family: ui-monospace, monospace; }
+
+.role-gate { position: absolute; inset: 0; z-index: 15; display: grid; place-items: center; padding: 2rem; background: rgba(5,4,3,.82); backdrop-filter: blur(12px); }
+.role-gate[hidden] { display: none; }
+.role-gate-inner { width: min(920px,100%); padding: clamp(1.5rem,4vw,3.3rem); border: 1px solid rgba(192,155,92,.48); background: rgba(14,12,10,.94); box-shadow: 0 30px 100px #000; }
+.role-gate h1 { margin: .3rem 0 .8rem; font-size: clamp(2.3rem,5vw,5.5rem); font-weight: 500; letter-spacing: -.055em; line-height: 1; }
+.role-gate-inner > p:not(.eyebrow):not(.role-note) { max-width: 720px; color: var(--paper-dim); }
+.role-options { display: grid; grid-template-columns: repeat(3,1fr); gap: .7rem; margin: 1.5rem 0 1rem; }
+.role-options button { min-height: 150px; padding: 1rem; border: 1px solid rgba(233,224,204,.22); background: var(--panel); color: var(--paper); cursor: pointer; text-align: left; }
+.role-options button:hover { border-color: var(--gold); transform: translateY(-2px); }.role-options span, .role-options strong, .role-options small { display: block; }.role-options span { color: var(--gold); font-family: ui-monospace, monospace; font-size: .72rem; }.role-options strong { margin: .8rem 0 .2rem; font-size: 1.25rem; }.role-options small { color: var(--muted); line-height: 1.45; }
+.role-note { margin: .6rem 0 0; color: var(--muted); font-size: .78rem; }
 
 .mode-tabs {
   position: sticky;
@@ -386,6 +523,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .site-footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.5rem clamp(1.2rem,4vw,4rem); border-top: 1px solid var(--line-strong); color: var(--muted); font-size: .72rem; }.site-footer p { margin: 0; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes game-breathe { from { transform: scale(1.04) translate3d(-.4%,0,0); } to { transform: scale(1.12) translate3d(1.2%,-1.2%,0); } }
+@keyframes game-step { 0% { transform: scale(1.06) translateY(0); } 26% { transform: scale(1.11) translateY(1.2%); } 54% { transform: scale(1.16) translateY(-1%); filter: blur(1px) brightness(.62); } 100% { transform: scale(1.09) translateY(0); } }
+@keyframes guide-enter { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+@keyframes dialogue-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes hero-breathe { 0% { transform: scale(1.01) translate3d(0,0,0); } 100% { transform: scale(1.09) translate3d(-1.5%, -1%, 0); } }
 @keyframes drift-across { 0% { transform: translate3d(-20%,0,0); } 100% { transform: translate3d(165%, -20%, 0); } }
 @keyframes scene-pan { 0% { transform: scale(1.04) translate3d(-.8%,0,0); } 100% { transform: scale(1.12) translate3d(1.2%,-1.5%,0); } }
@@ -402,10 +543,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .hero { grid-template-columns: 1fr; min-height: auto; }.hero-stats { max-width: 680px; }
   #journeyView.is-active { grid-template-columns: 1fr; }.atlas-panel { position: relative; top: auto; max-height: none; border-right: 0; border-bottom: 1px solid var(--line); }.canto-grid { grid-template-columns: repeat(20,1fr); }
   .manual-layout { grid-template-columns: 210px 1fr; }.error-ledger { grid-column: 1 / -1; border-top: 1px solid var(--line); }
+  .game-hud { grid-template-columns: 1fr auto; }.state-meters { grid-column: 1 / -1; grid-row: 2; }.journey-counter { grid-column: 2; grid-row: 1; }.location-card { top: 10.6rem; }.dialogue-panel { right: 1.5rem; bottom: 5.3rem; }.guide-card { bottom: 20.1rem; }.game-toolbar { left: 1.5rem; right: 1.5rem; bottom: 1.25rem; width: auto; grid-template-columns: repeat(3,1fr); }.game-toolbar button { border-right: 1px solid rgba(233,224,204,.18); border-bottom: 0; }
 }
 
 @media (max-width: 760px) {
   .topbar { grid-template-columns: 1fr auto; }.registry { display: none; }
+  .top-actions #aboutButton { display: none; }.top-actions { gap: .5rem; }
   .hero { padding-top: 4rem; }.hero h1 { font-size: clamp(2.7rem,13vw,4.7rem); }.hero-stats div { min-height: 105px; }
   .mode-tabs { top: 64px; grid-template-columns: 1fr 1fr; }.mode-tab { padding: .75rem .4rem; font-size: .78rem; }
   .atlas-panel { padding: 2rem 1rem; }.canto-grid { grid-template-columns: repeat(10,1fr); }
@@ -418,8 +561,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .manual-layout { grid-template-columns: 1fr; }.manual-nav { display: grid; grid-template-columns: 1fr 1fr; border-right: 0; }.dictionary-panel { border-right: 0; }.dictionary-entry { grid-template-columns: 1fr; gap: .4rem; }
   .method-grid { grid-template-columns: 1fr; }.method-card.span-two { grid-column: auto; }.three-realms, .evidence-levels, .source-list { grid-template-columns: 1fr; }
   .site-footer { flex-direction: column; }
+  .game-screen { min-height: 860px; }.game-hud { top: .75rem; left: .75rem; right: .75rem; grid-template-columns: 1fr auto; }.player-card { padding: .55rem; }.player-sigil { width: 34px; height: 34px; flex-basis: 34px; }.journey-counter { padding: .55rem; }.state-meters { gap: .5rem; padding: .6rem; }.location-card { top: 9.7rem; left: .75rem; max-width: calc(100% - 1.5rem); }.location-card p { font-size: .85rem; }.guide-card { left: .75rem; bottom: 28.7rem; }.dialogue-panel { left: .75rem; right: .75rem; bottom: 5rem; min-height: 22.8rem; }.game-choice-grid { grid-template-columns: 1fr; }.game-choice { min-height: 64px; }.dialogue-actions { align-items: stretch; flex-direction: column-reverse; }.game-continue { width: 100%; }.game-toolbar { left: .75rem; right: .75rem; }.role-gate { padding: .75rem; }.role-gate-inner { max-height: 94vh; overflow: auto; }.role-options { grid-template-columns: 1fr; }.role-options button { min-height: 105px; }.role-options strong { margin-top: .35rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }.loader, .hero-scene img, .scene-drift, .scene-stage > img, .scene-wash, .scene-particles i, .celestial-rings i { animation: none !important; }
+  html { scroll-behavior: auto; }.loader, .hero-scene img, .scene-drift, .scene-stage > img, .scene-wash, .scene-particles i, .celestial-rings i, .game-backdrop, .guide-card, .location-card { animation: none !important; }
 }
