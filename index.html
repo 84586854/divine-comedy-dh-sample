@@ -3,184 +3,168 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0c0b0b" />
-    <meta
-      name="description"
-      content="《神曲》规则怪谈数字人文网页小样：在叙事选择中追溯但丁原文与历史语境。"
-    />
+    <meta name="theme-color" content="#0b0a09" />
+    <meta name="description" content="《神曲》规则怪谈数字人文实验：100歌、14,233行意英对读、三种解释路径与可追溯文献层。" />
     <title>进入此门者｜《神曲》异常旅行档案</title>
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c0b0b'/%3E%3Cpath d='M13 48 32 10l19 38H13Z' fill='none' stroke='%23e8dfcb' stroke-width='4'/%3E%3Ccircle cx='32' cy='36' r='7' fill='%23b33a2f'/%3E%3C/svg%3E"
-    />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0a09'/%3E%3Cpath d='M13 48 32 10l19 38H13Z' fill='none' stroke='%23e8dfcb' stroke-width='4'/%3E%3Ccircle cx='32' cy='36' r='7' fill='%23c34838'/%3E%3C/svg%3E" />
+    <link rel="preload" as="image" href="assets/inferno-manuscript.jpg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#case-file">跳到当前档案</a>
+    <a class="skip-link" href="#workspace">跳到研究台</a>
 
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="返回档案顶部">
-        <span class="brand-mark" aria-hidden="true">△</span>
-        <span>彼岸通行局</span>
-      </a>
-      <div class="registry">异常旅行档案 · 样本 01</div>
-      <button class="text-button" id="aboutButton" type="button" aria-expanded="false">
-        项目说明
-      </button>
+      <a class="brand" href="#top" aria-label="返回顶部"><span class="brand-mark" aria-hidden="true">▽</span><span>彼岸通行局</span></a>
+      <div class="registry">异常旅行档案 · 完整底座 01</div>
+      <button class="plain-button" id="aboutButton" type="button" aria-expanded="false">项目说明</button>
     </header>
 
     <aside class="about-panel" id="aboutPanel" hidden>
       <div>
-        <p class="eyebrow">DIGITAL HUMANITIES PROTOTYPE</p>
-        <h2>这不是“但丁主题鬼屋”</h2>
-        <p>
-          每条怪谈规则都连接到具体篇章、人物证词与解释争议。玩法负责制造疑问，文献层负责让用户核对证据。
-        </p>
+        <p class="eyebrow">DIGITAL HUMANITIES / RULE FICTION</p>
+        <h2>怪谈制造问题，文献负责约束答案</h2>
+        <p>这不是“但丁主题鬼屋”，而是一套可核查的阅读装置。每次选择都留下解释路径；原文、译文、目录提要与二手研究分层呈现。</p>
       </div>
-      <button class="close-button" id="closeAbout" type="button" aria-label="关闭项目说明">×</button>
+      <button class="icon-button" id="closeAbout" type="button" aria-label="关闭项目说明">×</button>
     </aside>
 
-    <main id="top" class="shell">
-      <section class="atlas" aria-labelledby="atlas-title">
-        <div class="atlas-heading">
-          <p class="eyebrow">ROUTE / 1300</p>
-          <h1 id="atlas-title">三界通行图</h1>
-          <p>你仍然活着。请勿让守门者发现你有影子。</p>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-scene" aria-hidden="true">
+          <img src="assets/inferno-manuscript.jpg" alt="" />
+          <div class="scene-drift scene-drift-a"></div>
+          <div class="scene-drift scene-drift-b"></div>
+          <div class="manuscript-frame"></div>
         </div>
-
-        <nav class="realm-list" aria-label="选择旅行区域">
-          <button class="realm-button is-active" data-realm="inferno" type="button" aria-current="page">
-            <span class="realm-number">Ⅰ</span>
-            <span><strong>地狱</strong><small>已固定的选择</small></span>
-            <span class="realm-status">正在进入</span>
-          </button>
-          <button class="realm-button" data-realm="purgatorio" type="button">
-            <span class="realm-number">Ⅱ</span>
-            <span><strong>炼狱</strong><small>仍可改变的欲望</small></span>
-            <span class="realm-status">待解锁</span>
-          </button>
-          <button class="realm-button" data-realm="paradiso" type="button">
-            <span class="realm-number">Ⅲ</span>
-            <span><strong>天堂</strong><small>观看能力的边界</small></span>
-            <span class="realm-status">待解锁</span>
-          </button>
-        </nav>
-
-        <div class="diagram-wrap" aria-label="当前区域结构示意图">
-          <svg class="realm-diagram" viewBox="0 0 420 380" role="img" aria-labelledby="diagramTitle diagramDesc">
-            <title id="diagramTitle">地狱漏斗结构</title>
-            <desc id="diagramDesc">九层地狱逐步向地心收窄，当前定位在第二圈。</desc>
-            <g class="diagram-lines" fill="none">
-              <path d="M38 44h344L240 330h-60L38 44Z" />
-              <path d="M60 88h300" />
-              <path d="M78 126h264" />
-              <path d="M97 164h226" />
-              <path d="M116 202h188" />
-              <path d="M135 240h150" />
-              <path d="M154 278h112" />
-            </g>
-            <g class="diagram-labels">
-              <text x="30" y="38">入口</text>
-              <text x="370" y="115">Ⅱ</text>
-              <text x="192" y="352">地心</text>
-            </g>
-            <circle class="locator-pulse" cx="334" cy="111" r="15" />
-            <circle class="locator" cx="334" cy="111" r="5" />
-          </svg>
-          <div class="coordinate">
-            <span>当前位置</span>
-            <strong id="locationLabel">第二圈 · 风暴带</strong>
-          </div>
+        <div class="hero-copy">
+          <p class="eyebrow">ROUTE / 1300 · ARCHIVE / 2026</p>
+          <h1>你所违反的规则，<br />也许正是错误的解释。</h1>
+          <p class="hero-lede">沿《神曲》100歌进入三界。每一歌都是一处审讯室：先作判断，再回到14,233行原文核对你为何会相信它。</p>
+          <button class="primary-button" id="startButton" type="button">从幽暗森林开始</button>
         </div>
-
-        <div class="traveler-state" aria-label="旅行者状态">
-          <div><span>呼吸</span><strong>可见</strong></div>
-          <div><span>影子</span><strong>异常</strong></div>
-          <div><span>引路人</span><strong id="guideLabel">维吉尔</strong></div>
+        <div class="hero-stats" aria-label="档案规模">
+          <div><strong id="cantoCount">100</strong><span>歌 / 全部纳入</span></div>
+          <div><strong id="lineCount">14,233</strong><span>原文行级锚点</span></div>
+          <div><strong>300</strong><span>基础解释分支</span></div>
+          <div><strong>3</strong><span>深度案例</span></div>
         </div>
       </section>
 
-      <section class="dossier" id="case-file" aria-labelledby="case-title">
-        <div class="dossier-header">
-          <div>
-            <p class="eyebrow" id="caseIndex">TRANSMISSION / INFERNO 05</p>
-            <h2 id="case-title">不要回答风中的名字</h2>
+      <nav class="mode-tabs" aria-label="研究模式">
+        <button class="mode-tab is-active" data-view="journey" type="button">三界旅程</button>
+        <button class="mode-tab" data-view="archive" type="button">14,233行对读库</button>
+        <button class="mode-tab" data-view="manual" type="button">规则与词典</button>
+        <button class="mode-tab" data-view="method" type="button">研究设计与文献</button>
+      </nav>
+
+      <section class="workspace" id="workspace" aria-live="polite">
+        <div class="view is-active" id="journeyView" data-view-panel="journey">
+          <aside class="atlas-panel">
+            <div class="panel-heading">
+              <div><p class="eyebrow">CANTO ATLAS</p><h2>百歌索引</h2></div>
+              <span class="progress-label" id="progressLabel">已访问 0 / 100</span>
+            </div>
+            <div class="realm-filters" role="group" aria-label="筛选篇章">
+              <button class="filter-chip is-active" data-realm="all" type="button">全程 100</button>
+              <button class="filter-chip" data-realm="inferno" type="button">地狱 34</button>
+              <button class="filter-chip" data-realm="purgatorio" type="button">炼狱 33</button>
+              <button class="filter-chip" data-realm="paradiso" type="button">天堂 33</button>
+            </div>
+            <div class="canto-grid" id="cantoGrid" aria-label="100歌导航"></div>
+            <div class="legend">
+              <span><i class="legend-dot visited"></i>已访问</span><span><i class="legend-dot deep"></i>深度案例</span><span><i class="legend-dot current"></i>当前位置</span>
+            </div>
+          </aside>
+
+          <article class="case-panel" id="casePanel">
+            <div class="loading-state" id="loadingState"><span class="loader" aria-hidden="true"></span><p>正在核对三界档案……</p></div>
+            <div id="caseContent" hidden>
+              <header class="case-header">
+                <div><p class="eyebrow" id="caseIndex"></p><h2 id="caseTitle"></h2><p class="case-summary" id="caseSummary"></p></div>
+                <div class="status-seal"><span>解释风险</span><strong id="riskLabel"></strong></div>
+              </header>
+              <figure class="scene-stage realm-inferno" id="sceneStage">
+                <img id="sceneImage" src="assets/inferno-manuscript.jpg" alt="但丁与维吉尔俯瞰地狱漏斗的中世纪手抄本风格图景" />
+                <div class="scene-wash" aria-hidden="true"></div>
+                <div class="scene-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="celestial-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+                <figcaption><span id="sceneKicker">当前图景</span><strong id="sceneCaption">幽暗森林之外，地狱沿罪的秩序向地心收窄</strong></figcaption>
+              </figure>
+              <section class="rule-card" aria-labelledby="ruleHeading">
+                <div class="rule-number" id="ruleNumber">01</div>
+                <div><p class="rule-label" id="ruleHeading">本歌访客规则</p><p class="rule-copy" id="ruleCopy"></p></div>
+              </section>
+              <section class="branch-section" aria-labelledby="branchHeading">
+                <div class="section-heading-row">
+                  <div><p class="eyebrow">INTERPRETIVE BRANCH</p><h3 id="branchHeading">你先相信哪一种解释？</h3></div><span id="branchCount">三条路径</span>
+                </div>
+                <div class="choice-grid" id="choiceGrid"></div>
+                <div class="result-card" id="resultCard" role="status" hidden>
+                  <p class="eyebrow">判断回执</p><h4 id="resultTitle"></h4><p id="resultText"></p>
+                  <button class="text-link" id="inspectLinesButton" type="button">去原文核对这一判断 →</button>
+                </div>
+              </section>
+              <section class="evidence-section" aria-labelledby="evidenceHeading">
+                <div class="section-heading-row">
+                  <div><p class="eyebrow">EVIDENCE WINDOW</p><h3 id="evidenceHeading">本歌文本窗口</h3></div>
+                  <button class="plain-button small" id="showAllLines" type="button">查看本歌全部行</button>
+                </div>
+                <p class="alignment-note" id="alignmentNote"></p>
+                <div class="line-window" id="lineWindow"></div>
+              </section>
+              <footer class="case-footer"><button class="secondary-button" id="previousCanto" type="button">← 上一歌</button><button class="secondary-button" id="nextCanto" type="button">下一歌 →</button></footer>
+            </div>
+          </article>
+        </div>
+
+        <div class="view" id="archiveView" data-view-panel="archive" hidden>
+          <header class="view-heading wide">
+            <div><p class="eyebrow">SEARCHABLE CORPUS</p><h2>14,233行对读库</h2><p>按词、人名或句子检索意大利原文与朗费罗英译。每条结果都有稳定行号，可返回相应歌。</p></div>
+            <div class="corpus-badge"><strong id="archiveResultCount">14,233</strong><span>可检索记录</span></div>
+          </header>
+          <div class="search-bar">
+            <label for="corpusSearch">检索词</label><input id="corpusSearch" type="search" placeholder="例如：amore、stelle、Virgil、light…" autocomplete="off" />
+            <select id="archiveRealm" aria-label="限定篇章"><option value="all">全部三界</option><option value="inferno">地狱篇</option><option value="purgatorio">炼狱篇</option><option value="paradiso">天堂篇</option></select>
+            <button class="primary-button compact" id="searchButton" type="button">检索</button>
           </div>
-          <div class="seal" aria-label="档案风险等级">
-            <span>风险</span><strong id="riskLabel">叙事感染</strong>
+          <p class="search-help">空白检索会显示当前歌；为保持页面流畅，每次最多呈现120条，完整语料仍在浏览器内可查。</p>
+          <div class="archive-results" id="archiveResults"></div>
+        </div>
+
+        <div class="view" id="manualView" data-view-panel="manual" hidden>
+          <header class="view-heading wide"><div><p class="eyebrow">FIELD MANUAL</p><h2>四本会互相纠正的词典</h2><p>没有一本词典被设为最终答案。你选择的镜片会照亮一部分文本，也会制造自己的盲区。</p></div></header>
+          <div class="manual-layout">
+            <nav class="manual-nav" id="manualNav" aria-label="选择词典"></nav>
+            <div class="dictionary-panel"><header><p class="eyebrow" id="dictionarySchool"></p><h3 id="dictionaryTitle"></h3><p id="dictionaryIntro"></p></header><div class="dictionary-entries" id="dictionaryEntries"></div></div>
+            <aside class="error-ledger">
+              <div class="section-heading-row"><div><p class="eyebrow">ERROR LEDGER</p><h3>解释错误账本</h3></div><button class="plain-button small" id="clearLedger" type="button">清空</button></div>
+              <p>系统不判你“答错”，只记录你反复依赖的解释习惯。看见习惯，才可能突破它。</p><div id="ledgerEntries" class="ledger-entries"></div>
+            </aside>
           </div>
         </div>
 
-        <article class="rule-card">
-          <div class="rule-number" aria-hidden="true" id="ruleNumber">04</div>
-          <div>
-            <p class="rule-label">访客规则</p>
-            <p class="rule-copy" id="ruleCopy">
-              风中有人准确叫出你的名字时，不要立刻回答。先问她：是谁替你选择了这条路？
-            </p>
+        <div class="view" id="methodView" data-view-panel="method" hidden>
+          <header class="view-heading wide"><div><p class="eyebrow">RESEARCH DESIGN</p><h2>故事如何与原著保持一致</h2><p>一致不是复制情节，而是让规则、分支和结局都受原文结构约束，并把推断与史料分开。</p></div></header>
+          <div class="method-grid">
+            <section class="method-card span-two"><span class="card-index">01</span><h3>一条主线，三种变化机制</h3><div class="three-realms"><div><strong>地狱</strong><p>选择凝固成身份。规则要求识破“我无法选择”的自我叙述。</p></div><div><strong>炼狱</strong><p>欲望可以受训。规则不问“有罪无罪”，而问改变是否留下过程。</p></div><div><strong>天堂</strong><p>观看能力不断被扩展。规则最终反过来审判分类与语言本身。</p></div></div></section>
+            <section class="method-card"><span class="card-index">02</span><h3>三种结局</h3><ul><li><strong>封闭结局：</strong>把手册当真理，安全抵达，却复制地狱的僵化。</li><li><strong>失语结局：</strong>拒绝一切规则，把开放误作无须判断。</li><li><strong>可修订结局：</strong>保留规则，也记录规则何时失效。</li></ul><p class="card-note">最终收尾保持有限开放：旅程结束，但手册必须允许后来的读者修订。</p></section>
+            <section class="method-card"><span class="card-index">03</span><h3>解释学派</h3><ul><li>经院哲学与托马斯主义：秩序、德性、自由意志</li><li>奥古斯丁传统：欲望方向、记忆与恩典</li><li>政治历史解释：佛罗伦萨、帝国、教廷与流放</li><li>修辞与叙事学：证词、人物但丁与诗人但丁</li><li>寓意四义与接受史：字面、寓意、道德、灵意</li><li>数字人文：版本、标记、检索与可追溯性</li></ul></section>
+            <section class="method-card span-two"><span class="card-index">04</span><h3>证据分层</h3><div class="evidence-levels"><div><span>A</span><strong>原文层</strong><p>意大利原文、歌号、行号。不可为剧情方便而改写。</p></div><div><span>B</span><strong>译文层</strong><p>朗费罗英译用于对读，不冒充现代校勘本。</p></div><div><span>C</span><strong>研究层</strong><p>学术项目与评论传统；分歧必须显式标注。</p></div><div><span>D</span><strong>创作层</strong><p>规则、分支、风险提示均属本项目再叙事。</p></div></div></section>
+            <section class="method-card sources-card span-two"><span class="card-index">05</span><h3>文本与研究入口</h3><div class="source-list">
+              <a href="https://www.gutenberg.org/ebooks/1000" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1000</strong><span>意大利原文底本 ↗</span></a>
+              <a href="https://www.gutenberg.org/ebooks/1004" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1004</strong><span>Longfellow英译 ↗</span></a>
+              <a href="https://dante.princeton.edu/" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>文本、译文与注释 ↗</span></a>
+              <a href="https://digitaldante.columbia.edu/" target="_blank" rel="noreferrer"><strong>Digital Dante</strong><span>哥伦比亚大学数字阅读 ↗</span></a>
+              <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论资料库 ↗</span></a>
+              <a href="https://www.worldofdante.org/" target="_blank" rel="noreferrer"><strong>World of Dante</strong><span>地图、人物与多媒体资料 ↗</span></a>
+            </div><p class="source-disclaimer">本版本没有复制现代评注全文。二手研究作为外部入口与解释框架，创作性规则均明确归于本项目。三界场景为依据诗中空间意象生成的当代视觉重构，并非历史手抄本、古画复制品或原作插图；页面以“动态图景”标识其创作层身份。</p></section>
           </div>
-        </article>
-
-        <section class="encounter" aria-labelledby="encounter-title">
-          <div class="encounter-meta">
-            <span id="speakerLabel">证词人 F-05</span>
-            <span>记录完整度 92%</span>
-          </div>
-          <blockquote id="testimony">
-            “是爱情使我们走向同一个结局。那本书、那个作者，以及我们读到的那一刻，都不再让我们回头。”
-          </blockquote>
-          <h3 id="encounter-title">她是在忏悔，还是在重新书写责任？</h3>
-
-          <div class="choice-grid" id="choiceGrid">
-            <button class="choice" type="button" data-choice="trust">
-              <span class="choice-key">A</span>
-              <span><strong>相信她</strong><small>爱情夺走了选择能力</small></span>
-            </button>
-            <button class="choice" type="button" data-choice="inspect">
-              <span class="choice-key">B</span>
-              <span><strong>检查措辞</strong><small>是谁在句子中承担行动？</small></span>
-            </button>
-          </div>
-
-          <div class="result" id="result" role="status" aria-live="polite" hidden>
-            <p class="eyebrow" id="resultLabel">判断记录</p>
-            <h3 id="resultTitle"></h3>
-            <p id="resultText"></p>
-          </div>
-        </section>
-
-        <section class="source-layer" aria-labelledby="source-heading">
-          <button class="source-toggle" id="sourceToggle" type="button" aria-expanded="false">
-            <span>
-              <small>原作依据</small>
-              <strong id="source-heading">为什么会有这条规则？</strong>
-            </span>
-            <span class="toggle-icon" aria-hidden="true">＋</span>
-          </button>
-          <div class="source-content" id="sourceContent" hidden>
-            <div class="source-citation">
-              <span>篇章</span>
-              <strong id="citationLabel">《地狱篇》第五歌</strong>
-            </div>
-            <div>
-              <p id="sourceText">
-                弗兰切斯卡把行动的主语交给“爱情”和“书”，将自己的选择描述成无法抗拒的外力。旅行者但丁被她的语言打动而昏倒；但诗人同时邀请读者检查这套漂亮说辞。
-              </p>
-              <a id="sourceLink" href="https://digitaldante.columbia.edu/dante/divine-comedy/inferno/inferno-5/inferno-05/" target="_blank" rel="noreferrer">
-                查看 Digital Dante 文本与评注 ↗
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <footer class="dossier-footer">
-          <p><span class="live-dot" aria-hidden="true"></span> 这是一个单场景原型。三界按钮可切换不同的叙事机制。</p>
-          <button class="reset-button" id="resetButton" type="button">清除本次判断</button>
-        </footer>
+        </div>
       </section>
     </main>
 
+    <footer class="site-footer"><p>《神曲》异常旅行档案 · 数字人文叙事实验</p><p>文本、译文、研究与创作分层呈现 · 本机进度仅保存在当前浏览器</p></footer>
+    <noscript>此数字人文实验需要 JavaScript 才能检索语料与记录选择。</noscript>
     <script src="app.js"></script>
   </body>
 </html>
