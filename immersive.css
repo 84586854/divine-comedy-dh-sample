@@ -120,6 +120,14 @@
   font: .65rem/1 ui-monospace, monospace;
 }
 
+/* Keep the carried manual reachable while dialogue choices are on screen. */
+body:has(.encounter:not([hidden])) .manual-rig {
+  z-index: 11;
+  width: min(34vw, 520px);
+  right: -2vw;
+  bottom: -4vw;
+}
+
 .record-dialogue {
   display: grid;
   gap: .55rem;
@@ -223,4 +231,9 @@
   .tercet div:last-child { grid-column: 2; padding-top: .25rem; border-top: 1px dashed rgba(60, 43, 26, .14); }
   .record-dialogue p { grid-template-columns: 5rem 1fr; }
   .alignment-seal { align-items: flex-start; flex-direction: column; }
+  body:has(.encounter:not([hidden])) .manual-rig {
+    width: 58vw;
+    right: -16vw;
+    bottom: -3vw;
+  }
 }
