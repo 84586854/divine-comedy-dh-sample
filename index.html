@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#070706" />
-  <meta name="description" content="第一人称《神曲》规则怪谈：100歌剧情演绎、人物对话、三语原文校勘与沉浸配乐。" />
+  <meta name="description" content="第一人称《神曲》规则怪谈：100歌剧情演绎、人物对话、三语阅读、王维克中文全译与沉浸配乐。" />
   <title>进入此门者｜第一人称《神曲》旅程</title>
   <link rel="preload" as="image" href="assets/inferno-first-person.png" />
   <link rel="preload" as="image" href="assets/traveler-hands-manual.png" />
@@ -60,7 +60,7 @@
 
     <aside class="compendium" id="compendium" hidden>
       <header><div><span>FIELD MANUAL</span><h2>随身手册</h2></div><button id="closeCompendium" type="button" aria-label="关闭手册">×</button></header>
-      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="text" type="button">三语校勘</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
+      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="text" type="button">三语阅读</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
       <div class="manual-panel is-active" data-manual-panel="record">
         <p class="folio" id="recordRef">INF. I</p><h3 id="recordTitle">幽暗森林</h3>
         <div class="record-dialogue" id="recordDialogue"></div>
@@ -68,21 +68,31 @@
         <div class="error-mark" id="errorMark" hidden><span>当前偏向</span><strong id="errorLabel"></strong></div>
       </div>
       <div class="manual-panel evidence-panel" data-manual-panel="text" hidden>
-        <div class="evidence-heading"><div><p class="folio" id="textRef"></p><h3>三语校勘</h3></div><button class="text-button" id="toggleLines" type="button">展开全歌</button></div>
-        <div class="alignment-seal"><span>逐行索引</span><strong id="alignmentState">100歌已核对</strong></div>
-        <section class="chinese-context"><span>中文情节说明 · 本歌</span><p id="chineseExplanation"></p></section>
+        <div class="evidence-heading"><div><p class="folio" id="textRef"></p><h3>三语阅读</h3></div><button class="text-button" id="toggleLines" type="button">展开意/英全歌</button></div>
+        <div class="alignment-seal"><span>双层索引</span><strong id="alignmentState">100歌已核对</strong></div>
+        <section class="chinese-context"><span>中文导读 · 非译文</span><p id="chineseExplanation"></p></section>
+        <section class="chinese-translation" aria-labelledby="chineseTranslationTitle">
+          <header><div><span id="chineseRef">王维克译 · 1949</span><h4 id="chineseTranslationTitle">散文体中文全译</h4></div><button class="text-button" id="toggleChinese" type="button">展开本篇译文</button></header>
+          <p class="translation-method">中文译文按“篇—段落”对应本歌；王维克采用散文体，故不伪作逐行对照。</p>
+          <p class="translation-summary" id="chineseSummary"></p>
+          <div class="chinese-text" id="chineseText"></div>
+          <details class="translator-notes" id="translatorNotes" hidden><summary id="translatorNotesSummary">王维克译者注</summary><ol id="translatorNotesList"></ol></details>
+        </section>
         <div class="language-headings" aria-hidden="true"><span>行号</span><span>意大利文原文</span><span>Longfellow 英译</span></div>
         <div class="lines" id="lineWindow"></div>
       </div>
       <div class="manual-panel" data-manual-panel="map" hidden><div class="map-head"><p>选择已抵达的歌；未抵达节点只显示标题。</p><span id="visitedCount"></span></div><div class="canto-map" id="cantoMap"></div></div>
       <div class="manual-panel sources" data-manual-panel="sources" hidden>
         <h3>文本、译本与索引</h3>
-        <p>意大利文与英文按“篇—歌—行”对齐。炼狱篇第二十六歌末尾的英文脚注解释不属于诗行，已从逐行索引中排除；100歌共14,233行全部一一对应。</p>
+        <p>意大利文与英文按“篇—歌—行”精确对齐，共14,233行。王维克中文全译采用白话散文体，按“篇—段落”对照，不宣称与诗行一一对应；全站收录100篇、961段正文与1,691条译者注。</p>
         <a href="https://www.gutenberg.org/ebooks/1000" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1000</strong><span>意大利文《神曲》全文</span></a>
         <a href="https://www.gutenberg.org/ebooks/1004" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1004</strong><span>Longfellow 英译全文</span></a>
+        <a href="https://commons.wikimedia.org/wiki/File:NCL-9900010594_%E7%A5%9E%E6%9B%B2.pdf" target="_blank" rel="noreferrer"><strong>王维克译《神曲》</strong><span>商务印书馆1949年版公版扫描</span></a>
+        <a href="https://www.cp.com.cn/ourselves/history/dsj.html" target="_blank" rel="noreferrer"><strong>商务印书馆大事记</strong><span>1939—1948年译本出版记录</span></a>
+        <a href="https://icwar.bfsu.edu.cn/__local/C/5C/36/866BDBA2E367BA9104724E0DD99_2E299E2A_2F5A9C.pdf?e=.pdf" target="_blank" rel="noreferrer"><strong>汉译研究论文</strong><span>首个中文全译本及译本史说明</span></a>
         <a href="https://dante.princeton.edu/dante/pdp/commedia.html" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>原文、译文与评论入口</span></a>
         <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论数据库</span></a>
-        <p class="source-note">中文部分是情节解释，不冒充逐字翻译；人物与三界场景为依据原著空间和服饰语境制作的当代3D重构。</p>
+        <p class="source-note">选择王维克译本，是因为它是首个由意大利文原本出发的中文全译本，且已进入公版。中文导读与王维克译文分栏呈现；人物与三界场景为依据原著空间和服饰语境制作的当代3D重构。</p>
       </div>
     </aside>
 

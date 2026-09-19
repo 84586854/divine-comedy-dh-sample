@@ -13,7 +13,7 @@ virgil:"assets/character-virgil.png",beatrice:"assets/character-beatrice.png",
 inferno:"assets/character-infernal-soul.png",purgatorio:"assets/character-penitent.png",paradiso:"assets/character-celestial.png"
 };
 const storageKey="dante-immersive-v4";
-let corpus=null,index=0,phase="explore",showAll=false,particles=[],ctx=null,dialogueHistory=[];
+let corpus=null,index=0,phase="explore",showAll=false,showAllChinese=false,particles=[],ctx=null,dialogueHistory=[];
 let state=loadState();
 
 function loadState(){try{return{role:null,visited:[],decisions:{},current:0,musicOn:true,...JSON.parse(localStorage.getItem(storageKey)||"{}")}}catch{return{role:null,visited:[],decisions:{},current:0,musicOn:true}}}
@@ -43,7 +43,7 @@ function contextSpeech(){
 }
 function chineseExplanation(){
   const c=current(),d=data();
-  return `${realmInfo[c.realm].zh}第${c.canto}歌“${title()}”承接${previousTitle()}。${d.scene} ${d.speaker}的发言把情节推进到这个具体问题：“${d.question}”这里说明的是本歌情节与互动改写的关系，不代替逐字翻译；下方意大利文和英译均按原作行号列出。`;
+  return `${realmInfo[c.realm].zh}第${c.canto}歌“${title()}”承接${previousTitle()}。${d.scene} ${d.speaker}的发言把情节推进到这个具体问题：“${d.question}”这里说明的是本歌情节与互动改写的关系；王维克中文译文另列，意大利文和英译则按原作行号对照。`;
 }
 function setCharacter(name,role,src){
   $("#characterPortrait").src=src;$("#characterPortrait").alt=`${name}的人物形象`;
@@ -83,7 +83,7 @@ function toggleMusic(){state.musicOn=!state.musicOn;save();state.musicOn?music.s
 
 function renderCanto(next){
   index=Math.max(0,Math.min(next,corpus.cantos.length-1));state.current=index;const c=current(),info=realmInfo[c.realm];
-  if(!state.visited.includes(c.id))state.visited.push(c.id);save();phase="explore";showAll=false;dialogueHistory=[];
+  if(!state.visited.includes(c.id))state.visited.push(c.id);save();phase="explore";showAll=false;showAllChinese=false;dialogueHistory=[];
   $("#continueJourney").innerHTML="<span>W</span> 继续前行";$("#continueJourney").onclick=null;
   $("#game").className=`game realm-${c.realm}`;$("#worldImage").src=info.image;$("#realmLabel").textContent=info.en;$("#placeTitle").textContent=title();
   $("#routeCount").textContent=`${String(c.global).padStart(3,"0")} / 100`;$("#routeBar").style.width=`${c.global}%`;
@@ -114,7 +114,7 @@ function choose(i){
   if(phase!=="choice")return;const c=current(),picked=data().choices[i];if(!picked)return;
   state.decisions[c.id]={choice:i,text:picked.text,result:picked.result,effect:picked.effect,source:data().source};save();phase="result";
   $("#choiceList").hidden=true;$("#encounterQuestion").hidden=true;$("#speakerName").textContent="判断结果";$("#spokenText").textContent=picked.result;$("#encounterStage").textContent="结果已写入手册";
-  $("#consequenceText").textContent=`索引：${realmInfo[c.realm].abbr} ${roman(c.canto)}，全歌第1—${c.lines.length}行。打开手册可查看意大利文、Longfellow英译与中文情节说明。`;
+  $("#consequenceText").textContent=`索引：${realmInfo[c.realm].abbr} ${roman(c.canto)}，全歌第1—${c.lines.length}行。打开手册可查看意大利文、Longfellow英译、王维克中文全译与译者注。`;
   $("#consequence").hidden=false;renderRecord();updateStats()
 }
 function continueJourney(){if(phase!=="result")return;if(index===corpus.cantos.length-1){renderEnding();return}walk();renderCanto(index+1)}
@@ -131,9 +131,19 @@ function renderRecord(){
   $("#errorMark").hidden=!decision;if(decision){const e=decision.effect||{},dominant=Object.entries(e).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]))[0],labels={will:"意志",mercy:"怜悯",insight:"辨识"};$("#errorLabel").textContent=`${labels[dominant?.[0]]||"判断"} ${dominant?.[1]>0?"增强":"受损"}`;$("#manualInk").innerHTML=`<b>${title()}</b><em>${decision.text}</em>`}else $("#manualInk").innerHTML="<b>旅程记录</b><em>尚未写入本歌判断</em>"
 }
 function renderLines(){
-  const c=current(),info=realmInfo[c.realm],lines=showAll?c.lines:c.lines.slice(0,18);$("#textRef").textContent=`${info.abbr} ${roman(c.canto)} · 1–${c.lines.length}行 · 对齐状态：精确`;$("#alignmentState").textContent=`${corpus.meta.lineCount.toLocaleString("zh-CN")}行已逐行对齐`;$("#toggleLines").textContent=showAll?"收起":"展开全歌";$("#chineseExplanation").textContent=chineseExplanation();
+  const c=current(),info=realmInfo[c.realm],lines=showAll?c.lines:c.lines.slice(0,18);$("#textRef").textContent=`${info.abbr} ${roman(c.canto)} · 1–${c.lines.length}行`;$("#alignmentState").textContent=`意/英 ${corpus.meta.lineCount.toLocaleString("zh-CN")} 行精确 · 中文 100 篇段落对照`;$("#toggleLines").textContent=showAll?"收起意/英":"展开意/英全歌";$("#chineseExplanation").textContent=chineseExplanation();renderChinese();
   const box=$("#lineWindow");box.replaceChildren();
   for(let i=0;i<lines.length;i+=3){const group=lines.slice(i,i+3),row=document.createElement("article"),ref=document.createElement("span"),it=document.createElement("div"),en=document.createElement("div");row.className="tercet";ref.className="line-ref";const start=group[0].n,end=group[group.length-1].n;ref.textContent=`${info.abbr} ${roman(c.canto)}. ${start}${end>start?`–${end}`:""}`;it.lang="it";en.lang="en";group.forEach(l=>{const ip=document.createElement("p"),ep=document.createElement("p");ip.textContent=l.it;ep.textContent=l.en;it.append(ip);en.append(ep)});row.append(ref,it,en);box.append(row)}
+}
+function renderChinese(){
+  const c=current(),zh=c.zh;if(!zh)return;
+  const paragraphs=showAllChinese?zh.paragraphs:zh.paragraphs.slice(0,3),notes=[];
+  $("#chineseRef").textContent=`${zh.realm} ${zh.cantoLabel} · 王维克译 · 1949`;
+  $("#chineseSummary").textContent=`篇要：${zh.summary}`;
+  $("#toggleChinese").textContent=showAllChinese?"收起本篇译文":"展开本篇译文";
+  const box=$("#chineseText");box.replaceChildren();
+  paragraphs.forEach((paragraph)=>{const p=document.createElement("p");p.textContent=paragraph.text;if(paragraph.notes.length){const sup=document.createElement("sup"),start=notes.length+1;paragraph.notes.forEach(note=>notes.push(note));sup.textContent=paragraph.notes.length===1?`〔${start}〕`:`〔${start}–${notes.length}〕`;p.append(sup)}box.append(p)});
+  const noteBox=$("#translatorNotes"),list=$("#translatorNotesList");list.replaceChildren(...notes.map((note,i)=>{const li=document.createElement("li");li.value=i+1;li.textContent=note;return li}));noteBox.hidden=!notes.length;$("#translatorNotesSummary").textContent=`王维克译者注（当前显示 ${notes.length} 条）`;
 }
 function renderMap(){const box=$("#cantoMap");box.replaceChildren(...corpus.cantos.map((c,i)=>{const b=document.createElement("button");b.type="button";b.textContent=String(c.canto).padStart(2,"0");b.title=`${realmInfo[c.realm].zh} · ${title(c)}`;if(state.visited.includes(c.id))b.classList.add("visited");if(i===index)b.classList.add("current");b.disabled=!state.visited.includes(c.id);b.dataset.index=i;return b}));$("#visitedCount").textContent=`${state.visited.length} / 100`}
 function openManual(panel="record"){$("#compendium").hidden=false;switchPanel(panel)}function closeManual(){$("#compendium").hidden=true}
@@ -141,7 +151,7 @@ function switchPanel(name){$$("[data-panel]").forEach(b=>b.classList.toggle("is-
 function selectRole(key){if(!roles[key]||!corpus)return;state={role:key,visited:[],decisions:{},current:0,musicOn:state.musicOn};save();$("#roleGate").hidden=true;document.activeElement?.blur();music.start();renderCanto(0);walk()}
 function bind(){
   $("#worldPrompt").addEventListener("click",()=>{document.activeElement?.blur();advanceStory()});$("#choiceList").addEventListener("click",e=>{const b=e.target.closest("[data-choice]");if(b)choose(Number(b.dataset.choice))});
-  $("#continueJourney").addEventListener("click",continueJourney);$("#manualButton").addEventListener("click",()=>openManual("record"));$("#openArchive").addEventListener("click",()=>openManual("map"));$("#closeCompendium").addEventListener("click",closeManual);$("#showEvidence").addEventListener("click",()=>openManual("text"));$("#toggleLines").addEventListener("click",()=>{showAll=!showAll;renderLines()});$("#musicToggle").addEventListener("click",toggleMusic);
+  $("#continueJourney").addEventListener("click",continueJourney);$("#manualButton").addEventListener("click",()=>openManual("record"));$("#openArchive").addEventListener("click",()=>openManual("map"));$("#closeCompendium").addEventListener("click",closeManual);$("#showEvidence").addEventListener("click",()=>openManual("text"));$("#toggleLines").addEventListener("click",()=>{showAll=!showAll;renderLines()});$("#toggleChinese").addEventListener("click",()=>{showAllChinese=!showAllChinese;renderChinese()});$("#musicToggle").addEventListener("click",toggleMusic);
   $$("[data-panel]").forEach(b=>b.addEventListener("click",()=>switchPanel(b.dataset.panel)));$("#cantoMap").addEventListener("click",e=>{const b=e.target.closest("[data-index]");if(b&&!b.disabled){renderCanto(Number(b.dataset.index));closeManual()}});$$("[data-role]").forEach(b=>b.addEventListener("click",()=>selectRole(b.dataset.role)));
   document.addEventListener("keydown",e=>{const typing=e.target.matches("input,select,textarea,[contenteditable=true]");if(typing)return;if(e.key==="Tab"){e.preventDefault();$("#compendium").hidden?openManual("record"):closeManual();return}if(e.key==="Escape"){closeManual();return}if(["a","A","b","B","c","C"].includes(e.key)&&phase==="choice"){e.preventDefault();choose(e.key.toUpperCase().charCodeAt(0)-65);return}if(["w","W","ArrowUp","e","E","Enter"].includes(e.key)){e.preventDefault();if(state.musicOn&&!music.started)music.start();advanceStory()}});
   document.addEventListener("pointermove",e=>{const x=(e.clientX/innerWidth-.5)*-18,y=(e.clientY/innerHeight-.5)*-12;document.documentElement.style.setProperty("--look-x",`${x}px`);document.documentElement.style.setProperty("--look-y",`${y}px`)})

@@ -183,6 +183,47 @@ body:has(.encounter:not([hidden])) .manual-rig {
   line-height: 1.72;
 }
 
+.chinese-translation {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(67, 47, 27, .24);
+  background: rgba(255, 252, 239, .34);
+}
+
+.chinese-translation header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0 0 .7rem;
+  border: 0;
+}
+
+.chinese-translation header span {
+  color: #8b3e2a;
+  font: 700 .68rem/1 ui-monospace, monospace;
+  letter-spacing: .08em;
+}
+
+.chinese-translation header button {
+  flex: 0 0 auto;
+  padding: .3rem 0;
+  font-size: .78rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.chinese-translation h4 { margin: .3rem 0 0; font-size: 1.15rem; font-weight: 600; }
+.translation-method { margin: 0; color: #715f49; font-size: .76rem; line-height: 1.6; }
+.translation-summary { margin: .7rem 0; padding: .55rem .7rem; background: rgba(83, 55, 29, .07); color: #5d4934; font-size: .8rem; line-height: 1.6; }
+.chinese-text p { margin: 0; padding: .72rem 0; border-top: 1px solid rgba(60, 43, 26, .12); color: #31261b; font-size: .92rem; line-height: 1.9; text-align: justify; }
+.chinese-text sup { margin-left: .28rem; color: #8b3e2a; font: 700 .64rem/1 ui-monospace, monospace; }
+.translator-notes { margin-top: .7rem; border-top: 1px solid rgba(60, 43, 26, .2); color: #5f4d38; }
+.translator-notes[hidden] { display: none; }
+.translator-notes summary { padding: .75rem 0 .35rem; cursor: pointer; color: #7d3323; font-size: .78rem; font-weight: 700; }
+.translator-notes ol { margin: .3rem 0 0; padding-left: 1.7rem; }
+.translator-notes li { padding: .32rem 0; font-size: .76rem; line-height: 1.65; }
+
 .language-headings,
 .tercet {
   display: grid;
@@ -221,6 +262,7 @@ body:has(.encounter:not([hidden])) .manual-rig {
 }
 
 @media (max-width: 650px) {
+  .compendium { position: fixed; inset: .5rem; width: auto; }
   .hud-actions { gap: .25rem; }
   .sound-toggle b { display: none; }
   .character-stage { left: -20vw; bottom: 6vh; width: 78vw; height: 56vh; opacity: .72; }
