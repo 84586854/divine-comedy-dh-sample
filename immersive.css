@@ -42,6 +42,10 @@
 .sound-bars i:nth-child(2) { height: 100%; animation-delay: -.35s; }
 .sound-bars i:nth-child(3) { height: 68%; animation-delay: -.6s; }
 .sound-toggle.is-off .sound-bars i { height: 2px; animation: none; }
+.world-prompt[hidden] { display: none; }
+.burden-stat b { color: #ff7257; }
+.game.is-burdened .vignette { box-shadow: inset 0 0 20vw 7vw rgba(85, 10, 5, .68); }
+.game.is-burdened .world-image { filter: saturate(.72) contrast(1.12) brightness(.62); }
 
 .character-stage {
   position: absolute;
@@ -120,13 +124,42 @@
   font: .65rem/1 ui-monospace, monospace;
 }
 
-/* Keep the carried manual reachable while dialogue choices are on screen. */
-body:has(.encounter:not([hidden])) .manual-rig {
-  z-index: 11;
-  width: min(34vw, 520px);
-  right: -2vw;
-  bottom: -4vw;
+.stay-button {
+  padding: .6rem .85rem;
+  border: 1px solid rgba(226, 85, 53, .55);
+  background: transparent;
+  color: #e9b2a4;
+  cursor: pointer;
 }
+.stay-button:hover { border-color: var(--accent); color: var(--paper); }
+.stay-button[hidden] { display: none; }
+
+/* During dialogue, collapse the carried manual into a compact tab so it never
+   covers testimony or choices while remaining immediately reachable. */
+body:has(.encounter:not([hidden])) .manual-rig {
+  z-index: 12;
+  top: 7.2rem;
+  right: 1.25rem;
+  bottom: auto;
+  width: auto;
+  filter: none;
+  transform: none;
+}
+
+body:has(.encounter:not([hidden])) .manual-rig:hover { transform: translateY(-2px); filter: none; }
+body:has(.encounter:not([hidden])) .manual-rig img,
+body:has(.encounter:not([hidden])) .manual-rig .manual-ink { display: none; }
+body:has(.encounter:not([hidden])) .manual-rig .manual-key {
+  position: static;
+  display: block;
+  right: auto;
+  bottom: auto;
+  padding: .58rem .72rem;
+  border: 1px solid var(--line);
+  background: rgba(5, 5, 5, .72);
+  backdrop-filter: blur(10px);
+}
+body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
 
 .record-dialogue {
   display: grid;
@@ -148,20 +181,20 @@ body:has(.encounter:not([hidden])) .manual-rig {
 
 .record-dialogue b { color: #8b3e2a; font-weight: 600; }
 .record-dialogue span { color: #584b3a; }
+.fate-status { margin-top: 1rem; padding-top: .7rem; border-top: 1px solid rgba(60, 43, 26, .18); color: #8b3e2a; font: 700 .72rem/1.4 ui-monospace, monospace; }
 
-.alignment-seal {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: .4rem 0 1rem;
-  padding: .7rem .8rem;
-  border: 1px solid rgba(67, 47, 27, .25);
-  font: 700 .7rem/1.2 ui-monospace, monospace;
-  letter-spacing: .07em;
+.alignment-note,
+.method-note {
+  margin: .25rem 0 1rem;
+  border-top: 1px solid rgba(67, 47, 27, .18);
+  border-bottom: 1px solid rgba(67, 47, 27, .18);
+  color: #705d47;
 }
 
-.alignment-seal span { color: #775f45; }
-.alignment-seal strong { color: #7d3323; }
+.alignment-note summary,
+.method-note summary { padding: .58rem 0; cursor: pointer; font-size: .74rem; }
+.alignment-note p,
+.method-note p { margin: 0; padding: 0 0 .75rem; font-size: .76rem; line-height: 1.65; }
 
 .chinese-context {
   margin: 0 0 1.25rem;
@@ -272,10 +305,10 @@ body:has(.encounter:not([hidden])) .manual-rig {
   .tercet { grid-template-columns: 3.8rem 1fr; gap: .5rem; }
   .tercet div:last-child { grid-column: 2; padding-top: .25rem; border-top: 1px dashed rgba(60, 43, 26, .14); }
   .record-dialogue p { grid-template-columns: 5rem 1fr; }
-  .alignment-seal { align-items: flex-start; flex-direction: column; }
   body:has(.encounter:not([hidden])) .manual-rig {
-    width: 58vw;
-    right: -16vw;
-    bottom: -3vw;
+    top: 6.8rem;
+    right: .75rem;
+    bottom: auto;
+    width: auto;
   }
 }

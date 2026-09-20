@@ -10,7 +10,7 @@
   <link rel="preload" as="image" href="assets/traveler-hands-manual.png" />
   <link rel="preload" as="image" href="assets/character-virgil.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="immersive.css?v=20260919-zh" />
+  <link rel="stylesheet" href="immersive.css?v=20260919-gameplay1" />
 </head>
 <body>
   <main class="game realm-inferno" id="game" aria-label="第一人称三界旅程">
@@ -29,7 +29,7 @@
       </div>
     </header>
 
-    <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span></div>
+    <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span><span class="burden-stat" title="旅途负担">负 <b id="burdenValue">0</b></span></div>
     <div class="reticle" aria-hidden="true"><i></i><i></i></div>
 
     <figure class="character-stage" id="characterStage" hidden>
@@ -47,7 +47,7 @@
       <div class="choices" id="choiceList" hidden></div>
       <div class="consequence" id="consequence" hidden>
         <p id="consequenceText"></p>
-        <div><button class="text-button" id="showEvidence" type="button">核对本歌原文</button><button class="continue-button" id="continueJourney" type="button"><span>W</span> 继续前行</button></div>
+        <div><button class="text-button" id="showEvidence" type="button">翻阅本歌文本</button><button class="stay-button" id="acceptFate" type="button" hidden>留在此处</button><button class="continue-button" id="continueJourney" type="button"><span>W</span> 继续前行</button></div>
       </div>
     </section>
 
@@ -64,16 +64,17 @@
       <div class="manual-panel is-active" data-manual-panel="record">
         <p class="folio" id="recordRef">INF. I</p><h3 id="recordTitle">幽暗森林</h3>
         <div class="record-dialogue" id="recordDialogue"></div>
-        <p id="recordBody">本歌尚未作出判断。手册不会预先告诉你应该相信谁。</p>
+        <p id="recordBody">本歌尚未作出判断。</p>
+        <p class="fate-status" id="fateStatus">旅途负担 0 / 7</p>
         <div class="error-mark" id="errorMark" hidden><span>当前偏向</span><strong id="errorLabel"></strong></div>
       </div>
       <div class="manual-panel evidence-panel" data-manual-panel="text" hidden>
         <div class="evidence-heading"><div><p class="folio" id="textRef"></p><h3>三语阅读</h3></div><button class="text-button" id="toggleLines" type="button">展开意/英全歌</button></div>
-        <div class="alignment-seal"><span>双层索引</span><strong id="alignmentState">100歌已核对</strong></div>
-        <section class="chinese-context"><span>中文导读 · 非译文</span><p id="chineseExplanation"></p></section>
+        <details class="alignment-note"><summary>文本编排</summary><p id="alignmentState">100歌已核对</p></details>
+        <section class="chinese-context"><span>本篇提要</span><p id="chineseExplanation"></p></section>
         <section class="chinese-translation" aria-labelledby="chineseTranslationTitle">
           <header><div><span id="chineseRef">王维克译 · 1949</span><h4 id="chineseTranslationTitle">散文体中文全译</h4></div><button class="text-button" id="toggleChinese" type="button">展开本篇译文</button></header>
-          <p class="translation-method">中文译文按“篇—段落”对应本歌；王维克采用散文体，故不伪作逐行对照。</p>
+          <p class="translation-method">王维克散文译 · 按本篇段落编排</p>
           <p class="translation-summary" id="chineseSummary"></p>
           <div class="chinese-text" id="chineseText"></div>
           <details class="translator-notes" id="translatorNotes" hidden><summary id="translatorNotesSummary">王维克译者注</summary><ol id="translatorNotesList"></ol></details>
@@ -83,8 +84,8 @@
       </div>
       <div class="manual-panel" data-manual-panel="map" hidden><div class="map-head"><p>选择已抵达的歌；未抵达节点只显示标题。</p><span id="visitedCount"></span></div><div class="canto-map" id="cantoMap"></div></div>
       <div class="manual-panel sources" data-manual-panel="sources" hidden>
-        <h3>文本、译本与索引</h3>
-        <p>意大利文与英文按“篇—歌—行”精确对齐，共14,233行。王维克中文全译采用白话散文体，按“篇—段落”对照，不宣称与诗行一一对应；全站收录100篇、961段正文与1,691条译者注。</p>
+        <h3>版本与链接</h3>
+        <p>原文、译文与研究资料入口。</p>
         <a href="https://www.gutenberg.org/ebooks/1000" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1000</strong><span>意大利文《神曲》全文</span></a>
         <a href="https://www.gutenberg.org/ebooks/1004" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1004</strong><span>Longfellow 英译全文</span></a>
         <a href="https://commons.wikimedia.org/wiki/File:NCL-9900010594_%E7%A5%9E%E6%9B%B2.pdf" target="_blank" rel="noreferrer"><strong>王维克译《神曲》</strong><span>商务印书馆1949年版公版扫描</span></a>
@@ -92,14 +93,14 @@
         <a href="https://icwar.bfsu.edu.cn/__local/C/5C/36/866BDBA2E367BA9104724E0DD99_2E299E2A_2F5A9C.pdf?e=.pdf" target="_blank" rel="noreferrer"><strong>汉译研究论文</strong><span>首个中文全译本及译本史说明</span></a>
         <a href="https://dante.princeton.edu/dante/pdp/commedia.html" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>原文、译文与评论入口</span></a>
         <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论数据库</span></a>
-        <p class="source-note">选择王维克译本，是因为它是首个由意大利文原本出发的中文全译本，且已进入公版。中文导读与王维克译文分栏呈现；人物与三界场景为依据原著空间和服饰语境制作的当代3D重构。</p>
+        <details class="method-note"><summary>版本说明</summary><p>意大利文与英文按篇、歌、行编排，共14,233行；王维克散文译按篇、段落编排，收录100篇、961段正文与1,691条译者注。人物与场景为依据原著空间和服饰语境制作的当代重构。</p></details>
       </div>
     </aside>
 
     <div class="role-gate" id="roleGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-      <div class="gate-card"><span class="gate-kicker">1300 · SELVA OSCURA</span><h1 id="gateTitle">你在黑暗森林里醒来。</h1><p>远处有人提着灯。你的手里只有一本空白手册。选择身份后，配乐与旅程将同时开始。</p><div class="roles"><button data-role="wanderer" type="button"><strong>迷途者</strong><span>三项能力均衡</span></button><button data-role="witness" type="button"><strong>见证者</strong><span>更容易相信人的声音</span></button><button data-role="reader" type="button"><strong>校勘者</strong><span>更容易发现叙述裂缝</span></button></div></div>
+      <div class="gate-card"><span class="gate-kicker">1300 · SELVA OSCURA</span><h1 id="gateTitle">你在黑暗森林里醒来。</h1><p>远处有人提着灯。你的手里只有一本空白手册。选择会留下伤痕；负担累积后，道路可能迫使你折返，甚至把你留在三界之中。</p><div class="roles"><button data-role="wanderer" type="button"><strong>迷途者</strong><span>三项能力均衡</span></button><button data-role="witness" type="button"><strong>见证者</strong><span>更容易相信人的声音</span></button><button data-role="reader" type="button"><strong>校勘者</strong><span>更容易发现叙述裂缝</span></button></div></div>
     </div>
   </main>
-  <script src="encounters.js"></script><script src="app.js?v=20260919-zh"></script>
+  <script src="encounters.js"></script><script src="app.js?v=20260919-gameplay1"></script>
 </body>
 </html>
