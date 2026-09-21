@@ -44,6 +44,7 @@
 .sound-toggle.is-off .sound-bars i { height: 2px; animation: none; }
 .world-prompt[hidden] { display: none; }
 .burden-stat b { color: #ff7257; }
+.school-orbit { position: absolute; top: 9.25rem; left: 1.7rem; z-index: 7; max-width: 25rem; padding: .4rem .55rem; border-left: 2px solid var(--accent); background: rgba(0,0,0,.38); color: var(--dim); font: 700 .68rem/1.4 ui-monospace,monospace; backdrop-filter: blur(8px); }
 .game.is-burdened .vignette { box-shadow: inset 0 0 20vw 7vw rgba(85, 10, 5, .68); }
 .game.is-burdened .world-image { filter: saturate(.72) contrast(1.12) brightness(.62); }
 
@@ -114,6 +115,35 @@
 .dialogue-trail b { color: var(--accent); font-weight: 500; }
 .dialogue-trail span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+.interlude {
+  position: absolute;
+  inset: 0;
+  z-index: 18;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  background: radial-gradient(circle at 50% 48%, rgba(18,16,13,.72), rgba(2,2,2,.97) 72%);
+  text-align: center;
+  backdrop-filter: blur(9px);
+  animation: interlude-in .8s ease both;
+}
+.interlude[hidden] { display: none; }
+.interlude-rule { width: min(16rem,55vw); height: 1px; background: linear-gradient(90deg,transparent,var(--accent),transparent); box-shadow: 0 0 18px var(--accent); }
+.interlude > p { margin: 0; color: var(--dim); font: 600 .68rem/1.5 ui-monospace,monospace; letter-spacing: .1em; }
+.interlude blockquote { display: grid; gap: 1rem; width: min(760px,88vw); margin: .6rem 0; }
+.interlude q { color: var(--paper); font-size: clamp(1.5rem,3.2vw,3.1rem); line-height: 1.42; text-wrap: balance; text-shadow: 0 4px 28px rgba(0,0,0,.85); }
+.interlude cite { color: var(--accent); font-size: .8rem; font-style: normal; letter-spacing: .08em; }
+.interlude button { margin-top: .5rem; padding: .65rem 1rem; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.04); color: var(--paper); cursor: pointer; }
+.interlude button:hover { border-color: var(--accent); }
+.interlude button span { display: inline-grid; width: 1.45rem; height: 1.45rem; margin-right: .4rem; place-items: center; border: 1px solid rgba(255,255,255,.3); font: 700 .68rem/1 ui-monospace,monospace; }
+.game:has(.interlude:not([hidden])) .hud-top,
+.game:has(.interlude:not([hidden])) .status-orbit,
+.game:has(.interlude:not([hidden])) .school-orbit,
+.game:has(.interlude:not([hidden])) .manual-rig,
+.game:has(.interlude:not([hidden])) .movement-help { opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+
 .continue-button span {
   display: inline-grid;
   min-width: 1.25rem;
@@ -182,6 +212,21 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
 .record-dialogue b { color: #8b3e2a; font-weight: 600; }
 .record-dialogue span { color: #584b3a; }
 .fate-status { margin-top: 1rem; padding-top: .7rem; border-top: 1px solid rgba(60, 43, 26, .18); color: #8b3e2a; font: 700 .72rem/1.4 ui-monospace, monospace; }
+.compendium nav { grid-template-columns: repeat(5, 1fr); }
+.roles small, .roles strong, .roles span { display: block; }
+.roles small { margin-bottom: .45rem; color: var(--accent); font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .12em; }
+.roles span { line-height: 1.55; }
+.school-verdict { margin: 1rem 0; padding: .85rem 1rem; border-left: 3px solid #8b3e2a; background: rgba(84, 54, 27, .08); }
+.school-verdict span { color: #8b3e2a; font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .1em; }
+.school-verdict p { margin: .45rem 0 0; color: #4d3d2d; font-size: .84rem; line-height: 1.7; }
+.school-scholar { margin: -.45rem 0 1rem; color: #80634a; font-size: .8rem; }
+.school-panel blockquote { margin: 0 0 1.2rem; padding: .9rem 1rem; border-left: 3px solid #8b3e2a; background: rgba(84,54,27,.08); color: #4a3928; line-height: 1.75; }
+.school-rules { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; counter-reset: rules; }
+.school-rules li { position: relative; padding: .75rem .8rem .75rem 3rem; border: 1px solid rgba(67,47,27,.2); color: #493a2b; line-height: 1.6; counter-increment: rules; }
+.school-rules li:before { content: counter(rules, upper-roman); position: absolute; left: .85rem; top: .82rem; color: #8b3e2a; font: 700 .7rem/1 ui-monospace,monospace; }
+.school-ledger { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 1rem; }
+.school-ledger span { padding: .7rem; border: 1px solid rgba(67,47,27,.2); color: #6b513a; font: 700 .72rem/1.4 ui-monospace,monospace; }
+.school-warning { color: #72513b; font-size: .78rem; }
 
 .alignment-note,
 .method-note {
@@ -286,6 +331,10 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
   from { opacity: 0; transform: translateX(-36px) scale(.97); }
   to { opacity: 1; transform: none; }
 }
+@keyframes interlude-in {
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: none; }
+}
 
 @media (max-width: 900px) {
   .hud-actions { grid-column: 2; }
@@ -305,6 +354,8 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
   .tercet { grid-template-columns: 3.8rem 1fr; gap: .5rem; }
   .tercet div:last-child { grid-column: 2; padding-top: .25rem; border-top: 1px dashed rgba(60, 43, 26, .14); }
   .record-dialogue p { grid-template-columns: 5rem 1fr; }
+  .compendium nav { grid-template-columns: repeat(3, 1fr); }
+  .school-orbit { top: 8.9rem; left: 1rem; max-width: 70vw; }
   body:has(.encounter:not([hidden])) .manual-rig {
     top: 6.8rem;
     right: .75rem;

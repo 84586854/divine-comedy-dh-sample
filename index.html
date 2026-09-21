@@ -9,8 +9,9 @@
   <link rel="preload" as="image" href="assets/inferno-first-person.png" />
   <link rel="preload" as="image" href="assets/traveler-hands-manual.png" />
   <link rel="preload" as="image" href="assets/character-virgil.png" />
+  <link rel="preload" as="image" href="assets/character-francesca-paolo.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="immersive.css?v=20260919-gameplay1" />
+  <link rel="stylesheet" href="immersive.css?v=20260920-interludes1" />
 </head>
 <body>
   <main class="game realm-inferno" id="game" aria-label="第一人称三界旅程">
@@ -30,6 +31,7 @@
     </header>
 
     <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span><span class="burden-stat" title="旅途负担">负 <b id="burdenValue">0</b></span></div>
+    <div class="school-orbit" id="schoolHud">尚未选择规则手册</div>
     <div class="reticle" aria-hidden="true"><i></i><i></i></div>
 
     <figure class="character-stage" id="characterStage" hidden>
@@ -51,6 +53,13 @@
       </div>
     </section>
 
+    <section class="interlude" id="interlude" aria-live="polite" hidden>
+      <div class="interlude-rule"></div>
+      <p id="interludeRoute"></p>
+      <blockquote><q id="interludeQuote"></q><cite id="interludeSource"></cite></blockquote>
+      <button id="interludeContinue" type="button"><span>W</span> 进入下一歌</button>
+    </section>
+
     <button class="manual-rig" id="manualButton" type="button" aria-label="打开随身手册">
       <img src="assets/traveler-hands-manual.png" alt="你的双手正拿着一本打开的皮革手册" />
       <span class="manual-ink" id="manualInk"><b>旅程记录</b><em>尚未写入本歌判断</em></span><span class="manual-key">TAB · 手册</span>
@@ -60,13 +69,22 @@
 
     <aside class="compendium" id="compendium" hidden>
       <header><div><span>FIELD MANUAL</span><h2>随身手册</h2></div><button id="closeCompendium" type="button" aria-label="关闭手册">×</button></header>
-      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="text" type="button">三语阅读</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
+      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="school" type="button">学派规则</button><button data-panel="text" type="button">三语阅读</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
       <div class="manual-panel is-active" data-manual-panel="record">
         <p class="folio" id="recordRef">INF. I</p><h3 id="recordTitle">幽暗森林</h3>
         <div class="record-dialogue" id="recordDialogue"></div>
         <p id="recordBody">本歌尚未作出判断。</p>
+        <div class="school-verdict" id="schoolVerdict"><span>学派判词</span><p>选择身份后，手册会在这里留下批注。</p></div>
         <p class="fate-status" id="fateStatus">旅途负担 0 / 7</p>
         <div class="error-mark" id="errorMark" hidden><span>当前偏向</span><strong id="errorLabel"></strong></div>
+      </div>
+      <div class="manual-panel school-panel" data-manual-panel="school" hidden>
+        <p class="folio">INTERPRETIVE PROTOCOL</p><h3 id="schoolName">学派规则</h3>
+        <p class="school-scholar" id="schoolScholar"></p>
+        <blockquote id="schoolThesis"></blockquote>
+        <ol class="school-rules" id="schoolRules"></ol>
+        <div class="school-ledger"><span id="schoolSafety"></span><span id="schoolDoubt"></span></div>
+        <p class="school-warning" id="schoolWarning"></p>
       </div>
       <div class="manual-panel evidence-panel" data-manual-panel="text" hidden>
         <div class="evidence-heading"><div><p class="folio" id="textRef"></p><h3>三语阅读</h3></div><button class="text-button" id="toggleLines" type="button">展开意/英全歌</button></div>
@@ -93,14 +111,21 @@
         <a href="https://icwar.bfsu.edu.cn/__local/C/5C/36/866BDBA2E367BA9104724E0DD99_2E299E2A_2F5A9C.pdf?e=.pdf" target="_blank" rel="noreferrer"><strong>汉译研究论文</strong><span>首个中文全译本及译本史说明</span></a>
         <a href="https://dante.princeton.edu/dante/pdp/commedia.html" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>原文、译文与评论入口</span></a>
         <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论数据库</span></a>
+        <a href="https://plato.stanford.edu/entries/aquinas/" target="_blank" rel="noreferrer"><strong>Thomas Aquinas</strong><span>意志、德性与自由选择</span></a>
+        <a href="https://dante.princeton.edu/cgi-bin/dante/DispMinorWork.pl?REF=XIII.20&amp;TITLE=Epist" target="_blank" rel="noreferrer"><strong>《致斯卡拉大亲王书》第十三封</strong><span>《神曲》的复义阅读传统</span></a>
+        <a href="https://assets.press.princeton.edu/chapters/i10091.pdf" target="_blank" rel="noreferrer"><strong>Erich Auerbach</strong><span>形象论、历史现实与尘世人物</span></a>
+        <a href="https://books.google.com/books/about/Dante.html?id=Bobx-kv6_KIC" target="_blank" rel="noreferrer"><strong>John Freccero</strong><span>《但丁：皈依的诗学》</span></a>
+        <a href="https://www.gutenberg.org/files/8438/8438-h/8438-h" target="_blank" rel="noreferrer"><strong>亚里士多德《尼各马可伦理学》</strong><span>选择、德性与自由行动</span></a>
+        <a href="https://www.gutenberg.org/cache/epub/3296/pg3296.html" target="_blank" rel="noreferrer"><strong>奥古斯丁《忏悔录》</strong><span>欲望、记忆与心灵回转</span></a>
+        <a href="https://www.gutenberg.org/files/14328/14328-h/14328-h.htm" target="_blank" rel="noreferrer"><strong>波爱修斯《哲学的慰藉》</strong><span>命运、自由与善的秩序</span></a>
         <details class="method-note"><summary>版本说明</summary><p>意大利文与英文按篇、歌、行编排，共14,233行；王维克散文译按篇、段落编排，收录100篇、961段正文与1,691条译者注。人物与场景为依据原著空间和服饰语境制作的当代重构。</p></details>
       </div>
     </aside>
 
     <div class="role-gate" id="roleGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-      <div class="gate-card"><span class="gate-kicker">1300 · SELVA OSCURA</span><h1 id="gateTitle">你在黑暗森林里醒来。</h1><p>远处有人提着灯。你的手里只有一本空白手册。选择会留下伤痕；负担累积后，道路可能迫使你折返，甚至把你留在三界之中。</p><div class="roles"><button data-role="wanderer" type="button"><strong>迷途者</strong><span>三项能力均衡</span></button><button data-role="witness" type="button"><strong>见证者</strong><span>更容易相信人的声音</span></button><button data-role="reader" type="button"><strong>校勘者</strong><span>更容易发现叙述裂缝</span></button></div></div>
+      <div class="gate-card"><span class="gate-kicker">1300 · SELVA OSCURA</span><h1 id="gateTitle">你在黑暗森林里醒来。</h1><p>远处有人提着灯，脚边放着三本规则手册。每一本都能让你安全穿越三界，也都会把你困在一种解释里。选择一本；旅程会记住你何时服从它，又何时开始怀疑它。</p><div class="roles"><button data-role="wanderer" type="button"><small>经院神学</small><strong>秩序见习者</strong><span>以阿奎那式德性、意志与善的秩序判断道路</span></button><button data-role="witness" type="button"><small>形象论</small><strong>尘世见证者</strong><span>依奥尔巴赫保存人物的历史处境与具体声音</span></button><button data-role="reader" type="button"><small>皈依诗学</small><strong>回转校勘者</strong><span>随弗雷切罗追踪旅人怎样在误读中改变自己</span></button></div></div>
     </div>
   </main>
-  <script src="encounters.js"></script><script src="app.js?v=20260919-gameplay1"></script>
+  <script src="encounters.js?v=20260921-narrative1"></script><script src="app.js?v=20260921-narrative1"></script>
 </body>
 </html>
