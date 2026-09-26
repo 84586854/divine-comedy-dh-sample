@@ -1,149 +1,162 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#070706" />
-  <meta name="description" content="第一人称《神曲》规则怪谈：100歌剧情演绎、三种解释传统、跨歌后果、三语阅读与王维克中文全译。" />
-  <title>进入此门者｜第一人称《神曲》旅程</title>
-  <link rel="preload" as="image" href="assets/inferno-first-person.png" />
-  <link rel="preload" as="image" href="assets/traveler-hands-manual.png" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d10" />
+  <meta name="description" content="《神曲·地狱篇》第五歌互动叙事样章：在风暴中审读弗兰切斯卡的证词。" />
+  <title>风暴中的证词｜《神曲》第五歌互动样章</title>
+  <link rel="preload" as="image" href="assets/canto5-storm-v1.png" />
+  <link rel="preload" as="image" href="assets/character-minos-v1.png" />
   <link rel="preload" as="image" href="assets/character-virgil.png" />
   <link rel="preload" as="image" href="assets/character-francesca-paolo.png" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="immersive.css?v=20260926-story4" />
+  <link rel="stylesheet" href="prototype.css?v=20260926-1" />
 </head>
 <body>
-  <main class="game realm-inferno" id="game" aria-label="第一人称三界旅程">
-    <div class="world" id="world" aria-hidden="true">
-      <img class="world-image" id="worldImage" src="assets/inferno-first-person.png" alt="" />
-      <canvas id="atmosphere"></canvas>
-      <div class="depth-fog"></div><div class="vignette"></div>
-    </div>
+  <main class="app" id="app" data-scene="threshold" data-role="">
+    <section class="world" aria-label="地狱第二圈的风暴">
+      <div class="world-backdrop" id="worldBackdrop"></div>
+      <div class="world-depth depth-one"></div>
+      <div class="world-depth depth-two"></div>
+      <canvas id="stormCanvas" aria-hidden="true"></canvas>
+      <div class="wind-veils" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="soul-stream" id="soulStream" aria-hidden="true"></div>
+      <div class="scene-shadow" aria-hidden="true"></div>
 
-    <header class="hud-top">
-      <div class="place"><span id="realmLabel">INFERNO</span><strong id="placeTitle">幽暗森林</strong></div>
-      <div class="route"><span id="routeCount">001 / 100</span><i><b id="routeBar"></b></i></div>
-      <div class="hud-actions">
-        <button class="quiet-button sound-toggle" id="musicToggle" type="button" aria-pressed="true"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span><b>配乐</b><em>开</em></button>
-        <button class="quiet-button" id="openArchive" type="button">档案</button>
+      <figure class="actor actor-left" id="actorLeft" hidden>
+        <img id="actorLeftImage" src="assets/character-virgil.png" alt="" />
+        <figcaption><small id="actorLeftRole"></small><strong id="actorLeftName"></strong></figcaption>
+      </figure>
+      <figure class="actor actor-right" id="actorRight" hidden>
+        <img id="actorRightImage" src="assets/character-francesca-paolo.png" alt="" />
+        <figcaption><small id="actorRightRole"></small><strong id="actorRightName"></strong></figcaption>
+      </figure>
+
+      <div class="hotspot-layer" id="hotspotLayer" hidden aria-label="可观察的现场"></div>
+      <div class="reticle" id="reticle" aria-hidden="true"><span></span></div>
+    </section>
+
+    <header class="topbar">
+      <div class="chapter-mark">
+        <span>INFERNO · CANTO V</span>
+        <strong>风暴中的证词</strong>
+      </div>
+      <ol class="journey-progress" id="journeyProgress" aria-label="本歌进度">
+        <li class="is-current"><span>01</span>门槛</li>
+        <li><span>02</span>风暴</li>
+        <li><span>03</span>证词</li>
+        <li><span>04</span>追问</li>
+        <li><span>05</span>记录</li>
+      </ol>
+      <div class="top-actions">
+        <button class="icon-button" id="soundButton" type="button" aria-label="切换环境声音" aria-pressed="false"><i></i><span>声音</span></button>
+        <button class="icon-button" id="openManual" type="button" aria-label="打开随身手册" disabled><span>手册</span><kbd>Tab</kbd></button>
       </div>
     </header>
 
-    <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span><span class="burden-stat" title="道路张力">张 <b id="burdenValue">0</b></span></div>
-    <div class="school-orbit" id="schoolHud">尚未选择解释手册</div>
-    <div class="reticle" aria-hidden="true"><i></i><i></i></div>
-    <figure class="character-stage" id="characterStage" hidden>
-      <img id="characterPortrait" src="assets/character-virgil.png" alt="" />
-      <figcaption><span id="characterRole">引路人</span><strong id="characterName">维吉尔</strong></figcaption>
-    </figure>
-
-    <button class="world-prompt" id="worldPrompt" type="button"><span class="key">W</span><strong id="promptText">向前走</strong></button>
-
-    <section class="encounter" id="encounterPanel" aria-live="polite" hidden>
-      <div class="speaker-line"><span id="speakerName"></span><small id="encounterStage"></small></div>
-      <div class="dialogue-trail" id="dialogueTrail"></div>
-      <p class="spoken" id="spokenText"></p>
-      <h1 id="encounterQuestion" hidden></h1>
-      <div class="choices" id="choiceList" hidden></div>
-      <div class="consequence" id="consequence" hidden>
-        <p class="aftermath" id="consequenceText"></p>
-        <section class="choice-analysis" id="choiceAnalysis" hidden>
-          <span id="analysisLabel">手册复盘</span>
-          <strong id="analysisMethod"></strong>
-          <p id="analysisWhy"></p>
-          <p class="analysis-limit" id="analysisLimit"></p>
-          <small id="analysisEvidence"></small>
-        </section>
-        <div class="consequence-actions"><button class="text-button" id="showEvidence" type="button">翻阅本歌文本</button><button class="stay-button" id="acceptFate" type="button" hidden>留在此处</button><button class="continue-button" id="continueJourney" type="button"><span>W</span> 继续前行</button></div>
+    <section class="opening" id="opening" aria-labelledby="openingTitle">
+      <div class="opening-copy">
+        <p class="eyebrow">一份可被怀疑的手册 · 一段尚未闭合的证词</p>
+        <h1 id="openingTitle">风不会替任何人作证。</h1>
+        <p class="opening-lede">米诺斯的尾巴刚刚卷紧，下一批亡魂已经被抛进黑暗。维吉尔带你走向第二圈——在那里，爱情第一次以自己的名义开口。</p>
+        <p class="opening-note">选择一本手册。它会给你一种观察能力，也会悄悄遮住一种事实。</p>
       </div>
+      <div class="manual-choices" role="group" aria-label="选择随身手册">
+        <button data-role-choice="order" type="button">
+          <span class="manual-number">I</span><small>辨行动</small><strong>衡量之书</strong>
+          <em>分开行动、动机与借口</em><b>它不擅长保存人的面孔</b>
+        </button>
+        <button data-role-choice="witness" type="button">
+          <span class="manual-number">II</span><small>追姓名</small><strong>见证之书</strong>
+          <em>寻找姓名、关系与沉默者</em><b>它太容易相信动人的声音</b>
+        </button>
+        <button data-role-choice="reader" type="button">
+          <span class="manual-number">III</span><small>校叙词</small><strong>回读之书</strong>
+          <em>发现故事怎样替人行动</em><b>它会把别人变成你的寓言</b>
+        </button>
+      </div>
+      <div class="opening-footer"><span>约 15 分钟</span><span>耳机体验更佳</span><a href="atlas.html">进入百歌资料库</a></div>
     </section>
 
-    <section class="interlude" id="interlude" aria-live="polite" hidden>
-      <div class="interlude-rule"></div>
-      <p id="interludeRoute"></p>
-      <span class="interlude-theme" id="interludeTheme"></span>
-      <blockquote><q id="interludeQuote"></q><cite id="interludeSource"></cite></blockquote>
-      <p class="interlude-note" id="interludeNote"></p>
-      <button id="interludeContinue" type="button"><span>W</span> 进入下一歌</button>
+    <section class="story" id="story" hidden aria-live="polite">
+      <div class="objective" id="objective"><span>当前目标</span><strong id="objectiveText">跟随维吉尔通过审判席</strong></div>
+
+      <div class="dialogue" id="dialogue">
+        <div class="speaker"><span id="speakerType">现场</span><strong id="speakerName">旁白</strong><i id="sourceBadge" hidden></i></div>
+        <p id="dialogueText"></p>
+        <div class="dialogue-actions" id="dialogueActions"></div>
+        <button class="continue" id="continueButton" type="button"><span>继续</span><kbd>Space</kbd></button>
+      </div>
+
+      <section class="investigation" id="investigation" hidden>
+        <div><span>风眼只能维持片刻</span><strong id="investigationTitle">选择要观察的现场</strong></div>
+        <p id="investigationHint">观察不会给你答案，但会改变之后能够提出的问题。</p>
+        <div class="observation-budget"><span id="budgetDots"></span><em id="budgetLabel"></em></div>
+      </section>
+
+      <section class="question-deck" id="questionDeck" hidden>
+        <header><span>你还有 <b id="questionsLeft">3</b> 次追问</span><strong>决定让谁的声音进入记录</strong></header>
+        <div id="questionChoices"></div>
+      </section>
+
+      <section class="verdict" id="verdict" hidden>
+        <header><span>在风重新卷走他们以前</span><h2>你要怎样写下这份证词？</h2><p>这不是给人物贴标签。你写下的句子，会决定哪些事实被带出地狱。</p></header>
+        <div class="verdict-options" id="verdictOptions"></div>
+      </section>
+
+      <section class="ending" id="ending" hidden>
+        <p class="eyebrow" id="endingKicker"></p>
+        <h2 id="endingTitle"></h2>
+        <p id="endingBody"></p>
+        <div class="ending-record" id="endingRecord"></div>
+        <div class="ending-actions">
+          <button id="restartButton" type="button">换一本手册，再走一次</button>
+          <button id="openReadingFromEnding" type="button">核对原文与译文</button>
+          <a href="atlas.html">进入百歌资料库</a>
+        </div>
+      </section>
     </section>
 
-    <button class="manual-rig" id="manualButton" type="button" aria-label="打开随身手册">
-      <img src="assets/traveler-hands-manual.png" alt="你的双手正拿着一本打开的皮革手册" />
-      <span class="manual-ink" id="manualInk"><b>旅程记录</b><em>尚未写入本歌判断</em></span><span class="manual-key">TAB · 手册</span>
-    </button>
-
-    <div class="movement-help"><span><b>W</b> 推进剧情</span><span><b>E</b> 交互</span><span><b>A/B/C</b> 选择</span><span><b>TAB</b> 手册</span></div>
-
-    <aside class="compendium" id="compendium" hidden>
-      <header><div><span>FIELD MANUAL</span><h2>随身手册</h2></div><button id="closeCompendium" type="button" aria-label="关闭手册">×</button></header>
-      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="school" type="button">解释规则</button><button data-panel="threads" type="button">跨歌回声</button><button data-panel="text" type="button">三语阅读</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
-      <div class="manual-panel is-active" data-manual-panel="record">
-        <p class="folio" id="recordRef">INF. I</p><h3 id="recordTitle">幽暗森林</h3>
-        <div class="record-dialogue" id="recordDialogue"></div>
-        <p id="recordBody">本歌尚未作出判断。</p>
-        <section class="source-trace"><span id="evidenceType">原诗索引</span><strong id="evidenceRef">Inf. I.1–136</strong><p id="evidenceNote">本歌场景依据原诗重构；人物对白将标明直引或改写。</p></section>
-        <div class="school-verdict" id="schoolVerdict"><span>解释批注</span><p>选择手册后，这里会记录它如何阅读你的行动。</p></div>
-        <p class="fate-status" id="fateStatus">道路张力 0 / 7</p>
-        <div class="error-mark" id="errorMark" hidden><span>当前偏向</span><strong id="errorLabel"></strong></div>
-      </div>
-      <div class="manual-panel school-panel" data-manual-panel="school" hidden>
-        <p class="folio">INTERPRETIVE PROTOCOL</p><h3 id="schoolName">学派规则</h3>
-        <p class="school-scholar" id="schoolScholar"></p>
-        <blockquote id="schoolThesis"></blockquote>
-        <div class="method-pair"><p><span>你能做什么</span><strong id="schoolTool"></strong></p><p><span>手册看不见什么</span><strong id="schoolBlindSpot"></strong></p></div>
-        <ol class="school-rules" id="schoolRules"></ol>
-        <div class="school-ledger"><span id="schoolSafety"></span><span id="schoolDoubt"></span></div>
-        <p class="school-warning" id="schoolWarning"></p>
-      </div>
-      <div class="manual-panel threads-panel" data-manual-panel="threads" hidden>
-        <p class="folio">ECHOES ACROSS THE POEM</p><h3>跨歌回声</h3>
-        <p>关键判断不会在离开本歌后消失。它们会改变后来的人物、问题和手册文字。</p>
-        <div class="thread-summary"><span id="fractureCount">手册裂痕 0 / 3界</span><span id="threadCount">尚无回声</span></div>
-        <div class="thread-list" id="threadList"></div>
-      </div>
-      <div class="manual-panel evidence-panel" data-manual-panel="text" hidden>
-        <div class="evidence-heading"><div><p class="folio" id="textRef"></p><h3>三语阅读</h3></div><button class="text-button" id="toggleLines" type="button">展开意/英全歌</button></div>
-        <details class="alignment-note"><summary>文本编排</summary><p id="alignmentState">100歌已核对</p></details>
-        <section class="chinese-context"><span>本篇提要</span><p id="chineseExplanation"></p></section>
-        <section class="chinese-translation" aria-labelledby="chineseTranslationTitle">
-          <header><div><span id="chineseRef">王维克译 · 1949</span><h4 id="chineseTranslationTitle">散文体中文全译</h4></div><button class="text-button" id="toggleChinese" type="button">展开本篇译文</button></header>
-          <p class="translation-method">王维克散文译 · 按本篇段落编排</p>
-          <p class="translation-summary" id="chineseSummary"></p>
-          <div class="chinese-text" id="chineseText"></div>
-          <details class="translator-notes" id="translatorNotes" hidden><summary id="translatorNotesSummary">王维克译者注</summary><ol id="translatorNotesList"></ol></details>
-        </section>
-        <div class="language-headings" aria-hidden="true"><span>行号</span><span>意大利文原文</span><span>Longfellow 英译</span></div>
-        <div class="lines" id="lineWindow"></div>
-      </div>
-      <div class="manual-panel" data-manual-panel="map" hidden><div class="map-head"><p>选择已抵达的歌；未抵达节点只显示标题。</p><span id="visitedCount"></span></div><div class="canto-map" id="cantoMap"></div></div>
-      <div class="manual-panel sources" data-manual-panel="sources" hidden>
-        <h3>版本与链接</h3>
-        <p>原文、译文与研究资料入口。</p>
-        <a href="https://www.gutenberg.org/ebooks/1000" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1000</strong><span>意大利文《神曲》全文</span></a>
-        <a href="https://www.gutenberg.org/ebooks/1004" target="_blank" rel="noreferrer"><strong>Project Gutenberg 1004</strong><span>Longfellow 英译全文</span></a>
-        <a href="https://commons.wikimedia.org/wiki/File:NCL-9900010594_%E7%A5%9E%E6%9B%B2.pdf" target="_blank" rel="noreferrer"><strong>王维克译《神曲》</strong><span>商务印书馆1949年版公版扫描</span></a>
-        <a href="https://www.cp.com.cn/ourselves/history/dsj.html" target="_blank" rel="noreferrer"><strong>商务印书馆大事记</strong><span>1939—1948年译本出版记录</span></a>
-        <a href="https://icwar.bfsu.edu.cn/__local/C/5C/36/866BDBA2E367BA9104724E0DD99_2E299E2A_2F5A9C.pdf?e=.pdf" target="_blank" rel="noreferrer"><strong>汉译研究论文</strong><span>首个中文全译本及译本史说明</span></a>
-        <a href="https://dante.princeton.edu/dante/pdp/commedia.html" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>原文、译文与评论入口</span></a>
-        <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论数据库</span></a>
-        <a href="https://digitaldante.columbia.edu/dante/divine-comedy/" target="_blank" rel="noreferrer"><strong>Digital Dante</strong><span>逐歌原文、译文与专题评论</span></a>
-        <a href="https://worldofdante.org/" target="_blank" rel="noreferrer"><strong>World of Dante</strong><span>人物、地点、地图、时间线与图像</span></a>
-        <a href="https://plato.stanford.edu/entries/aquinas/" target="_blank" rel="noreferrer"><strong>Thomas Aquinas</strong><span>意志、德性与自由选择</span></a>
-        <a href="https://dante.princeton.edu/cgi-bin/dante/DispMinorWork.pl?REF=XIII.20&amp;TITLE=Epist" target="_blank" rel="noreferrer"><strong>《致斯卡拉大亲王书》第十三封</strong><span>《神曲》的复义阅读传统</span></a>
-        <a href="https://assets.press.princeton.edu/chapters/i10091.pdf" target="_blank" rel="noreferrer"><strong>Erich Auerbach</strong><span>形象论、历史现实与尘世人物</span></a>
-        <a href="https://books.google.com/books/about/Dante.html?id=Bobx-kv6_KIC" target="_blank" rel="noreferrer"><strong>John Freccero</strong><span>《但丁：皈依的诗学》</span></a>
-        <a href="https://www.gutenberg.org/files/8438/8438-h/8438-h" target="_blank" rel="noreferrer"><strong>亚里士多德《尼各马可伦理学》</strong><span>选择、德性与自由行动</span></a>
-        <a href="https://www.gutenberg.org/cache/epub/3296/pg3296.html" target="_blank" rel="noreferrer"><strong>奥古斯丁《忏悔录》</strong><span>欲望、记忆与心灵回转</span></a>
-        <a href="https://www.gutenberg.org/files/14328/14328-h/14328-h.htm" target="_blank" rel="noreferrer"><strong>波爱修斯《哲学的慰藉》</strong><span>命运、自由与善的秩序</span></a>
-        <details class="method-note"><summary>版本说明</summary><p>意大利文与英文按篇、歌、行编排，共14,233行；王维克散文译按篇、段落编排，收录100篇、961段正文与1,691条译者注。人物与场景为依据原著空间和服饰语境制作的当代重构。</p></details>
+    <aside class="manual" id="manual" hidden aria-label="随身手册">
+      <div class="manual-cover">
+        <header><div><span id="manualGlyph">I</span><p><small>FIELD NOTES · CANTO V</small><strong id="manualTitle">衡量之书</strong></p></div><button id="closeManual" type="button" aria-label="合上手册">×</button></header>
+        <nav aria-label="手册页签">
+          <button class="is-active" data-manual-tab="rules" type="button">规则页</button>
+          <button data-manual-tab="evidence" type="button">证据夹 <b id="evidenceCount">0</b></button>
+          <button data-manual-tab="text" type="button">原文校勘</button>
+          <button data-manual-tab="sources" type="button">文献来源</button>
+        </nav>
+        <div class="manual-pages">
+          <section class="manual-page is-active" data-manual-panel="rules">
+            <p class="folio">本册的观察法</p><h3 id="manualAbility"></h3><p class="manual-intro" id="manualIntro"></p>
+            <ol id="manualRules"></ol>
+            <div class="marginalia"><span>页边警告</span><p id="manualWarning"></p></div>
+            <details><summary>这本手册来自哪里？</summary><p id="manualTradition"></p></details>
+          </section>
+          <section class="manual-page" data-manual-panel="evidence" hidden>
+            <p class="folio">你亲眼确认的事</p><h3>证据夹</h3><div class="evidence-list" id="evidenceList"></div>
+          </section>
+          <section class="manual-page reading-page" data-manual-panel="text" hidden>
+            <div class="reading-head"><div><p class="folio">Inf. V.73–142</p><h3>三语校勘</h3></div><select id="passageSelect" aria-label="选择段落"><option value="call">呼唤二人</option><option value="love">“爱”的三联句</option><option value="book">共读兰斯洛特</option><option value="fall">但丁昏厥</option></select></div>
+            <p class="reading-note">意大利文与 Longfellow 英译逐行对应；王维克中译按原书段落呈现，不伪造逐行对齐。</p>
+            <div class="parallel-text" id="parallelText"></div>
+          </section>
+          <section class="manual-page sources-page" data-manual-panel="sources" hidden>
+            <p class="folio">版本与解释传统</p><h3>可追溯的来源</h3>
+            <a href="https://digitaldante.columbia.edu/dante/divine-comedy/inferno/inferno-5/" target="_blank" rel="noreferrer"><strong>Digital Dante</strong><span>第五歌原文、译文与评论</span></a>
+            <a href="https://dante.princeton.edu/dante/pdp/commedia.html" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>《神曲》文本与注释</span></a>
+            <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论数据库</span></a>
+            <a href="https://commons.wikimedia.org/wiki/File:NCL-9900010594_%E7%A5%9E%E6%9B%B2.pdf" target="_blank" rel="noreferrer"><strong>王维克译《神曲》</strong><span>商务印书馆1949年版扫描</span></a>
+            <details><summary>解释框架说明</summary><p>三本手册分别借鉴德性伦理与行动分析、奥尔巴赫的形象论和历史现实主义、以及奥古斯丁式阅读与弗雷切罗的皈依诗学。游戏把它们设计为有限工具，而非标准答案。</p></details>
+          </section>
+        </div>
       </div>
     </aside>
 
-    <div class="role-gate" id="roleGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-      <div class="gate-card"><span class="gate-kicker">一份三语校勘稿 · 页码 1300</span><h1 id="gateTitle">文本先于你翻了一页。</h1><p>意大利文、英文和中文突然彼此错开。墨迹从屏幕流到你的手上；再抬头时，你已经站在黑暗森林里。远处的人叫你“但丁”，而脚边三本手册却写着数百年后才会出现的名字。</p><p class="gate-premise">它们都能保护你，也都会删去自己无法解释的东西。选择一种阅读方法进入旅程；真正的出口不在完全服从之中。</p><div class="roles"><button data-role="wanderer" type="button"><small>托马斯主义伦理传统</small><strong>秩序诠释者</strong><span>拆解行动、目的和责任；盲点是把人物压成类别</span></button><button data-role="witness" type="button"><small>形象论与历史现实主义</small><strong>历史见证者</strong><span>追索姓名、城邦和关系；盲点是过度相信鲜活证词</span></button><button data-role="reader" type="button"><small>奥古斯丁式皈依诗学</small><strong>回转校勘者</strong><span>修订自己的误读；盲点是把他人变成自我寓言</span></button></div></div>
-    </div>
+    <div class="evidence-ribbon" id="evidenceRibbon" aria-live="polite"></div>
+    <div class="toast" id="toast" hidden></div>
+    <div class="bottom-hint" id="bottomHint"><span>空格继续</span><span>Tab 手册</span><span>M 声音</span></div>
   </main>
-  <script src="encounters.js?v=20260926-story4"></script><script src="app.js?v=20260926-story4"></script>
+  <script src="prototype.js?v=20260926-1"></script>
 </body>
 </html>
