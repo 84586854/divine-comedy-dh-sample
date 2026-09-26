@@ -53,7 +53,7 @@
     measuredUse: { lens: "order", title: "财富不是罪，失去尺度的使用才是", note: "吝啬与挥霍方向相反，却同样让财物支配行动。", ref: "Inf. VII.22–60" },
     erasedFaces: { lens: "witness", title: "失去尺度的人也失去了可辨认的面孔", note: "他们曾让财富吞没身份，如今连姓名也无法从队伍中恢复。", ref: "Inf. VII.37–57" },
     falseOpposites: { lens: "reader", title: "相反口号可能共享同一种占有欲", note: "“为什么紧握”与“为什么挥霍”互相指控，却被同一圆周绑定。", ref: "Inf. VII.25–35" },
-    boundary: { lens: "order", title: "拒绝袭击不等于把报复称为正义", note: "让菲利波松开船舷是一项边界；享受他被撕扯是另一项行动。", ref: "Inf. VIII.31–63" },
+    boundary: { lens: "order", title: "挡开袭击不等于赞成报复", note: "阻止菲利波扑向渡船是一项边界；留下观看他受罚则是另一项选择。", ref: "Inf. VIII.31–63" },
     privateHistory: { lens: "witness", title: "旅人与泥中人共享佛罗伦萨旧怨", note: "叫出菲利波的姓名，也把看似普遍的正义重新放回私人政治史。", ref: "Inf. VIII.31–61" },
     cruelPleasure: { lens: "reader", title: "旅人正在享受仇敌受罚", note: "诗中的赞许语气不能自动证明这份快意没有问题。", ref: "Inf. VIII.37–63" },
     acceptedLimit: { lens: "order", title: "在城门前，服从保护也是行动", note: "维吉尔不仅命令旅人转身，还亲手遮住他的眼睛。", ref: "Inf. IX.52–60" },
@@ -69,23 +69,25 @@
       id: "inf-06",
       canto: "第六歌",
       title: "冰雨中的名字",
-      premise: "你从第五歌的昏厥中醒来。这里的人不再被风托起，而是被冰雹、污水和泥土压平。",
+      premise: "第三圈的雨抹平面孔；一个人却想让你记起他的名字。",
       background: "assets/canto6-rain-v1.png",
       backgroundAlt: "第三圈的冰冷污雨、泥中的灵魂与刻耳柏洛斯",
       weather: "rain",
       character: { name: "泥中的灵魂", role: "身份尚未确认", image: "assets/character-ciacco-v1.png" },
       observations: [
-        { id: "c6-rain", label: "接住冰雨", position: ["72%", "21%"], title: "雨的规则从不改变", note: "冰雹、污水与雪以同一种方式反复落下；这里的刑罚不是一次事件，而是一种永远重复的环境。", ref: "Inf. VI.7–12" },
-        { id: "c6-mouths", label: "观察三张嘴", position: ["64%", "43%"], title: "刻耳柏洛斯的饥饿可以被暂时转移", note: "维吉尔没有战胜怪物，只用泥土占住它的三张嘴，为通行争取时间。", ref: "Inf. VI.13–33" },
+        { id: "c6-rain", label: "接住冰雨", position: ["72%", "21%"], title: "雨永远以同一种方式落下", note: "冰雹、雪和污水循环不止，把刑罚变成了没有尽头的日常。", ref: "Inf. VI.7–12" },
+        { id: "c6-mouths", label: "观察三张嘴", position: ["64%", "43%"], title: "一把泥土换来片刻通行", note: "维吉尔用泥土占住刻耳柏洛斯的三张嘴，趁它吞咽时通过。", ref: "Inf. VI.13–33" },
         { id: "c6-faces", label: "辨认泥中的脸", position: ["33%", "49%"], title: "泥雨使每一张脸都难以辨认", note: "亡魂全都伏在地面，面孔被同一种刑罚压平；只有姓名能重新建立差异。", ref: "Inf. VI.34–39" }
       ],
       lensObservations: {
-        order: { id: "c6-action", label: "使用辨行动", position: ["22%", "28%"], title: "先区分饥饿与取得食物的行动", note: "怪物的饥饿、亡魂生前的欲望和维吉尔投泥的动作不能被同一个词替代。", ref: "Inf. VI.13–33" },
+        order: { id: "c6-action", label: "使用辨行动", position: ["22%", "28%"], title: "饥饿、取食与投泥是三种行动", note: "把欲望和动作分开，才能看见维吉尔如何借怪物的饥饿开路。", ref: "Inf. VI.13–33" },
         witness: { id: "c6-recognition", label: "使用追姓名", position: ["22%", "28%"], title: "先为无法辨认的人留下姓名位置", note: "在任何亡魂开口以前，手册先留出空白，避免把整片泥地只记成一种罪类。", ref: "Inf. VI.34–39" },
         reader: { id: "c6-waking", label: "使用校叙词", position: ["22%", "28%"], title: "新一歌从上一次昏厥中醒来", note: "叙述没有让怜悯停在第五歌；醒来以后，旅人必须继续判断新的痛苦。", ref: "Inf. VI.1–6" }
       },
       investigationTitle: "趁泥中的灵魂尚未开口，先看清第三圈",
       investigationHint: "你只能细看三处。刑罚怎样运作、谁仍保有差异，会改变你稍后能够问什么。",
+      readyTitle: "泥中的灵魂正等你开口",
+      readyHint: "三条现场记录已经写下。现在决定把第一次提问交给哪一种事实。",
       proceedLabel: "回应泥中的灵魂",
       intro: [
         { type: "苏醒", speaker: "旁白", text: "意识重新合拢时，弗兰切斯卡的风已经留在上层。永不改变的冰雨、雪与污水落在第三圈，泥土发出腐败的气味。", source: "Inf. VI.1–12" },
@@ -93,17 +95,16 @@
       ],
       encounter: [
         { type: "有人坐起", speaker: "旁白", text: "倒伏的灵魂几乎没有面孔。只有一个人在你经过时撑起上身，仿佛他认得一个仍活着的佛罗伦萨人。", source: "Inf. VI.34–39" },
-        { type: "辨认", speaker: "恰科", text: "“你出生在我死去以前。看看你是否还认得我。”雨水从他的脸上流过，你无法把这张脸同记忆中的任何人重合。", source: "据 Inf. VI.40–45 改写" }
+        { type: "辨认", speaker: "泥中的灵魂", text: "“你出生在我死去以前。看看你是否还认得我。”雨水从他的脸上流过，你无法把这张脸同记忆中的任何人重合。", source: "据 Inf. VI.40–45 改写" }
       ],
       prompt: "你不认识他，却知道他可能熟悉佛罗伦萨。你的第一个问题是什么？",
       choices: [
-        { lens: "order", requires: "c6-mouths", label: "先承认不认识，再问城中党争由什么欲望推动", hint: "把预言追到行动的起点", evidence: "factionSparks", outcome: "你没有先问哪一派获胜，而是追问胜负以前发生了什么。恰科抹去嘴边的泥，开始从欲望而非党派名称讲起。" },
-        { lens: "witness", requires: "c6-faces", label: "说明刑罚改变了他的面容，请他亲自报上姓名", hint: "先确认是谁在说话", evidence: "ciaccoName", character: { name: "恰科", role: "佛罗伦萨市民 · 第三圈亡魂", image: "assets/character-ciacco-v1.png" }, outcome: "“你们城里人叫我恰科。”他没有提供显赫家世，只说自己因贪食倒在这场雨里，也不是唯一一个。" },
-        { lens: "reader", requires: "c6-rain", label: "承认自己正想把他当成预言者，请他先作为市民说话", hint: "检查提问者怎样利用证词", evidence: "oracleUse", outcome: "你把政治问题留在第二位，并在页边写下：说话者不是通往未来的工具。恰科等你写完，才开始谈那座共同的城市。" }
+        { lens: "order", requires: "c6-mouths", label: "“党争以前，是什么让人彼此为敌？”", hint: "你会得到原因，却仍不知道他的姓名", evidence: "factionSparks", result: { type: "回答", speaker: "泥中的灵魂", text: "“骄傲、嫉妒和贪欲点燃了众人的心。”他预言两派将流血，并轮流把对方逐出佛罗伦萨。", source: "Inf. VI.64–75" } },
+        { lens: "witness", requires: "c6-faces", label: "“雨改变了你的面容。请你亲自报上姓名。”", hint: "你会确认说话者，但听不到完整的党争预言", evidence: "ciaccoName", character: { name: "恰科", role: "佛罗伦萨市民 · 第三圈亡魂", image: "assets/character-ciacco-v1.png" }, result: { type: "报上姓名", speaker: "恰科", text: "“你们城里人叫我恰科。”他没有显赫家世，只承认自己因贪食落入这场雨。", source: "Inf. VI.52–57" } },
+        { lens: "reader", requires: "c6-faces", label: "“我正想利用你的预言。请先说你眼中的佛罗伦萨。”", hint: "你的提问方式也会进入记录", evidence: "oracleUse", result: { type: "被识破的提问", speaker: "泥中的灵魂", text: "他看出你仍在等待预言，只先说：佛罗伦萨的争斗来自众人共同喂养的欲望。党派名称留在雨声里，没有被他说完。", source: "据 Inf. VI.58–75 改写" } }
       ],
       shared: [
-        { type: "共同事实", speaker: "恰科", text: "他随后预言佛罗伦萨两派将流血、驱逐并交换权势；城里仍有两位正直者，却无人听从。骄傲、嫉妒和贪欲使整座城市持续饥饿。", source: "Inf. VI.64–75" },
-        { type: "离开", speaker: "旁白", text: "泥中的灵魂请求你回到人间后让人记得他，随即把头低了回去。维吉尔说，在最后审判以前，他不会再次坐起。", source: "Inf. VI.88–99" }
+        { type: "离开", speaker: "旁白", text: "他请求你回到人间后记得这次相遇，随即把头低回泥中。维吉尔说，最后审判以前，他不会再次坐起。", source: "Inf. VI.88–99" }
       ],
       quote: "城里仍有两个正直的人，却无人听从。",
       quoteSource: "《地狱篇》VI.73 · 据原文意译",
@@ -116,7 +117,7 @@
       id: "inf-07",
       canto: "第七歌",
       title: "相反者的圆周",
-      premise: "离开泥雨后，两支队伍用胸口推着巨石相撞。一队紧握，一队挥霍，却走在同一个圆上。",
+      premise: "两支彼此辱骂的队伍，被同一条圆周送回原点。",
       background: "assets/inferno-first-person.png",
       backgroundAlt: "地狱第四圈的黑石坡道",
       weather: "mist",
@@ -133,22 +134,23 @@
       },
       investigationTitle: "先辨认两支队伍为何永远相撞",
       investigationHint: "选择三处细节。不要急着把一边叫作吝啬、另一边叫作慷慨。",
+      readyTitle: "巨石又要撞在一起",
+      readyHint: "碰撞声很快会盖过谈话。选择你愿意留下的解释。",
       proceedLabel: "向维吉尔提出判断",
       intro: [
         { type: "守门者", speaker: "旁白", text: "普路托吐出一串难以解释的嘶哑音节。维吉尔叫它安静；怪物像断了桅杆的船帆一样倒下，你们继续下降。", source: "Inf. VII.1–15" },
         { type: "第四圈", speaker: "旁白", text: "两队灵魂从半圆两端推着重石迎面撞击。一边喊“为什么紧握”，另一边喊“为什么挥霍”；撞击以后，他们转身，再走一遍。", source: "Inf. VII.22–35" }
       ],
       encounter: [
-        { type: "解释", speaker: "维吉尔", text: "“他们生前在使用财富时都失去了尺度。相反的口号没有把他们分开，反而把他们绑进同一种重复。”", source: "Inf. VII.40–60" }
+        { type: "辨认失败", speaker: "维吉尔", text: "“左边有教士、枢机和教皇。至于姓名——他们生前让财富蒙蔽了自己，如今已经谁也认不出来。”", source: "Inf. VII.37–54" }
       ],
       prompt: "石头再次撞在一起。你先把什么写进手册？",
       choices: [
-        { lens: "order", requires: "c7-stones", label: "区分财富、使用财富的目的与失去节制的行为", hint: "不把物品当成行动者", evidence: "measuredUse", outcome: "你划掉“财富使人犯罪”这句草稿。石头没有意志；紧握与挥霍是两种相反动作，却都让占有压过了尺度。" },
-        { lens: "witness", requires: "c7-tonsures", label: "追问为什么这里几乎没有可辨认的姓名和面孔", hint: "查看分类抹去了谁", evidence: "erasedFaces", outcome: "维吉尔指向左队的剃发者：其中有教士与教皇，但他们已经无法被逐一辨认。财富曾替代他们的身份，如今罪类也这样做。" },
-        { lens: "reader", requires: "c7-slogans", label: "检查自己为何把挥霍本能地理解成比吝啬更自由", hint: "拆开相反口号的修辞", evidence: "falseOpposites", outcome: "圆周纠正了你的直觉：放手并不必然是慷慨。若行动仍只围绕占有，紧握和挥霍可以共享同一欲望。" }
+        { lens: "order", requires: "c7-stones", label: "把石头、财富与人的使用方式分开记录", hint: "维吉尔会继续解释财富为何不断易手", evidence: "measuredUse", result: { type: "福尔图娜", speaker: "维吉尔", text: "“财富本身没有意志。福尔图娜只让它不断易手；紧握或挥霍，才是人在变动中作出的选择。”", source: "Inf. VII.40–96" } },
+        { lens: "witness", requires: "c7-tonsures", label: "追问：为什么能认出身份，却一个姓名都没有？", hint: "你会保存被队伍抹去的人，但得不到福尔图娜的解释", evidence: "erasedFaces", result: { type: "无法复原", speaker: "维吉尔", text: "他再次查看剃发者，仍叫不出任何人。你在手册里留下数行空白：它们证明这里曾有个人，却无法替任何人编造姓名。", source: "Inf. VII.37–57" } },
+        { lens: "reader", requires: "c7-slogans", label: "把两边的口号抄在同一行，比较它们的句式", hint: "你会发现敌对口号共享的欲望", evidence: "falseOpposites", result: { type: "同一句式", speaker: "页边记录", text: "“为什么紧握？”“为什么挥霍？”两句话都只盯着对方手里的财富。圆周把这场争吵写成了同一种占有欲。", source: "Inf. VII.25–35" } }
       ],
       shared: [
-        { type: "福尔图娜", speaker: "维吉尔", text: "“人间财物的流转由福尔图娜掌管。她不是任性的赌徒，而是让财富不断易手的职司；但她不能替任何人决定怎样使用所得。”", source: "Inf. VII.61–96" },
         { type: "继续下降", speaker: "旁白", text: "石头的撞击声留在身后。黑水从坡底聚成沼泽，水面上有人互相撕打，水面下还有话语在气泡里破裂。", source: "Inf. VII.100–126" }
       ],
       quote: "月下所有黄金，也不能使其中一个疲惫的灵魂停歇。",
@@ -162,7 +164,7 @@
       id: "inf-08",
       canto: "第八歌",
       title: "泥中的旧怨",
-      premise: "弗莱居阿斯的小舟驶向狄斯城。一个泥中的灵魂突然与船并行，而你比听见姓名更早感到厌恶。",
+      premise: "佛罗伦萨的旧怨，正在闯入地狱的审判。",
       background: "assets/canto8-styx-v1.png",
       backgroundAlt: "冥河泥沼、弗莱居阿斯的小舟与远处的狄斯城",
       weather: "mist",
@@ -173,12 +175,14 @@
         { id: "c8-reaction", label: "留意自己的反应", position: ["76%", "19%"], title: "姓名尚未出现，厌恶已经先到", note: "你还没有确认对方是谁，身体却已经把一次袭击和佛罗伦萨的旧怨连在一起。", ref: "Inf. VIII.31–39" }
       ],
       lensObservations: {
-        order: { id: "c8-grip", label: "使用辨行动", position: ["20%", "24%"], title: "抓住船舷、推开双手与希望受罚是三件事", note: "保护边界的动作不能自动替内心的报复愿望辩护。", ref: "Inf. VIII.40–63" },
+        order: { id: "c8-grip", label: "使用辨行动", position: ["20%", "24%"], title: "袭击、阻拦与报复是三件事", note: "推开伸向渡船的手可以保护通行；继续观看惩罚，则来自另一种愿望。", ref: "Inf. VIII.40–63" },
         witness: { id: "c8-feud", label: "使用追姓名", position: ["20%", "24%"], title: "相认把私人旧怨带进审判现场", note: "一旦叫出对方的姓名，旅人也必须承认自己不是没有历史的法官。", ref: "Inf. VIII.31–61" },
         reader: { id: "c8-pleasure", label: "使用校叙词", position: ["20%", "24%"], title: "赞许语气可能替快意披上正义外衣", note: "维吉尔的称赞与叙述者的感谢，会引导读者接受旅人的愤怒。", ref: "Inf. VIII.43–63" }
       },
       investigationTitle: "先分清袭击、旧怨与自己的反应",
       investigationHint: "选择三处细节。你不只是看见这次冲突，也正在以一个佛罗伦萨人的身份卷入它。",
+      readyTitle: "泥中的人仍与船并行",
+      readyHint: "你已经看见三处细节。接下来，相认会迫使你采取行动。",
       proceedLabel: "回应并辨认泥中的人",
       intro: [
         { type: "渡沼", speaker: "旁白", text: "弗莱居阿斯把小舟推入死水。活人的重量使船身比平时下沉；远处，狄斯城的铁墙被永恒火焰烧成暗红。", source: "Inf. VIII.13–30" },
@@ -189,12 +193,11 @@
       ],
       prompt: "菲利波正把双手伸向船。你怎样处理这次相认？",
       choices: [
-        { lens: "order", requires: "c8-boat", label: "挡住他伸来的手，但拒绝把私人快意写成正义", hint: "把边界与报复分开", evidence: "boundary", outcome: "你挡在船舷前，让维吉尔把他推开。行动保护了渡船；至于希望他受更多苦的念头，你没有替它换上“正义”的名字。" },
-        { lens: "witness", requires: "c8-accent", label: "叫出他的姓名，并承认你们在佛罗伦萨已有旧怨", hint: "给厌恶补上历史位置", evidence: "privateHistory", outcome: "“菲利波。”姓名使他停了一瞬，也使你的立场暴露：你不是在判断一个完全陌生的罪人，而是在地狱重遇城中的仇敌。" },
-        { lens: "reader", requires: "c8-reaction", label: "先承认厌恶已经先于相认，再决定是否开口", hint: "审读情绪怎样抢在事实前面", evidence: "cruelPleasure", outcome: "你发现自己几乎期待更残酷的一幕。诗中的赞许尚未到来，你已先把这份快意写进手册，拒绝让后来的叙述替它自动洗白。" }
+        { lens: "order", requires: "c8-boat", label: "挡开他的手，命令弗莱居阿斯继续划", hint: "渡船会立刻离开；你将看不到他随后受罚", evidence: "boundary", result: { type: "离开冲突", speaker: "旁白", text: "你挡住伸来的手，维吉尔顺势把菲利波推回水中。船没有停；身后传来撕打和姓名的喊声，你没有回头。", source: "据 Inf. VIII.40–63 改写" } },
+        { lens: "witness", requires: "c8-accent", label: "叫出“菲利波”，也说明你们在佛罗伦萨已有旧怨", hint: "姓名会进入记录，也会成为众魂攻击的口号", evidence: "privateHistory", result: { type: "姓名被夺走", speaker: "旁白", text: "“菲利波·阿尔真蒂。”你刚说出口，泥中的众魂便重复这个名字，扑向被维吉尔推开的男人。你保存了身份，也看见姓名如何变成武器。", source: "据 Inf. VIII.40–63 改写" } },
+        { lens: "reader", requires: "c8-reaction", label: "承认自己期待他受罚，请维吉尔先把船划开", hint: "维吉尔仍会赞许愤怒；手册不会替你免责", evidence: "cruelPleasure", result: { type: "赞许的诱惑", speaker: "旁白", text: "维吉尔推开菲利波，称赞你的愤怒。你却把这句称赞和自己的快意并排记下；众魂扑来时，你知道赞许并没有解决问题。", source: "据 Inf. VIII.40–63 改写" } }
       ],
       shared: [
-        { type: "原诗中的行动", speaker: "旁白", text: "维吉尔把菲利波推开，并称赞你的愤怒。泥中的亡魂喊着他的姓名扑向他；你看着他被拖回黑水，没有移开目光。", source: "Inf. VIII.40–63" },
         { type: "城门", speaker: "旁白", text: "小舟抵达狄斯城。守门的堕落天使只允许维吉尔靠近，听完他的话便关上城门；这是旅程开始以来，理性的引路第一次没有立刻打开道路。", source: "Inf. VIII.67–130" }
       ],
       quote: "“我认得你，即使你满身污泥。”",
@@ -208,23 +211,25 @@
       id: "inf-09",
       canto: "第九歌",
       title: "不该直视之物",
-      premise: "城门紧闭，维吉尔也在等待援助。高塔上的复仇女神召唤美杜莎；这一次，观看本身就是危险。",
+      premise: "当一眼足以终止旅程，闭眼也成为行动。",
       background: "assets/canto8-styx-v1.png",
       backgroundAlt: "狄斯城外的冥河与红色铁城",
       weather: "embers",
       character: null,
       observations: [
         { id: "c9-gate", label: "检查紧闭城门", position: ["74%", "32%"], title: "理性的解释没有立刻打开道路", note: "维吉尔与守门者交涉后仍被拒绝，旅程第一次明确等待外来援助。", ref: "Inf. VIII.79–130; IX.1–30" },
-        { id: "c9-hands", label: "感受遮眼的手", position: ["28%", "49%"], title: "维吉尔不只给出警告，还采取保护动作", note: "他不把生死风险完全交给旅人的自制。", ref: "Inf. IX.55–60" },
+        { id: "c9-hands", label: "感受遮眼的手", position: ["28%", "49%"], title: "警告之后，还有一双真正遮住视线的手", note: "维吉尔亲自执行保护，没有把风险全留给你的自制。", ref: "Inf. IX.55–60" },
         { id: "c9-voices", label: "听城楼三个方位", position: ["55%", "21%"], title: "复仇女神有不同姓名与位置", note: "墨纪拉、阿勒克托与提西福涅不是一团无差别的恐怖。", ref: "Inf. IX.37–51" }
       ],
       lensObservations: {
-        order: { id: "c9-limit", label: "使用辨行动", position: ["18%", "25%"], title: "不观看也是需要及时完成的行动", note: "这里的勇敢不是获得更多信息，而是承认某种信息会摧毁判断者。", ref: "Inf. IX.52–60" },
+        order: { id: "c9-limit", label: "使用辨行动", position: ["18%", "25%"], title: "危险以一眼为单位", note: "闭眼必须赶在美杜莎出现以前完成；迟疑本身也会造成后果。", ref: "Inf. IX.52–60" },
         witness: { id: "c9-names", label: "使用追姓名", position: ["18%", "25%"], title: "为威胁命名可以保留差异，但不能取消危险", note: "记录三位复仇女神，不等于获得直视美杜莎的安全许可。", ref: "Inf. IX.37–60" },
         reader: { id: "c9-veil", label: "使用校叙词", position: ["18%", "25%"], title: "诗人主动提醒读者寻找帷幕下的教义", note: "这条提示要求解释，却不保证任何一种寓意读法就是唯一答案。", ref: "Inf. IX.61–63" }
       },
       investigationTitle: "闭上眼以后，重新确认你仍能依靠什么",
       investigationHint: "选择三处已经记住或仍能听见的细节。这里的观察不等于直视。",
+      readyTitle: "城楼上的声音正在逼近",
+      readyHint: "你不能继续观看，只能依靠刚才留下的三条线索。",
       proceedLabel: "守住城门前的等待",
       intro: [
         { type: "等待", speaker: "旁白", text: "维吉尔从紧闭的城门前返回。他试图掩饰迟疑，却不断望向沼泽远处，等待一种比自己更高的权力。", source: "Inf. IX.1–30" },
@@ -234,12 +239,11 @@
       encounter: [],
       prompt: "你已经不能观看。接下来依靠哪条线索行动？",
       choices: [
-        { lens: "order", requires: "c9-hands", label: "接受维吉尔的保护，不用冒险观看来证明勇敢", hint: "承认理性的边界", evidence: "acceptedLimit", outcome: "你把双手覆在维吉尔手背之外。此刻的行动不是战胜怪物，而是不让好奇把身体交给怪物。" },
-        { lens: "witness", requires: "c9-voices", label: "不看城楼，只听三位复仇女神分别从哪里发声", hint: "恐怖也由不同声音组成", evidence: "furyVoices", outcome: "左、右、中央的喊声没有合成一团。你保存了三位复仇女神各自的位置，同时遵守了不直视美杜莎的警告。" },
-        { lens: "reader", requires: "c9-gate", label: "检查自己为什么非看美杜莎不可", hint: "把怪物转回观看欲", evidence: "gazeTrap", outcome: "你意识到，怪物尚未出现，观看欲已经替她工作：它诱使你把禁令理解成必须揭开的谜底。" }
+        { lens: "order", requires: "c9-hands", label: "不挣脱维吉尔的手，等他主动松开", hint: "方向感会稳定，但你放弃获得怪物形象", evidence: "acceptedLimit", result: { type: "及时闭眼", speaker: "旁白", text: "你没有试探最后一眼。轰鸣越过沼泽时，维吉尔才松开手：一位天上的使者已经踏过水面，用短杖打开城门。", source: "Inf. IX.55–105", character: { name: "天使使者", role: "打开狄斯城门的援助", image: "assets/character-celestial.png" } } },
+        { lens: "witness", requires: "c9-voices", label: "闭着眼，分别记下左、右和中央的声音", hint: "你会保存三位复仇女神，却看不见她们的形象", evidence: "furyVoices", result: { type: "声音中断", speaker: "旁白", text: "墨纪拉、阿勒克托、提西福涅的声音仍在三个方位。随后一声巨响压过她们；你睁眼时，天上的使者已用短杖碰开城门。", source: "Inf. IX.37–105", character: { name: "天使使者", role: "打开狄斯城门的援助", image: "assets/character-celestial.png" } } },
+        { lens: "reader", requires: "c9-gate", label: "放弃揭开禁令的快感，检查“非看不可”的冲动", hint: "你会识破观看陷阱，却暂时得不到怪物的寓意", evidence: "gazeTrap", result: { type: "观看欲退去", speaker: "旁白", text: "你让那个“只看一眼”的念头过去。下一次睁眼，真正改变局面的并非你找到的寓意，而是天上使者用短杖打开了城门。", source: "据 Inf. IX.52–105 改写", character: { name: "天使使者", role: "打开狄斯城门的援助", image: "assets/character-celestial.png" } } }
       ],
       shared: [
-        { type: "援助抵达", speaker: "旁白", text: "沼泽忽然像被暴风劈开。来自天上的使者踏过水面，用一根短杖碰开城门；他没有等待感谢，转身沿原路离去。", source: "Inf. IX.64–105", character: { name: "天使使者", role: "打开狄斯城门的援助", image: "assets/character-celestial.png" } },
         { type: "进入狄斯", speaker: "维吉尔", text: "“现在可以睁眼。”城内不是宫殿，而是一片被火烧热的墓园；每一具石棺都敞着盖子。", source: "Inf. IX.106–133" }
       ],
       quote: "理智健全的人，请看诗句帷幕下隐藏的教义。",
@@ -253,7 +257,7 @@
       id: "inf-10",
       canto: "第十歌",
       title: "过去时的伤口",
-      premise: "燃烧的墓园里，政治辩论与父亲的追问挤在同一具石棺旁。一个语法时态会产生无法追回的后果。",
+      premise: "一次迟疑，让“曾经”变成了父亲听见的死讯。",
       background: "assets/canto10-tombs-v1.png",
       backgroundAlt: "狄斯城内燃烧的墓园与敞开的石棺",
       weather: "embers",
@@ -266,26 +270,28 @@
       lensObservations: {
         order: { id: "c10-knowledge", label: "使用辨行动", position: ["21%", "24%"], title: "误解需要语法、知识缺口与迟疑共同成立", note: "一个词不会独自造成后果；亡魂不知现在、旅人使用过去时并延迟回答，三者共同完成误认。", ref: "Inf. X.61–72, 97–108" },
         witness: { id: "c10-interruption", label: "使用追姓名", position: ["21%", "24%"], title: "父亲的声音被两段宏大政治叙述夹住", note: "如果不主动保存，卡瓦尔坎特很容易只成为法里纳塔场景中的插曲。", ref: "Inf. X.52–93" },
-        reader: { id: "c10-tense", label: "使用校叙词", position: ["21%", "24%"], title: "过去时被听成了死亡消息", note: "“曾经轻视”在知识残缺的听者那里变成“已经不在人世”。", ref: "Inf. X.61–72" }
+        reader: { id: "c10-tense", label: "使用校叙词", position: ["21%", "24%"], title: "解释来得晚于伤害", note: "诗先让父亲误解并倒下，到第97行以后才说明亡魂为什么不知道现在。", ref: "Inf. X.61–72, 97–108" }
       },
       investigationTitle: "卡瓦尔坎特已经倒下：回看误解如何发生",
       investigationHint: "选择三处细节。你不能追回父亲，但可以分清语法、知识缺口与迟疑各自做了什么。",
+      readyTitle: "法里纳塔还在等待你的回应",
+      readyHint: "父亲的声音已经消失。你只能决定哪一部分会进入记录。",
       proceedLabel: "整理这次无法追回的误解",
       intro: [
         { type: "第六圈", speaker: "维吉尔", text: "“这些敞开的墓属于伊壁鸠鲁及其追随者——他们认为灵魂随身体一同死亡。最后审判以后，石盖才会永远闭合。”", source: "Inf. X.1–15" },
         { type: "有人起身", speaker: "旁白", text: "一具石棺中传出托斯卡纳口音。法里纳塔从腰部以上挺立起来，胸膛和额头笔直，仿佛整个地狱都不值得他低头。", source: "Inf. X.22–39", character: { name: "法里纳塔·德利·乌贝尔蒂", role: "佛罗伦萨吉伯林派领袖", image: "assets/character-farinata-v1.png" } },
-        { type: "政治记忆", speaker: "法里纳塔", text: "他先问你的祖先属于哪一派。你们立刻争论佛罗伦萨的驱逐、复归与蒙塔佩尔蒂战役；同一座城市把两个亡魂仍旧分成敌人。", source: "Inf. X.40–51, 73–93" },
-        { type: "被打断的父亲", speaker: "旁白", text: "另一道影子只露出下巴。他是卡瓦尔坎特·德·卡瓦尔坎蒂，正在寻找儿子圭多。你说“圭多也许曾经轻视维吉尔”；父亲抓住“曾经”这个过去时，以为儿子已经死亡。你迟疑片刻，他便倒回墓中。", source: "Inf. X.52–72" }
+        { type: "政治记忆", speaker: "法里纳塔", text: "他问你的祖先属于哪一派。得知答案后，他说自己曾两次驱散你的同党；你立刻回击：他们两次都回来了。", source: "Inf. X.40–51" },
+        { type: "被打断的父亲", speaker: "旁白", text: "另一道影子只露出下巴。他是卡瓦尔坎特·德·卡瓦尔坎蒂，正在寻找儿子圭多。你说“圭多也许曾经轻视维吉尔”；父亲抓住“曾经”，以为儿子已经死亡。你迟疑片刻，他便倒回墓中。", source: "Inf. X.52–72" },
+        { type: "谈话复位", speaker: "旁白", text: "法里纳塔没有转头，仿佛父亲从未出现。他接回刚才的党争，预言你不久也会尝到无法返回佛罗伦萨的痛苦。", source: "Inf. X.73–93" }
       ],
       encounter: [],
       prompt: "卡瓦尔坎特已经消失，法里纳塔仍像没有听见一样站着。你怎样处理刚才发生的事？",
       choices: [
-        { lens: "order", requires: "c10-tombs", label: "追问亡魂为何能预见未来，却不知道圭多此刻是否活着", hint: "查明误解成立的条件", evidence: "distantKnowledge", outcome: "法里纳塔解释：他们像远视者，只能看见尚远的事；未来一旦成为现在，知识便熄灭，除非新来的亡魂带来消息。" },
-        { lens: "witness", requires: "c10-father", label: "先记录父亲的问题：圭多为什么不在？他还活着吗？", hint: "不让政治雄辩盖住父亲", evidence: "fatherQuestion", outcome: "你没有替沉默的父亲补写答案，只把两个问题原样留下。它们夹在两段党争谈话之间，短得几乎会被法里纳塔的声音吞没。" },
-        { lens: "reader", requires: "c10-tense-heard", label: "圈出自己使用的“曾经”，记录这个时态怎样被听成死讯", hint: "语法在这里造成了行动后果", evidence: "tenseTrap", outcome: "你在“曾经”下面划线。误解不是抽象的修辞游戏：一个过去时、一次迟疑，让父亲带着错误的死亡消息倒回墓中。" }
+        { lens: "order", requires: "c10-tombs", label: "打断法里纳塔：你能预见流放，为何不知道圭多还活着？", hint: "你会得到亡魂知识的规则", evidence: "distantKnowledge", result: { type: "知识的边界", speaker: "法里纳塔", text: "“我们像远视者，只看得见尚远的事。事情一到眼前，知识便熄灭；若没有新来的亡魂，我们对现在一无所知。”", source: "Inf. X.94–108" } },
+        { lens: "witness", requires: "c10-father", label: "转向空墓，原样记下父亲没有得到回答的两个问题", hint: "你会保存卡瓦尔坎特的声音，但离开时仍不懂误解的规则", evidence: "fatherQuestion", result: { type: "无人回答", speaker: "旁白", text: "“圭多为什么不在？他还活着吗？”墓中没有回应。法里纳塔也没有停下；这两句话只能由你带走。", source: "Inf. X.52–78" } },
+        { lens: "reader", requires: "c10-tense-heard", label: "圈出“曾经”和随后的迟疑，记录误解发生在哪一刻", hint: "你会看见语言的后果，却得不到法里纳塔的解释", evidence: "tenseTrap", result: { type: "迟到的修正", speaker: "页边记录", text: "你把“曾经”改成“仍然活着”，但卡瓦尔坎特已经听不见。改对句子无法撤销迟疑造成的结果。", source: "据 Inf. X.61–72 改写" } }
       ],
       shared: [
-        { type: "知识的边界", speaker: "法里纳塔", text: "他终于说明这里的亡魂如何知道事情：远处的未来仍可见，眼前与当下却是一片空白。最后审判以后，再没有未来，他们的知识也将完全关闭。", source: "Inf. X.97–108" },
         { type: "继续前行", speaker: "旁白", text: "维吉尔催你记住流放预言，却也答应稍后由贝雅特丽齐解释你的道路。你们离开墓园边缘，朝更深处传来的恶臭走去。", source: "Inf. X.118–136" }
       ],
       quote: null,
@@ -534,6 +540,7 @@
 
   function observe(item, button) {
     if (button.classList.contains("is-seen") || state.observationsInChapter >= 3) return;
+    const chapter = chapters[state.chapter];
     button.classList.add("is-seen");
     state.observationsInChapter += 1;
     evidenceCatalog[item.id] = {
@@ -550,8 +557,8 @@
     renderState();
     if (state.observationsInChapter >= 3) {
       $$(".observation-hotspot").forEach((hotspot) => { hotspot.disabled = true; });
-      $("#investigationTitle").textContent = "现场记录已经足够提出问题";
-      $("#investigationHint").textContent = "没有观察到的部分不会消失，但相关的跨学派判断将暂时无法提出。";
+      $("#investigationTitle").textContent = chapter.readyTitle;
+      $("#investigationHint").textContent = chapter.readyHint;
       $("#finishObservation").hidden = false;
     }
   }
@@ -589,10 +596,17 @@
     }
     renderState();
     renderEvidence();
-    const outcome = { type: "选择的后果", speaker: "页边记录", text: choice.outcome, source: evidenceCatalog[choice.evidence].ref };
-    if (choice.character) outcome.character = choice.character;
+    const outcome = choice.result
+      ? { ...choice.result }
+      : { type: "选择的后果", speaker: "页边记录", text: choice.outcome, source: evidenceCatalog[choice.evidence].ref };
+    if (choice.character && !outcome.character) outcome.character = choice.character;
     if (chapter.id === "inf-09" && state.safety === 0) {
-      play([outcome], showPetrifiedEnding);
+      play([{
+        type: "迟疑",
+        speaker: "旁白",
+        text: "三本手册的规则在脑中互相争执。你知道应该闭眼，却慢了足以看见城楼反光的一瞬；维吉尔的手落下时，石化已经从视野边缘开始。",
+        source: "据 Inf. IX.52–60 改写"
+      }], showPetrifiedEnding);
       return;
     }
     play([outcome, ...chapter.shared], completeChapter);
@@ -662,7 +676,7 @@
       manual: {
         kicker: "结局 · 安全的单一解释",
         title: "道路清楚了，地狱也变窄了。",
-        body: "你的手册成功解释了五歌中的每一道危险，并把不服从其原则的材料压到页边。你安全抵达更深处，却把恰科、菲利波、复仇女神与卡瓦尔坎特重新变成同一种学派的例证。规则没有说谎；它只是拒绝承认自己看不见什么。"
+        body: "你的手册解释了这一段旅程的每一道危险，也把不服从其原则的材料压到页边。你安全抵达更深处，却把恰科、菲利波、复仇女神与卡瓦尔坎特变成同一种学派的例证。规则没有说谎；它只是拒绝承认自己看不见什么。"
       },
       archive: {
         kicker: "结局 · 未完成的复数档案",
