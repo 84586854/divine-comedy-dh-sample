@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0e">
+  <title>下降之路 · 地狱篇第六至第十歌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="journey.css">
+</head>
+<body>
+  <main class="arc" id="arc" data-role="" data-weather="rain">
+    <div class="world" aria-label="但丁《地狱篇》第六至第十歌的行旅场景">
+      <img id="sceneImage" src="assets/canto6-rain-v1.png" alt="第三圈的冰冷污雨与刻耳柏洛斯">
+      <div class="world-tint"></div>
+      <div class="weather" aria-hidden="true"></div>
+    </div>
+
+    <header class="topbar">
+      <a class="brand" href="index.html"><small>INFERNO · CONTINUED</small><strong>下降之路</strong></a>
+      <ol class="canto-progress" id="cantoProgress" aria-label="章节进度"></ol>
+      <div class="top-actions">
+        <button id="soundButton" type="button" aria-pressed="false">声音</button>
+        <button id="manualButton" type="button">手册 <kbd>Tab</kbd></button>
+      </div>
+    </header>
+
+    <section class="role-gate" id="roleGate">
+      <p class="eyebrow">从第五歌继续下降</p>
+      <h1>风停以后，冰雨落了下来。</h1>
+      <p id="gateText">你仍带着上一章选定的手册。它会继续保护你，也会继续把某些事实挡在页外。</p>
+      <div class="role-options" id="roleOptions"></div>
+      <div class="gate-actions" id="gateActions"></div>
+    </section>
+
+    <section class="play" id="play" hidden>
+      <div class="chapter-heading">
+        <span id="chapterIndex">第六歌</span>
+        <h1 id="chapterTitle">冰雨中的名字</h1>
+        <p id="chapterPremise"></p>
+      </div>
+
+      <figure class="character" id="character" hidden>
+        <img id="characterImage" alt="">
+        <figcaption><small id="characterRole"></small><strong id="characterName"></strong></figcaption>
+      </figure>
+
+      <section class="dialogue" id="dialogue" aria-live="polite">
+        <header><span id="lineType">抵达</span><strong id="speaker">旁白</strong><i id="source"></i></header>
+        <p id="lineText"></p>
+        <div class="choices" id="choices"></div>
+        <button class="continue" id="continueButton" type="button">继续 <kbd>Space</kbd></button>
+      </section>
+
+      <aside class="journey-state" aria-label="旅程状态">
+        <div><span>方向感</span><b id="safetyPips"></b></div>
+        <div><span>越出本册</span><strong id="fractureCount">0</strong></div>
+        <div><span>已存证据</span><strong id="evidenceCount">0</strong></div>
+      </aside>
+    </section>
+
+    <section class="interlude" id="interlude" hidden>
+      <span id="interludeLabel">歌与歌之间</span>
+      <blockquote id="interludeQuote"></blockquote>
+      <p id="interludeSource"></p>
+      <button id="nextCanto" type="button">继续下降</button>
+    </section>
+
+    <section class="finale" id="finale" hidden>
+      <p class="eyebrow">第十歌之后 · 行旅记录</p>
+      <h1>你要把哪一种地狱带到下一层？</h1>
+      <p>五歌之中，你看见欲望怎样从个人身体扩展到城市、财富、仇恨、知识与政治记忆。最后一条记录会决定手册是否承认自己的盲点。</p>
+      <div class="final-choices" id="finalChoices"></div>
+    </section>
+
+    <section class="result" id="result" hidden>
+      <p class="eyebrow" id="resultKicker"></p>
+      <h1 id="resultTitle"></h1>
+      <p id="resultBody"></p>
+      <div class="record" id="resultRecord"></div>
+      <div class="result-actions">
+        <button id="replayArc" type="button">换一种手册重走</button>
+        <a href="atlas.html">进入百歌资料库</a>
+        <a href="index.html">返回第五歌</a>
+      </div>
+    </section>
+
+    <aside class="manual" id="manual" hidden aria-label="随身手册">
+      <header><div><span id="manualGlyph">I</span><p><small>FIELD NOTES · VI–X</small><strong id="manualTitle"></strong></p></div><button id="closeManual" type="button" aria-label="合上手册">×</button></header>
+      <nav>
+        <button data-tab="rules" class="is-active">规则</button>
+        <button data-tab="evidence">证据</button>
+        <button data-tab="sources">原文坐标</button>
+      </nav>
+      <div class="manual-body">
+        <section data-panel="rules"><p id="manualIntro"></p><ol id="manualRules"></ol><p class="manual-warning" id="manualWarning"></p></section>
+        <section data-panel="evidence" hidden><div class="evidence-list" id="evidenceList"></div></section>
+        <section data-panel="sources" hidden><div id="sourceList"></div><a class="atlas-link" href="atlas.html">核对意大利原文、英文与王维克译文</a></section>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast" hidden></div>
+  </main>
+  <script src="journey.js"></script>
+</body>
+</html>

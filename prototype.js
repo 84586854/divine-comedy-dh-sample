@@ -255,6 +255,7 @@
 
   function startGame(role) {
     state.role = role;
+    try { localStorage.setItem("dante_manual", role); } catch { /* local preview may deny storage */ }
     $("#app").dataset.role = role;
     $("#openManual").disabled = false;
     $("#opening").hidden = true;
