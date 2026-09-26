@@ -4,19 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#070706" />
-  <meta name="description" content="第一人称《神曲》规则怪谈：100歌剧情演绎、人物对话、三语阅读、王维克中文全译与沉浸配乐。" />
+  <meta name="description" content="第一人称《神曲》规则怪谈：100歌剧情演绎、三种解释传统、跨歌后果、三语阅读与王维克中文全译。" />
   <title>进入此门者｜第一人称《神曲》旅程</title>
   <link rel="preload" as="image" href="assets/inferno-first-person.png" />
   <link rel="preload" as="image" href="assets/traveler-hands-manual.png" />
   <link rel="preload" as="image" href="assets/character-virgil.png" />
   <link rel="preload" as="image" href="assets/character-francesca-paolo.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="immersive.css?v=20260920-interludes1" />
+  <link rel="stylesheet" href="immersive.css?v=20260923-spatial1" />
 </head>
 <body>
   <main class="game realm-inferno" id="game" aria-label="第一人称三界旅程">
     <div class="world" id="world" aria-hidden="true">
       <img class="world-image" id="worldImage" src="assets/inferno-first-person.png" alt="" />
+      <canvas id="world3d" hidden></canvas>
       <canvas id="atmosphere"></canvas>
       <div class="depth-fog"></div><div class="vignette"></div>
     </div>
@@ -30,9 +31,10 @@
       </div>
     </header>
 
-    <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span><span class="burden-stat" title="旅途负担">负 <b id="burdenValue">0</b></span></div>
-    <div class="school-orbit" id="schoolHud">尚未选择规则手册</div>
+    <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span><span class="burden-stat" title="道路张力">张 <b id="burdenValue">0</b></span></div>
+    <div class="school-orbit" id="schoolHud">尚未选择解释手册</div>
     <div class="reticle" aria-hidden="true"><i></i><i></i></div>
+    <div class="spatial-hud" id="spatialHud" hidden><span id="spatialObjective">穿过永恒风暴</span><i><b id="spatialProgress"></b></i><small>W 前行 · A/D 侧移 · 移动鼠标环视</small></div>
 
     <figure class="character-stage" id="characterStage" hidden>
       <img id="characterPortrait" src="assets/character-virgil.png" alt="" />
@@ -56,7 +58,9 @@
     <section class="interlude" id="interlude" aria-live="polite" hidden>
       <div class="interlude-rule"></div>
       <p id="interludeRoute"></p>
+      <span class="interlude-theme" id="interludeTheme"></span>
       <blockquote><q id="interludeQuote"></q><cite id="interludeSource"></cite></blockquote>
+      <p class="interlude-note" id="interludeNote"></p>
       <button id="interludeContinue" type="button"><span>W</span> 进入下一歌</button>
     </section>
 
@@ -69,22 +73,30 @@
 
     <aside class="compendium" id="compendium" hidden>
       <header><div><span>FIELD MANUAL</span><h2>随身手册</h2></div><button id="closeCompendium" type="button" aria-label="关闭手册">×</button></header>
-      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="school" type="button">学派规则</button><button data-panel="text" type="button">三语阅读</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
+      <nav aria-label="手册内容"><button class="is-active" data-panel="record" type="button">本歌记录</button><button data-panel="school" type="button">解释规则</button><button data-panel="threads" type="button">跨歌回声</button><button data-panel="text" type="button">三语阅读</button><button data-panel="map" type="button">百歌地图</button><button data-panel="sources" type="button">文献来源</button></nav>
       <div class="manual-panel is-active" data-manual-panel="record">
         <p class="folio" id="recordRef">INF. I</p><h3 id="recordTitle">幽暗森林</h3>
         <div class="record-dialogue" id="recordDialogue"></div>
         <p id="recordBody">本歌尚未作出判断。</p>
-        <div class="school-verdict" id="schoolVerdict"><span>学派判词</span><p>选择身份后，手册会在这里留下批注。</p></div>
-        <p class="fate-status" id="fateStatus">旅途负担 0 / 7</p>
+        <section class="source-trace"><span id="evidenceType">原诗索引</span><strong id="evidenceRef">Inf. I.1–136</strong><p id="evidenceNote">本歌场景依据原诗重构；人物对白将标明直引或改写。</p></section>
+        <div class="school-verdict" id="schoolVerdict"><span>解释批注</span><p>选择手册后，这里会记录它如何阅读你的行动。</p></div>
+        <p class="fate-status" id="fateStatus">道路张力 0 / 7</p>
         <div class="error-mark" id="errorMark" hidden><span>当前偏向</span><strong id="errorLabel"></strong></div>
       </div>
       <div class="manual-panel school-panel" data-manual-panel="school" hidden>
         <p class="folio">INTERPRETIVE PROTOCOL</p><h3 id="schoolName">学派规则</h3>
         <p class="school-scholar" id="schoolScholar"></p>
         <blockquote id="schoolThesis"></blockquote>
+        <div class="method-pair"><p><span>你能做什么</span><strong id="schoolTool"></strong></p><p><span>手册看不见什么</span><strong id="schoolBlindSpot"></strong></p></div>
         <ol class="school-rules" id="schoolRules"></ol>
         <div class="school-ledger"><span id="schoolSafety"></span><span id="schoolDoubt"></span></div>
         <p class="school-warning" id="schoolWarning"></p>
+      </div>
+      <div class="manual-panel threads-panel" data-manual-panel="threads" hidden>
+        <p class="folio">ECHOES ACROSS THE POEM</p><h3>跨歌回声</h3>
+        <p>关键判断不会在离开本歌后消失。它们会改变后来的人物、问题和手册文字。</p>
+        <div class="thread-summary"><span id="fractureCount">手册裂痕 0 / 3界</span><span id="threadCount">尚无回声</span></div>
+        <div class="thread-list" id="threadList"></div>
       </div>
       <div class="manual-panel evidence-panel" data-manual-panel="text" hidden>
         <div class="evidence-heading"><div><p class="folio" id="textRef"></p><h3>三语阅读</h3></div><button class="text-button" id="toggleLines" type="button">展开意/英全歌</button></div>
@@ -111,6 +123,8 @@
         <a href="https://icwar.bfsu.edu.cn/__local/C/5C/36/866BDBA2E367BA9104724E0DD99_2E299E2A_2F5A9C.pdf?e=.pdf" target="_blank" rel="noreferrer"><strong>汉译研究论文</strong><span>首个中文全译本及译本史说明</span></a>
         <a href="https://dante.princeton.edu/dante/pdp/commedia.html" target="_blank" rel="noreferrer"><strong>Princeton Dante Project</strong><span>原文、译文与评论入口</span></a>
         <a href="https://dante.dartmouth.edu/" target="_blank" rel="noreferrer"><strong>Dartmouth Dante Project</strong><span>历史评论数据库</span></a>
+        <a href="https://digitaldante.columbia.edu/dante/divine-comedy/" target="_blank" rel="noreferrer"><strong>Digital Dante</strong><span>逐歌原文、译文与专题评论</span></a>
+        <a href="https://worldofdante.org/" target="_blank" rel="noreferrer"><strong>World of Dante</strong><span>人物、地点、地图、时间线与图像</span></a>
         <a href="https://plato.stanford.edu/entries/aquinas/" target="_blank" rel="noreferrer"><strong>Thomas Aquinas</strong><span>意志、德性与自由选择</span></a>
         <a href="https://dante.princeton.edu/cgi-bin/dante/DispMinorWork.pl?REF=XIII.20&amp;TITLE=Epist" target="_blank" rel="noreferrer"><strong>《致斯卡拉大亲王书》第十三封</strong><span>《神曲》的复义阅读传统</span></a>
         <a href="https://assets.press.princeton.edu/chapters/i10091.pdf" target="_blank" rel="noreferrer"><strong>Erich Auerbach</strong><span>形象论、历史现实与尘世人物</span></a>
@@ -123,9 +137,9 @@
     </aside>
 
     <div class="role-gate" id="roleGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
-      <div class="gate-card"><span class="gate-kicker">1300 · SELVA OSCURA</span><h1 id="gateTitle">你在黑暗森林里醒来。</h1><p>远处有人提着灯，脚边放着三本规则手册。每一本都能让你安全穿越三界，也都会把你困在一种解释里。选择一本；旅程会记住你何时服从它，又何时开始怀疑它。</p><div class="roles"><button data-role="wanderer" type="button"><small>经院神学</small><strong>秩序见习者</strong><span>以阿奎那式德性、意志与善的秩序判断道路</span></button><button data-role="witness" type="button"><small>形象论</small><strong>尘世见证者</strong><span>依奥尔巴赫保存人物的历史处境与具体声音</span></button><button data-role="reader" type="button"><small>皈依诗学</small><strong>回转校勘者</strong><span>随弗雷切罗追踪旅人怎样在误读中改变自己</span></button></div></div>
+      <div class="gate-card"><span class="gate-kicker">一份三语校勘稿 · 页码 1300</span><h1 id="gateTitle">文本先于你翻了一页。</h1><p>意大利文、英文和中文突然彼此错开。墨迹从屏幕流到你的手上；再抬头时，你已经站在黑暗森林里。远处的人叫你“但丁”，而脚边三本手册却写着数百年后才会出现的名字。</p><p class="gate-premise">它们都能保护你，也都会删去自己无法解释的东西。选择一种阅读方法进入旅程；真正的出口不在完全服从之中。</p><div class="roles"><button data-role="wanderer" type="button"><small>托马斯主义伦理传统</small><strong>秩序诠释者</strong><span>拆解行动、目的和责任；盲点是把人物压成类别</span></button><button data-role="witness" type="button"><small>形象论与历史现实主义</small><strong>历史见证者</strong><span>追索姓名、城邦和关系；盲点是过度相信鲜活证词</span></button><button data-role="reader" type="button"><small>奥古斯丁式皈依诗学</small><strong>回转校勘者</strong><span>修订自己的误读；盲点是把他人变成自我寓言</span></button></div></div>
     </div>
   </main>
-  <script src="encounters.js?v=20260921-narrative1"></script><script src="app.js?v=20260921-narrative1"></script>
+  <script src="encounters.js?v=20260923-foundation1"></script><script src="world3d.js?v=20260923-spatial1"></script><script src="app.js?v=20260923-spatial1"></script>
 </body>
 </html>

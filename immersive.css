@@ -43,6 +43,42 @@
 .sound-bars i:nth-child(3) { height: 68%; animation-delay: -.6s; }
 .sound-toggle.is-off .sound-bars i { height: 2px; animation: none; }
 .world-prompt[hidden] { display: none; }
+#world3d {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity .7s ease;
+}
+#world3d[hidden] { display: none; }
+#world3d.is-active { opacity: 1; }
+.world-image { position: relative; z-index: 0; transition: opacity .7s ease, filter .4s ease; }
+#atmosphere,.depth-fog,.vignette { z-index: 2; }
+.game.is-spatial .world-image { opacity: 0; }
+.game.is-spatial #atmosphere { opacity: .28; }
+.game.is-spatial .reticle { opacity: .92; }
+
+.spatial-hud {
+  position: absolute;
+  left: 1.7rem;
+  bottom: 5rem;
+  z-index: 8;
+  display: grid;
+  gap: .42rem;
+  width: min(21rem, calc(100vw - 3.4rem));
+  padding: .7rem .8rem;
+  border-left: 2px solid var(--accent);
+  background: linear-gradient(90deg,rgba(4,4,4,.72),rgba(4,4,4,.18));
+  text-shadow: 0 2px 9px #000;
+  pointer-events: none;
+}
+.spatial-hud[hidden] { display: none; }
+.spatial-hud span { color: var(--paper); font-size: .8rem; letter-spacing: .08em; }
+.spatial-hud i { height: 2px; overflow: hidden; background: rgba(255,255,255,.18); }
+.spatial-hud b { display: block; width: 0; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); transition: width .18s linear; }
+.spatial-hud small { color: var(--dim); font: 600 .64rem/1.4 ui-monospace,monospace; }
 .burden-stat b { color: #ff7257; }
 .school-orbit { position: absolute; top: 9.25rem; left: 1.7rem; z-index: 7; max-width: 25rem; padding: .4rem .55rem; border-left: 2px solid var(--accent); background: rgba(0,0,0,.38); color: var(--dim); font: 700 .68rem/1.4 ui-monospace,monospace; backdrop-filter: blur(8px); }
 .game.is-burdened .vignette { box-shadow: inset 0 0 20vw 7vw rgba(85, 10, 5, .68); }
@@ -132,9 +168,11 @@
 .interlude[hidden] { display: none; }
 .interlude-rule { width: min(16rem,55vw); height: 1px; background: linear-gradient(90deg,transparent,var(--accent),transparent); box-shadow: 0 0 18px var(--accent); }
 .interlude > p { margin: 0; color: var(--dim); font: 600 .68rem/1.5 ui-monospace,monospace; letter-spacing: .1em; }
+.interlude-theme { color: var(--accent); font: 700 .7rem/1 ui-monospace,monospace; letter-spacing: .16em; text-transform: uppercase; }
 .interlude blockquote { display: grid; gap: 1rem; width: min(760px,88vw); margin: .6rem 0; }
 .interlude q { color: var(--paper); font-size: clamp(1.5rem,3.2vw,3.1rem); line-height: 1.42; text-wrap: balance; text-shadow: 0 4px 28px rgba(0,0,0,.85); }
 .interlude cite { color: var(--accent); font-size: .8rem; font-style: normal; letter-spacing: .08em; }
+.interlude .interlude-note { max-width: 680px; color: #bdb5a8; font: .9rem/1.72 "Songti SC","Noto Serif CJK SC",Georgia,serif; letter-spacing: 0; text-wrap: balance; }
 .interlude button { margin-top: .5rem; padding: .65rem 1rem; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.04); color: var(--paper); cursor: pointer; }
 .interlude button:hover { border-color: var(--accent); }
 .interlude button span { display: inline-grid; width: 1.45rem; height: 1.45rem; margin-right: .4rem; place-items: center; border: 1px solid rgba(255,255,255,.3); font: 700 .68rem/1 ui-monospace,monospace; }
@@ -212,21 +250,43 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
 .record-dialogue b { color: #8b3e2a; font-weight: 600; }
 .record-dialogue span { color: #584b3a; }
 .fate-status { margin-top: 1rem; padding-top: .7rem; border-top: 1px solid rgba(60, 43, 26, .18); color: #8b3e2a; font: 700 .72rem/1.4 ui-monospace, monospace; }
-.compendium nav { grid-template-columns: repeat(5, 1fr); }
+.compendium nav { grid-template-columns: repeat(6, 1fr); }
 .roles small, .roles strong, .roles span { display: block; }
 .roles small { margin-bottom: .45rem; color: var(--accent); font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .12em; }
 .roles span { line-height: 1.55; }
 .school-verdict { margin: 1rem 0; padding: .85rem 1rem; border-left: 3px solid #8b3e2a; background: rgba(84, 54, 27, .08); }
 .school-verdict span { color: #8b3e2a; font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .1em; }
 .school-verdict p { margin: .45rem 0 0; color: #4d3d2d; font-size: .84rem; line-height: 1.7; }
+.source-trace { margin: 1rem 0; padding: .9rem 1rem; border: 1px solid rgba(67,47,27,.2); background: rgba(255,255,255,.16); }
+.source-trace span,.source-trace strong { display: block; }
+.source-trace span { color: #8b3e2a; font: 700 .66rem/1 ui-monospace,monospace; letter-spacing: .1em; }
+.source-trace strong { margin-top: .45rem; color: #392b1f; font: 700 .86rem/1.4 ui-monospace,monospace; }
+.source-trace p { margin: .45rem 0 0; color: #66533f; font-size: .79rem; line-height: 1.65; }
 .school-scholar { margin: -.45rem 0 1rem; color: #80634a; font-size: .8rem; }
 .school-panel blockquote { margin: 0 0 1.2rem; padding: .9rem 1rem; border-left: 3px solid #8b3e2a; background: rgba(84,54,27,.08); color: #4a3928; line-height: 1.75; }
+.method-pair { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin: 0 0 1rem; }
+.method-pair p { margin: 0; padding: .85rem; border: 1px solid rgba(67,47,27,.2); }
+.method-pair span,.method-pair strong { display: block; }
+.method-pair span { color: #8b3e2a; font: 700 .65rem/1 ui-monospace,monospace; letter-spacing: .08em; }
+.method-pair strong { margin-top: .45rem; color: #4d3d2d; font-size: .8rem; font-weight: 500; line-height: 1.6; }
 .school-rules { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; counter-reset: rules; }
 .school-rules li { position: relative; padding: .75rem .8rem .75rem 3rem; border: 1px solid rgba(67,47,27,.2); color: #493a2b; line-height: 1.6; counter-increment: rules; }
 .school-rules li:before { content: counter(rules, upper-roman); position: absolute; left: .85rem; top: .82rem; color: #8b3e2a; font: 700 .7rem/1 ui-monospace,monospace; }
 .school-ledger { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 1rem; }
 .school-ledger span { padding: .7rem; border: 1px solid rgba(67,47,27,.2); color: #6b513a; font: 700 .72rem/1.4 ui-monospace,monospace; }
 .school-warning { color: #72513b; font-size: .78rem; }
+.thread-summary { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin: 1rem 0; }
+.thread-summary span { padding: .7rem; border: 1px solid rgba(67,47,27,.2); color: #6b513a; font: 700 .72rem/1.4 ui-monospace,monospace; }
+.thread-list { display: grid; gap: .7rem; }
+.thread-empty { padding: 1rem; border: 1px dashed rgba(67,47,27,.25); color: #75634f; font-size: .82rem; line-height: 1.7; }
+.thread-card { padding: 1rem; border: 1px solid rgba(67,47,27,.24); background: rgba(81,54,28,.045); }
+.thread-card.is-resolved { border-left: 3px solid #8b3e2a; background: rgba(117,48,31,.07); }
+.thread-card div { display: flex; justify-content: space-between; gap: .8rem; }
+.thread-card strong { color: #3e2f21; font-size: .9rem; }
+.thread-card div span { flex: 0 0 auto; color: #8b3e2a; font: 700 .65rem/1.4 ui-monospace,monospace; }
+.thread-card p { margin: .65rem 0; color: #574634; font-size: .8rem; line-height: 1.7; }
+.thread-card small { color: #806c55; font: .68rem/1.4 ui-monospace,monospace; }
+.gate-premise { padding-top: .8rem; border-top: 1px solid rgba(255,255,255,.12); }
 
 .alignment-note,
 .method-note {
@@ -344,6 +404,9 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
 }
 
 @media (max-width: 650px) {
+  .role-gate { display: block; overflow: auto; padding: .75rem; }
+  .role-gate[hidden] { display: none; }
+  .gate-card { margin: 0 auto; padding: 1.35rem; }
   .compendium { position: fixed; inset: .5rem; width: auto; }
   .hud-actions { gap: .25rem; }
   .sound-toggle b { display: none; }
@@ -355,7 +418,10 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
   .tercet div:last-child { grid-column: 2; padding-top: .25rem; border-top: 1px dashed rgba(60, 43, 26, .14); }
   .record-dialogue p { grid-template-columns: 5rem 1fr; }
   .compendium nav { grid-template-columns: repeat(3, 1fr); }
+  .method-pair,.thread-summary { grid-template-columns: 1fr; }
   .school-orbit { top: 8.9rem; left: 1rem; max-width: 70vw; }
+  .spatial-hud { left: 1rem; bottom: 4.4rem; width: min(18rem,calc(100vw - 2rem)); }
+  .spatial-hud small { font-size: .58rem; }
   body:has(.encounter:not([hidden])) .manual-rig {
     top: 6.8rem;
     right: .75rem;

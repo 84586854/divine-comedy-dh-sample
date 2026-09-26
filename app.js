@@ -8,32 +8,35 @@ inferno:{zh:"地狱篇",en:"INFERNO",abbr:"Inf.",image:"assets/inferno-first-per
 purgatorio:{zh:"炼狱篇",en:"PURGATORIO",abbr:"Purg.",image:"assets/purgatorio-first-person.png",transition:"我们沿炼狱山向上行走；这里的灵魂并非永远定型，他们正在用时间重新训练欲望。"},
 paradiso:{zh:"天堂篇",en:"PARADISO",abbr:"Par.",image:"assets/paradiso-first-person.png",transition:"我们上升到新的天球；这里的相遇不是刑罚展示，而是一次关于知识、爱与观看限度的教学。"}};
 const roles={
-  wanderer:{name:"秩序见习者",school:"经院神学",scholar:"托马斯·阿奎那及中世纪德性论传统",will:58,mercy:54,insight:53,thesis:"行动必须服从善的正确秩序。自由不是任性，而是意志在理性辨认的善中自我决定。",plainThesis:"别只问‘我想不想’，要问‘这件事本身对不对、目的是什么、手段是否正当’。",rules:["先辨认行动所追求的善，不因痛苦或快意改变善恶名称。","区分行为、意图与处境；好意不能自动使错误手段正当。","怜悯受苦者，但不要让怜悯取消其自由意志与责任。","把惩罚看作欲望秩序的显形，不以私人好恶改写宇宙等级。","当理性抵达边界时承认恩典，但不得借恩典逃避判断。"],plainRules:["先看这件事到底在追求什么，不能因为结果舒服就说它是好的。","动机好不等于手段对，还要看当时的具体处境。","可以同情一个人，但不能因此说他完全没有选择。","不要因为喜欢或讨厌某个人，就随意改变判断标准。","不知道时可以承认不知道，但不能把责任全推给命运或神意。"]},
-  witness:{name:"尘世见证者",school:"形象论与历史现实主义",scholar:"埃里希·奥尔巴赫",will:49,mercy:66,insight:55,thesis:"亡灵不是抽象罪名的标本。永恒处境完成、放大却没有抹除他们尘世的语言、身体、政治与个性。",plainThesis:"别急着把人物叫作‘罪人’或‘圣人’，先弄清他是谁、从哪里来、经历了什么。",rules:["先记住人物怎样说话，再判断他被归入哪一类。","不得用寓意标签抹去姓名、城邦、亲缘与历史处境。","让永恒结局与尘世生命彼此照明，不把任何一边降为幻象。","保存矛盾：人物可以有罪，也可以仍然具有尊严与真实痛苦。","警惕宏大秩序遮蔽具体的人；每次裁决都要留下人的面孔。"],plainRules:["先让人物把话说完，注意他用了什么词和语气。","记住他的姓名、城市、家族和关系，不要只贴标签。","把他现在的处境和生前经历放在一起看。","一个人可以做错事，同时仍值得被当作具体的人理解。","每次判断都要问：这套大道理有没有把眼前这个人抹掉？"]},
-  reader:{name:"回转校勘者",school:"皈依诗学",scholar:"约翰·弗雷切罗及奥古斯丁式阅读传统",will:52,mercy:49,insight:67,thesis:"《神曲》不只是展示彼岸，也是旅人学习重新阅读自己的过程。一次正确解释若不改变观看者，仍可能是一种迷失。",plainThesis:"重点不只是‘他对不对’，还要观察你为什么相信他，以及这次相遇有没有改变你的看法。",rules:["区分正在犯错的旅人和回望旅程的诗人；两种声音不可混为一谈。","把迷路、下降、转身与上升视为精神运动，而非旅游路线。","每次被人物打动时，检查自己的同情是否也可能是一种误读。","解释必须带来意志的转向；只增加知识而不改变自己不算通过。","保留失败和修订痕迹，因为皈依不是瞬间获得无误答案。"],plainRules:["故事里的但丁会犯错；后来写书的但丁在回头反省，两者别混为一谈。","下降和上升也代表认识方式在变化，不只是换地图。","被人物感动时，顺便问问自己是不是被漂亮的说法带偏了。","真正理解以后，你的下一步应该会改变；只记知识点不算通过。","犯错不可怕，重要的是留下记录并愿意修正。"]}
+  wanderer:{name:"秩序诠释者",school:"托马斯主义伦理传统",scholar:"托马斯·阿奎那及中世纪德性论传统",will:58,mercy:54,insight:53,tool:"拆解行动、目的、手段与处境，识别貌似高尚的错误理由。",blindSpot:"秩序太整齐时，人物会被压缩成罪类和结论。",thesis:"行动必须服从善的正确秩序。自由不是任性，而是意志在理性辨认的善中自我决定。",plainThesis:"别只问‘我想不想’，要问‘这件事本身对不对、目的是什么、手段是否正当’。",rules:["先辨认行动所追求的善，不因痛苦或快意改变善恶名称。","区分行为、意图与处境；好意不能自动使错误手段正当。","怜悯受苦者，但不要让怜悯取消其自由意志与责任。","把惩罚看作欲望秩序的显形，不以私人好恶改写宇宙等级。","当理性抵达边界时承认恩典，但不得借恩典逃避判断。"],plainRules:["先看这件事到底在追求什么，不能因为结果舒服就说它是好的。","动机好不等于手段对，还要看当时的具体处境。","可以同情一个人，但不能因此说他完全没有选择。","不要因为喜欢或讨厌某个人，就随意改变判断标准。","不知道时可以承认不知道，但不能把责任全推给命运或神意。"]},
+  witness:{name:"历史见证者",school:"形象论与历史现实主义",scholar:"埃里希·奥尔巴赫及形象论传统",will:49,mercy:66,insight:55,tool:"追索姓名、城邦、亲缘和说话方式，让永恒处境重新连到尘世历史。",blindSpot:"具体声音越动人，越容易把自我辩护误听成全部事实。",thesis:"亡灵不是抽象罪名的标本。永恒处境完成、放大却没有抹除他们尘世的语言、身体、政治与个性。",plainThesis:"别急着把人物叫作‘罪人’或‘圣人’，先弄清他是谁、从哪里来、经历了什么。",rules:["先记住人物怎样说话，再判断他被归入哪一类。","不得用寓意标签抹去姓名、城邦、亲缘与历史处境。","让永恒结局与尘世生命彼此照明，不把任何一边降为幻象。","保存矛盾：人物可以有罪，也可以仍然具有尊严与真实痛苦。","警惕宏大秩序遮蔽具体的人；每次裁决都要留下人的面孔。"],plainRules:["先让人物把话说完，注意他用了什么词和语气。","记住他的姓名、城市、家族和关系，不要只贴标签。","把他现在的处境和生前经历放在一起看。","一个人可以做错事，同时仍值得被当作具体的人理解。","每次判断都要问：这套大道理有没有把眼前这个人抹掉？"]},
+  reader:{name:"回转校勘者",school:"奥古斯丁式皈依诗学",scholar:"约翰·弗雷切罗及奥古斯丁式阅读传统",will:52,mercy:49,insight:67,tool:"回看并修订旧判断，区分正在犯错的旅人与后来写作的诗人。",blindSpot:"一切都被读成自我转变时，别人的历史会沦为你的寓言。",thesis:"《神曲》不只是展示彼岸，也是旅人学习重新阅读自己的过程。一次正确解释若不改变观看者，仍可能是一种迷失。",plainThesis:"重点不只是‘他对不对’，还要观察你为什么相信他，以及这次相遇有没有改变你的看法。",rules:["区分正在犯错的旅人和回望旅程的诗人；两种声音不可混为一谈。","把迷路、下降、转身与上升视为精神运动，而非旅游路线。","每次被人物打动时，检查自己的同情是否也可能是一种误读。","解释必须带来意志的转向；只增加知识而不改变自己不算通过。","保留失败和修订痕迹，因为皈依不是瞬间获得无误答案。"],plainRules:["故事里的但丁会犯错；后来写书的但丁在回头反省，两者别混为一谈。","下降和上升也代表认识方式在变化，不只是换地图。","被人物感动时，顺便问问自己是不是被漂亮的说法带偏了。","真正理解以后，你的下一步应该会改变；只记知识点不算通过。","犯错不可怕，重要的是留下记录并愿意修正。"]}
 };
 const portraits={
 virgil:"assets/character-virgil.png",beatrice:"assets/character-beatrice.png",
-francesca:"assets/character-infernal-soul.png",inferno:"assets/character-infernal-soul.png",purgatorio:"assets/character-penitent.png",paradiso:"assets/character-celestial.png"
+francesca:"assets/character-francesca-paolo.png",ulysses:"assets/character-ulysses-v2.png",ugolino:"assets/character-ugolino-v2.png",piccarda:"assets/character-piccarda-v2.png",
+inferno:"assets/character-infernal-soul.png",purgatorio:"assets/character-penitent.png",paradiso:"assets/character-celestial.png"
 };
-const storageKey="dante-immersive-v5";
+const storageKey="dante-immersive-v6";
 let corpus=null,index=0,phase="explore",pendingIndex=null,showAll=false,showAllChinese=false,particles=[],ctx=null,dialogueHistory=[],visibleChoiceOrder=[0,1,2];
-let state=loadState();
+let state=loadState(),spatialWorld=null;
 
-function loadState(){try{return{role:null,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:true,...JSON.parse(localStorage.getItem(storageKey)||"{}")}}catch{return{role:null,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:true}}}
+function loadState(){const defaults={role:null,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:true,fragments:[]};try{const previous=JSON.parse(localStorage.getItem("dante-immersive-v5")||"{}"),saved=JSON.parse(localStorage.getItem(storageKey)||"{}");return{...defaults,musicOn:previous.musicOn??true,...saved}}catch{return defaults}}
 function save(){try{localStorage.setItem(storageKey,JSON.stringify(state))}catch{}}
 function current(){return corpus.cantos[index]}
 function data(){const c=current();return window.DANTE_ENCOUNTERS[c.realm][c.canto-1]}
 function title(c=current()){return titles[c.realm][c.canto-1]}
 function clamp(n){return Math.max(0,Math.min(100,n))}
-function stats(){const base=roles[state.role]||roles.wanderer,s={will:base.will,mercy:base.mercy,insight:base.insight};Object.values(state.decisions).forEach(d=>Object.entries(d.effect||{}).forEach(([k,v])=>s[k]=clamp(s[k]+v)));return s}
-function choiceBurden(effect={}){const values=Object.values(effect),harm=values.filter(v=>v<0).reduce((sum,v)=>sum+Math.abs(v),0),help=values.filter(v=>v>0).reduce((sum,v)=>sum+v,0);if(harm>=4)return 2;if(harm>0)return 1;if(help>=5)return-1;return 0}
+function stats(){const base=roles[state.role]||roles.wanderer,s={will:base.will,mercy:base.mercy,insight:base.insight};Object.values(state.decisions).slice(-12).forEach(d=>Object.entries(d.effect||{}).forEach(([k,v])=>s[k]=clamp(s[k]+v)));return s}
+function methodEffect(choice){const profile={wanderer:{gain:"will",cost:"mercy"},witness:{gain:"mercy",cost:"will"},reader:{gain:"insight",cost:"mercy"}}[choice.school]||{gain:"insight",cost:"will"},out={};Object.entries(choice.effect||{}).forEach(([key,value])=>out[key]=Math.max(-2,Math.min(2,value)));out[profile.gain]=Math.max(2,out[profile.gain]||0);out[profile.cost]=-1;return out}
 function keywordScore(text,words){return words.reduce((score,word)=>score+(text.includes(word)?1:0),0)}
 function schoolScore(choice,role=state.role){const e=choice.effect||{},text=`${choice.text} ${choice.result}`,positive=Object.values(e).filter(v=>v>0).reduce((a,b)=>a+b,0),negative=Object.values(e).filter(v=>v<0).reduce((a,b)=>a+Math.abs(b),0);if(role==="wanderer")return positive-negative*2+keywordScore(text,["承认","责任","秩序","辨认","说明","追问","证据","节制"])*2-keywordScore(text,["伪装","混进","逃避","不负责","立即占有"])*2;if(role==="witness")return(e.mercy||0)*1.7+(e.insight||0)+keywordScore(text,["名字","记住","记录","询问","听","保留","城邦","父亲","母亲","人物"])*2-keywordScore(text,["抹去","只问","只记","拒绝替","停止观看"])*2;if(role==="reader")return(e.insight||0)*1.4+(e.will||0)+keywordScore(text,["承认","检验","修订","穿过","继续","改变","回望","错误","转向"])*2-keywordScore(text,["留在原地","等待","不再打开","停止","拒绝改变"])*2;return positive-negative}
 function followsRule(choiceIndex){const choices=data().choices,marked=choices.some(c=>c.school);if(marked){const mark=choices[choiceIndex]?.school;return Array.isArray(mark)?mark.includes(state.role):mark===state.role}const scores=choices.map(c=>schoolScore(c)),best=Math.max(...scores);return scores[choiceIndex]===best}
 function followed(){return Object.values(state.decisions).filter(d=>d.compliant).length}
 function broken(){return Object.values(state.decisions).filter(d=>d.compliant===false).length}
 function brokenRealms(){return new Set(Object.values(state.decisions).filter(d=>d.compliant===false).map(d=>d.realm)).size}
+function breakthroughs(){return Object.values(state.decisions).filter(d=>d.breakthrough)}
+function breakthroughRealms(){return new Set(breakthroughs().map(d=>d.realm)).size}
 function burden(){return Math.min(7,Math.max(0,Object.values(state.decisions).reduce((sum,d)=>sum+(d.compliant?Math.min(0,d.burdenDelta??0):Math.max(1,d.burdenDelta??1)),0)))}
 function formatEffect(effect={}){const labels={will:"意志",mercy:"怜悯",insight:"辨识"};return Object.entries(effect).map(([key,value])=>`${labels[key]} ${value>0?"+":""}${value}`).join(" · ")||"状态未变"}
 function updateStats(){const s=stats(),b=burden();$("#willValue").textContent=s.will;$("#mercyValue").textContent=s.mercy;$("#insightValue").textContent=s.insight;$("#burdenValue").textContent=b;$("#game").classList.toggle("is-burdened",b>=3)}
@@ -50,6 +53,9 @@ function portraitFor(name,c=current()){
   if(name.includes("维吉尔"))return portraits.virgil;
   if(name.includes("贝雅特丽齐"))return portraits.beatrice;
   if(name.includes("弗兰切斯卡")||name.includes("保罗"))return portraits.francesca;
+  if(name.includes("尤利西斯"))return portraits.ulysses;
+  if(name.includes("乌戈利诺"))return portraits.ugolino;
+  if(name.includes("皮卡尔达"))return portraits.piccarda;
   return portraits[c.realm];
 }
 function characterIdentity(name){
@@ -86,6 +92,48 @@ const storyOverrides={
   "paradiso-31":"贝雅特丽齐回到白玫瑰中的座位。你转身时发现身旁已经换成圣伯尔纳；他解释自己的身份，并把最后一段路从哲学论证转为观看训练与向圣母的祈求。",
   "paradiso-33":"圣伯尔纳祈祷后，你的目光被允许进入最后的光。此处不再出现新人物与你辩论；故事转为但丁如何用正在失效的记忆与语言，描述三重圆环和人神结合的形象。"
 };
+const evidenceIndex={
+  "inferno-1":{lines:"Inf. I.1–136",note:"迷失、三兽与维吉尔现身构成本次进入文本的原始场景。"},
+  "inferno-5":{lines:"Inf. V.73–142",note:"弗兰切斯卡的爱情话语、共同阅读与但丁昏厥集中于本段；游戏对白含节译和情境改写。"},
+  "inferno-9":{lines:"Inf. IX.34–105",note:"复仇女神、美杜莎威胁与天使开门在此连续发生。"},
+  "inferno-10":{lines:"Inf. X.22–93",note:"法里纳塔、卡瓦尔坎特和亡魂对未来与现在的认知差异在此交错。"},
+  "inferno-26":{lines:"Inf. XXVI.85–142",note:"尤利西斯最后航行及其劝说同伴的演说均在本段。"},
+  "inferno-33":{lines:"Inf. XXXIII.1–90",note:"乌戈利诺停止啃咬后讲述饥饿塔；游戏没有替原诗决定最具争议的死亡细节。"},
+  "purgatorio-1":{lines:"Purg. I.28–136",note:"加图盘问、维吉尔解释来意以及芦苇与净面仪式共同构成炼狱入口。"},
+  "purgatorio-2":{lines:"Purg. II.13–133",note:"天使之舟、卡塞拉的三次拥抱失败和歌唱中断均见于本段。"},
+  "purgatorio-16":{lines:"Purg. XVI.1–114",note:"烟幕、马可·伦巴多与自由意志及政治秩序的论证在此展开。"},
+  "purgatorio-30":{lines:"Purg. XXX.28–145",note:"贝雅特丽齐出现、维吉尔离去和公开责问构成同一连续场面。"},
+  "purgatorio-31":{lines:"Purg. XXXI.1–102",note:"承认偏离、昏厥与进入忘川依次发生；遗忘并不先于回答。"},
+  "paradiso-2":{lines:"Par. II.49–148",note:"月斑问题从直觉解释转入镜面实验和天体形式论。"},
+  "paradiso-3":{lines:"Par. III.34–130",note:"皮卡尔达的身份、受强迫离院和天堂满足问题均在本段。"},
+  "paradiso-6":{lines:"Par. VI.1–142",note:"查士丁尼以个人归信、罗马之鹰和罗密欧故事组织整歌。"},
+  "paradiso-10":{lines:"Par. X.28–148",note:"太阳天智慧者圆环与托马斯逐一指认同伴构成一幅人物化知识图。"},
+  "paradiso-17":{lines:"Par. XVII.37–142",note:"流放预言、异乡生活与诗人写出真相的责任在此连接。"},
+  "paradiso-24":{lines:"Par. XXIV.34–154",note:"圣彼得对信德定义、来源与证据的连续考问占据本段。"},
+  "paradiso-29":{lines:"Par. XXIX.85–126",note:"贝雅特丽齐对讲道者使用笑话和无来源传闻的批评集中于此。"},
+  "paradiso-31":{lines:"Par. XXXI.52–142",note:"贝雅特丽齐回到白玫瑰、伯尔纳接替引导以及最后祈祷的准备在此完成。"},
+  "paradiso-33":{lines:"Par. XXXIII.1–145",note:"圣母祈祷、记忆失效与三重圆环异象构成全诗终点。"}
+};
+const narrativeThreads=[
+  {id:"love",source:"inferno-5",target:"purgatorio-17",title:"爱情是否能够替行动免责",echo:{wanderer:"弗兰切斯卡曾把爱情说成行动者；你现在更警惕‘爱本身不会错’这句话被怎样使用。",witness:"风暴中那对具体恋人的声音仍在，使维吉尔的爱之分类不能只剩抽象层级。",reader:"你想起自己曾如何被弗兰切斯卡打动；眼前的理论也正在考验同一种阅读欲望。"}},
+  {id:"knowledge",source:"inferno-26",target:"paradiso-2",title:"求知的边界与方法",echo:{wanderer:"尤利西斯把求知当作无需说明代价的最高目的；这次实验必须先交代方法。",witness:"那艘越界的船曾由许多同伴共同承担后果；知识从来不是孤立英雄的所有物。",reader:"你仍记得自己为何愿意相信尤利西斯的演说；熟悉的直觉此刻再次要求被检验。"}},
+  {id:"freedom",source:"purgatorio-16",target:"paradiso-4",title:"强迫之下仍有多少自由",echo:{wanderer:"马可反对把行动全推给星辰；你因此要求把外在强迫与内在同意分别判断。",witness:"烟中的政治世界提醒你：个人意志从不脱离制度、家族与暴力。",reader:"马可让你看见‘时代如此’也可能是一种自我开脱；眼前的问题再次逼你修订措辞。"}},
+  {id:"farewell",source:"purgatorio-30",target:"paradiso-31",title:"引路人如何离去",echo:{wanderer:"维吉尔离去时没有留下新命令；这一次，你没有把引导结束误作秩序崩塌。",witness:"你记得维吉尔消失时那段未完成的关系，因此没有把贝雅特丽齐的离去只当作阶段切换。",reader:"你曾在失去维吉尔时暴露自己的依赖；如今更换最后一位向导又照见同一倾向。"}},
+  {id:"truth",source:"inferno-27",target:"paradiso-29",title:"好目的能否挽救坏证词",echo:{wanderer:"预先赦免不能让欺诈建议变正当；动人的寓意同样不能替虚假来源免责。",witness:"圭多的证词曾牵出教皇权力与个人选择；无来源故事也必须追问传播者和受益者。",reader:"你曾希望权威印章替判断收尾；精彩故事正在提出相同诱惑。"}},
+  {id:"city",source:"inferno-10",target:"paradiso-17",title:"佛罗伦萨与说话者的位置",echo:{wanderer:"火墓中的党派争论提醒你，写出真相也必须说明目的与责任。",witness:"法里纳塔与卡瓦尔坎特的两种声音仍在；流放预言不是脱离人物关系的历史摘要。",reader:"你曾在政治争论与父亲的恐惧之间选择注意力；作者位置也会暴露同样的偏向。"}}
+];
+const breakthroughAnchors={
+  wanderer:new Set(["inferno-5","inferno-33","purgatorio-2","purgatorio-30","paradiso-3","paradiso-17"]),
+  witness:new Set(["inferno-11","inferno-26","purgatorio-16","purgatorio-17","paradiso-2","paradiso-29"]),
+  reader:new Set(["inferno-10","inferno-33","purgatorio-2","purgatorio-16","paradiso-6","paradiso-17"])
+};
+function cantoKey(c=current()){return `${c.realm}-${c.canto}`}
+function evidenceFor(c=current()){return evidenceIndex[cantoKey(c)]||{lines:`${realmInfo[c.realm].abbr} ${roman(c.canto)}.1–${c.lines.length}`,note:"本场景依据本歌叙事重构；人物对白为原诗意译或游戏化改写，可在三语阅读中核对全文。"}}
+function decisionByCantoKey(key){const canto=corpus?.cantos.find(c=>cantoKey(c)===key);return canto?state.decisions[canto.id]:null}
+function threadForTarget(c=current()){return narrativeThreads.find(t=>t.target===cantoKey(c)&&decisionByCantoKey(t.source))}
+function threadEcho(c=current()){const thread=threadForTarget(c);if(!thread)return"";const method=decisionByCantoKey(thread.source)?.method||state.role;return thread.echo[method]||""}
+function isBreakthrough(c,method){return method&&method!==state.role&&breakthroughAnchors[state.role]?.has(cantoKey(c))}
+function breakthroughCue(){const cues={wanderer:"这一次，手册无法把眼前的人顺利归类。页边第一次出现了别人的笔迹。",witness:"这一次，鲜活证词不足以独自裁决。手册被迫承认人物之外仍有秩序问题。",reader:"这一次，你没有把他人的处境收回自身。手册被迫留下一个不属于你的名字。"};return cues[state.role]}
 function meetingReason(d,c=current()){
   const scene=d.scene;
   if(/拦|守门|逼近|阻止|拒绝|举桨|挡住/.test(scene))return`${d.speaker}占据了你们必须经过的道路，你不能绕开这场交涉。`;
@@ -97,8 +145,8 @@ function meetingReason(d,c=current()){
 }
 function sceneNarration(){
   const c=current(),d=data(),key=`${c.realm}-${c.canto}`;
-  if(storyOverrides[key])return storyOverrides[key];
-  return `你和${guideFor(c).name}来到${routeLocation(c)}。${d.scene}`;
+  const base=storyOverrides[key]||`你和${guideFor(c).name}来到${routeLocation(c)}。${d.scene}`;
+  const echo=threadEcho(c);return echo?`${base} ${echo}`:base;
 }
 const cantoThemes={
   inferno:["journey","grace","journey","language","love","civic","wealth","civic","vision","civic","journey","civic","body","freedom","civic","civic","language","language","wealth","language","language","language","language","civic","body","journey","language","civic","body","language","language","civic","memory","journey"],
@@ -128,9 +176,10 @@ function contextSpeech(){
   const role=state.role||"wanderer",motif=encounterMotif();return schoolPlain[role][motif];
 }
 function schoolReading(decision){
-  const d=data(),s=school(),fit=decision.compliant,role=state.role||"wanderer",motif=encounterMotif(),plain=schoolPlain[role][motif];
-  const verdict=fit?"这一判断与手册一致，道路保持稳定；若始终如此，其他解释也会逐渐被排除。":"这一判断偏离手册，道路负担增加；与此同时，一种原本会被排除的理解被保留下来。";
-  return `${s.scholar.split("及")[0]}批注：面对${d.speaker}，你选择“${decision.text}”。${plain}${verdict}`;
+  const d=data(),s=school(),fit=decision.compliant,role=state.role||"wanderer",motif=encounterMotif(),plain=schoolPlain[role][motif],borrowed=roles[decision.method];
+  if(decision.breakthrough)return `面对${d.speaker}，你没有依${s.name}最熟悉的方法作答，而借用了${borrowed?.name||"另一种阅读"}的工具。${breakthroughCue()} ${formatEffect(decision.effect)}`;
+  const verdict=fit?"道路暂时稳定；但这本手册无法说明自己排除了什么。":`你借用了${borrowed?.name||"另一种阅读"}的方法，道路张力上升，也留下了一种本手册原本会忽略的解释。`;
+  return `面对${d.speaker}，你选择“${decision.text}”。${plain}${verdict} ${formatEffect(decision.effect)}`;
 }
 function chineseExplanation(){
   const c=current(),d=data();
@@ -178,20 +227,31 @@ function renderCanto(next){
   $("#continueJourney").innerHTML="<span>W</span> 继续前行";$("#continueJourney").onclick=null;$("#acceptFate").hidden=true;$("#showEvidence").textContent="翻阅本歌文本";
   $("#game").className=`game realm-${c.realm}`;$("#worldImage").src=info.image;$("#realmLabel").textContent=info.en;$("#placeTitle").textContent=title();
   $("#routeCount").textContent=`${String(c.global).padStart(3,"0")} / 100`;$("#routeBar").style.width=`${c.global}%`;
-  $("#encounterPanel").hidden=true;$("#worldPrompt").hidden=false;$("#promptText").textContent="向前走";hideCharacter();clearEncounter();
-  renderRecord();renderSchool();renderLines();renderMap();updateStats();resetParticles(c.realm);music.setRealm(c.realm)
+  $("#encounterPanel").hidden=true;$("#worldPrompt").hidden=false;$("#promptText").textContent="向前走";hideCharacter();clearEncounter();setupSpatialScene(c);
+  renderRecord();renderSchool();renderThreads();renderLines();renderMap();updateStats();resetParticles(c.realm);music.setRealm(c.realm)
+}
+function setupSpatialScene(c){
+  spatialWorld?.leave();$("#spatialHud").hidden=true;$("#game").classList.remove("is-spatial");
+  if(c.realm!=="inferno"||c.canto!==5||!spatialWorld)return;
+  const entered=spatialWorld.enter((progress,ready,lateral)=>{
+    const distance=Math.max(0,Math.round((1-progress)*42));
+    $("#spatialProgress").style.width=`${Math.round(progress*100)}%`;
+    $("#spatialObjective").textContent=ready?"两个人影从风中转向你":`穿过永恒风暴 · ${distance}米`;
+    $("#promptText").textContent=ready?"呼唤风中的两个人":lateral>0.7?"沿右侧岩壁前进":lateral<-.7?"沿左侧岩壁前进":"向风中的人影走去";
+  });
+  if(entered){$("#game").classList.add("is-spatial");$("#spatialHud").hidden=false}
 }
 function showScene(){
-  if(phase!=="explore")return;phase="scene";walk();const d=data();clearEncounter();
+  if(phase!=="explore")return;phase="scene";spatialWorld?.pause();$("#spatialHud").hidden=true;walk();const d=data();clearEncounter();
   const narration=sceneNarration();setTimeout(()=>{$("#speakerName").textContent="旁白";$("#encounterStage").textContent=`抵达 · ${d.source}`;$("#spokenText").textContent=narration;pushTrail("旁白",narration);$("#encounterPanel").hidden=false;$("#promptText").textContent=`走近${d.speaker}`},360)
 }
 function showGuide(){
-  if(phase!=="speaker")return;phase="guide";const guide=guideFor(),speech=contextSpeech();setCharacter(guide.name,guide.role,guide.portrait);
-  $("#speakerName").textContent=guide.name;$("#encounterStage").textContent=`${school().school}手册 · 本歌准则`;$("#spokenText").textContent=`“${speech}”`;pushTrail(guide.name,speech);$("#promptText").textContent="作出判断"
+  if(phase!=="speaker")return;phase="guide";const speech=contextSpeech();hideCharacter();
+  $("#speakerName").textContent="随身手册";$("#encounterStage").textContent=`${school().school} · 页边规则`;$("#spokenText").textContent=speech;pushTrail("手册页边",speech);$("#promptText").textContent="作出判断"
 }
 function showSpeaker(){
   if(phase!=="scene")return;phase="speaker";const d=data();setCharacter(d.speaker,characterIdentity(d.speaker),portraitFor(d.speaker));
-  $("#speakerName").textContent=d.speaker;$("#encounterStage").textContent="人物证词";$("#spokenText").textContent=`“${d.spoken}”`;pushTrail(d.speaker,d.spoken);$("#promptText").textContent=`听取${guideFor().name}的提醒`
+  $("#speakerName").textContent=d.speaker;$("#encounterStage").textContent="人物证词 · 原诗意译或情境改写";$("#spokenText").textContent=`“${d.spoken}”`;pushTrail(d.speaker,d.spoken);$("#promptText").textContent="查看手册页边"
 }
 function showChoice(){
   if(phase!=="guide")return;phase="choice";const d=data();$("#encounterStage").textContent=`你的判断 · ${school().school}`;$("#spokenText").hidden=true;$("#encounterQuestion").textContent=d.question;$("#encounterQuestion").hidden=false;
@@ -200,20 +260,24 @@ function showChoice(){
 }
 function advanceStory(){
   if(!$("#compendium").hidden)return;
+  if(phase==="explore"&&spatialWorld?.visible){if(spatialWorld.ready)showScene();else spatialWorld.step(innerWidth<700?.18:.11);return}
   if(phase==="explore")showScene();else if(phase==="scene")showSpeaker();else if(phase==="speaker")showGuide();else if(phase==="guide")showChoice();else if(phase==="result")continueJourney();else if(phase==="interlude")finishInterlude()
 }
 function choose(i){
   if(phase!=="choice")return;const c=current(),picked=data().choices[i];if(!picked)return;
-  const compliant=followsRule(i);state.decisions[c.id]={choice:i,text:picked.text,result:picked.result,effect:picked.effect,burdenDelta:choiceBurden(picked.effect),compliant,realm:c.realm,source:data().source};save();phase="result";
-  const decision=state.decisions[c.id],reading=schoolReading(decision);$("#choiceList").hidden=true;$("#encounterQuestion").hidden=true;$("#speakerName").textContent=compliant?"手册确认：安全":"手册警告：偏离规则";$("#spokenText").hidden=false;$("#spokenText").textContent=picked.result;$("#encounterStage").textContent=`${school().school} · 页边批注`;
-  $("#consequenceText").textContent=`${reading} ${formatEffect(picked.effect)} · 旅途负担 ${burden()} / 7`;
-  $("#consequence").hidden=false;renderRecord();renderSchool();updateStats()
+  const compliant=followsRule(i),method=picked.school||state.role,effect=methodEffect(picked),breakthrough=isBreakthrough(c,method);
+  state.decisions[c.id]={choice:i,key:cantoKey(c),text:picked.text,result:picked.result,effect,burdenDelta:compliant?-1:1,compliant,breakthrough,method,realm:c.realm,source:data().source};save();phase="result";
+  const decision=state.decisions[c.id],startsThread=narrativeThreads.some(t=>t.source===cantoKey(c));$("#choiceList").hidden=true;$("#encounterQuestion").hidden=true;$("#speakerName").textContent=breakthrough?"手册出现裂痕":compliant?"道路保持稳定":"道路发生偏移";$("#spokenText").hidden=false;$("#spokenText").textContent=picked.result;$("#encounterStage").textContent=`${school().school} · 道路反应`;
+  const physical=breakthrough?breakthroughCue():compliant?"脚下的路没有变化，页边墨迹却覆盖得更深。":"远处的道路轻微错位，手册中原本空白的一栏浮出新字。";
+  $("#consequenceText").textContent=`${physical}${startsThread?" 这一页被折起一角；它将在后面的旅程中再次出现。":""} 道路张力 ${burden()} / 7`;
+  $("#consequence").hidden=false;renderRecord();renderSchool();renderThreads();updateStats()
 }
 function continueJourney(){if(phase!=="result")return;const b=burden(),id=current().id;if(b>=7){renderRoadBlock("sealed");return}if(b>=5&&index>0&&!state.detours[id]){state.detours[id]=true;save();renderRoadBlock("detour");return}if(index===corpus.cantos.length-1){renderEnding();return}showInterlude(index+1)}
 function showInterlude(next){
   const from=current(),to=corpus.cantos[next],item=currentHumanities();pendingIndex=next;phase="interlude";hideCharacter();$("#encounterPanel").hidden=true;$("#worldPrompt").hidden=true;
   $("#interludeRoute").textContent=`${realmInfo[from.realm].abbr} ${roman(from.canto)} · ${title(from)}  →  ${realmInfo[to.realm].abbr} ${roman(to.canto)} · ${title(to)}`;
-  $("#interludeQuote").textContent=item.quote.text;$("#interludeSource").textContent=`— ${item.quote.source}`;$("#interlude").hidden=false
+  $("#interludeTheme").textContent=item.title;$("#interludeQuote").textContent=item.quote.text;$("#interludeSource").textContent=`— ${item.quote.source}`;$("#interludeNote").textContent=item.body;
+  const fragment=`${item.quote.text}|${item.quote.source}`;if(!state.fragments.includes(fragment)){state.fragments.push(fragment);save()}$("#interlude").hidden=false
 }
 function finishInterlude(){if(phase!=="interlude"||pendingIndex===null)return;const next=pendingIndex;$("#interlude").hidden=true;walk();renderCanto(next)}
 function renderRoadBlock(kind){
@@ -222,21 +286,27 @@ function renderRoadBlock(kind){
 }
 function recoverFromRoadBlock(){const target=Math.max(0,index-1);walk();renderCanto(target)}
 function renderStranding(){const c=current(),endings={inferno:"你留在了地狱。后来者在岩壁上发现你的手册，最后一页仍停在这一歌。",purgatorio:"你留在炼狱山的回路里。时间继续流动，山顶却不再接近。",paradiso:"你停在无法承受的光中。旅程没有坠落，却也没有抵达最后的凝视。"};state.stranded={index,realm:c.realm};save();phase="stranded";$("#encounterPanel").hidden=false;$("#worldPrompt").hidden=true;$("#speakerName").textContent="旅程中止";$("#encounterStage").textContent=`${realmInfo[c.realm].abbr} ${roman(c.canto)}`;$("#spokenText").textContent=endings[c.realm];$("#consequence").hidden=false;$("#consequenceText").textContent="这是你的选择造成的结局。重新进入会清除本轮判断。";$("#showEvidence").textContent="查阅手册";$("#acceptFate").hidden=true;$("#continueJourney").textContent="重新进入";$("#continueJourney").onclick=resetJourney}
-function resetJourney(){state={role:null,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:state.musicOn};save();renderCanto(0);$("#roleGate").hidden=false}
+function resetJourney(){state={role:null,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:state.musicOn,fragments:[]};save();renderCanto(0);$("#roleGate").hidden=false}
 function renderEnding(){
-  const s=stats(),values=Object.values(s),spread=Math.max(...values)-Math.min(...values),f=followed(),b=broken(),realms=brokenRealms();let heading="可修订结局",body="你带回了一本保留证据、结果与修订痕迹的手册。它不是答案，而是下一位旅者能够继续检验的地图。";
-  if(realms===3&&b>=9&&burden()<5){heading="隐藏结局：第四本手册";body=`你没有丢弃${school().school}，也不再把它当成唯一道路。三界中九次以上有意识的偏离，使三种阅读在同一页上互相校正。你带回的第四本手册没有固定规则，只有证据、异议和允许后来者继续修订的空白。`}else if(f>=90&&b<3){heading="安全结局：正确的恶";body=`《${school().school}手册》使你几乎毫发无伤地走完三界。每一件事都得到了正确解释；也正因此，所有不能被这套解释容纳的声音都从记录中消失了。你安全抵达，却没有真正离开手册。`}else if(spread>22&&s.will===Math.max(...values)){heading="封闭结局";body="你走完了三界，也把每一次遭遇都变成不可更改的命令。手册保护了你，却开始像地狱一样凝固。"}else if(spread>22&&s.insight===Math.max(...values)&&s.mercy<58){heading="失语结局";body="你识破了许多叙述，却越来越少相信说话的人。档案保持精确，人物从里面消失。"}
+  const s=stats(),values=Object.values(s),spread=Math.max(...values)-Math.min(...values),f=followed(),b=breakthroughs().length,realms=breakthroughRealms();let heading="可修订结局",body="你带回了一本保留证据、结果与修订痕迹的手册。它不是答案，而是下一位旅者能够继续检验的地图。";
+  if(realms===3&&b>=3&&burden()<5){heading="隐藏结局：第四本手册";body=`你没有丢弃${school().school}，也不再把它当成唯一道路。你在地狱、炼狱与天堂各找到一处它无法解释的证据，并借用了别的阅读工具。第四本手册因此出现：没有永恒正确的按钮，只有原文、异议和允许后来者继续修订的空白。`}else if(f>=90&&broken()<3){heading="安全结局：正确的恶";body=`《${school().school}手册》使你几乎毫发无伤地走完三界。每一件事都得到了正确解释；也正因此，所有不能被这套解释容纳的声音都从记录中消失了。你安全抵达，却没有真正离开手册。`}else if(spread>22&&s.will===Math.max(...values)){heading="封闭结局";body="你走完了三界，也把每一次遭遇都变成不可更改的命令。手册保护了你，却开始像地狱一样凝固。"}else if(spread>22&&s.insight===Math.max(...values)&&s.mercy<58){heading="失语结局";body="你识破了许多叙述，却越来越少相信说话的人。记录保持精确，人物从里面消失。"}
   phase="ending";hideCharacter();$("#speakerName").textContent="旅程终点";$("#encounterStage").textContent=`意志 ${s.will} · 怜悯 ${s.mercy} · 辨识 ${s.insight}`;$("#spokenText").textContent=heading;$("#consequenceText").textContent=body;$("#consequence").hidden=false;
   $("#acceptFate").hidden=true;$("#continueJourney").textContent="重新进入";$("#continueJourney").onclick=resetJourney;$("#encounterPanel").hidden=false;$("#worldPrompt").hidden=true
 }
 function renderRecord(){
-  const c=current(),d=data(),decision=state.decisions[c.id];$("#recordRef").textContent=`${realmInfo[c.realm].abbr} ${roman(c.canto)} · lines 1–${c.lines.length}`;$("#recordTitle").textContent=title();
-  $("#recordDialogue").innerHTML="";[["旁白",sceneNarration()],[d.speaker,d.spoken],[guideFor().name,contextSpeech()]].forEach(([name,text])=>{const p=document.createElement("p"),b=document.createElement("b"),span=document.createElement("span");b.textContent=name;span.textContent=text;p.append(b,span);$("#recordDialogue").append(p)});
-  $("#recordBody").textContent=decision?decision.result:"本歌尚未作出判断。";$("#fateStatus").textContent=`旅途负担 ${burden()} / 7${burden()>=7?" · 道路封锁":burden()>=5?" · 可能折返":burden()>=3?" · 道路不稳":""}`;
+  const c=current(),d=data(),decision=state.decisions[c.id],evidence=evidenceFor(c);$("#recordRef").textContent=`${realmInfo[c.realm].abbr} ${roman(c.canto)} · lines 1–${c.lines.length}`;$("#recordTitle").textContent=title();
+  $("#recordDialogue").innerHTML="";[["旁白",sceneNarration()],[d.speaker,d.spoken],["手册页边",contextSpeech()]].forEach(([name,text])=>{const p=document.createElement("p"),b=document.createElement("b"),span=document.createElement("span");b.textContent=name;span.textContent=text;p.append(b,span);$("#recordDialogue").append(p)});
+  $("#evidenceType").textContent=evidenceIndex[cantoKey(c)]?"关键段落索引":"本歌全文索引";$("#evidenceRef").textContent=evidence.lines;$("#evidenceNote").textContent=evidence.note;
+  $("#recordBody").textContent=decision?decision.result:"本歌尚未作出判断。";$("#fateStatus").textContent=`道路张力 ${burden()} / 7${burden()>=7?" · 道路封锁":burden()>=5?" · 可能折返":burden()>=3?" · 道路不稳":""}`;
   $("#schoolVerdict").querySelector("span").textContent=`${school().school} · ${school().scholar.split("及")[0]}`;$("#schoolVerdict").querySelector("p").textContent=decision?schoolReading(decision):`本歌尚未裁决。规则会保护你，但不会告诉你它删去了什么。`;
   $("#errorMark").hidden=!decision;if(decision){const e=decision.effect||{},dominant=Object.entries(e).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1]))[0],labels={will:"意志",mercy:"怜悯",insight:"辨识"};$("#errorLabel").textContent=`${labels[dominant?.[0]]||"判断"} ${dominant?.[1]>0?"增强":"受损"}`;$("#manualInk").innerHTML=`<b>${title()}</b><em>${decision.text}</em>`}else $("#manualInk").innerHTML="<b>旅程记录</b><em>尚未写入本歌判断</em>"
 }
-function renderSchool(){const s=school();$("#schoolHud").textContent=state.role?`${s.school} · 遵守 ${followed()} · 偏离 ${broken()}`:"尚未选择规则手册";$("#schoolName").textContent=`${s.name}的规则手册`;$("#schoolScholar").textContent=`解释传统：${s.scholar}`;$("#schoolThesis").textContent=s.plainThesis;$("#schoolRules").replaceChildren(...s.plainRules.map(rule=>{const li=document.createElement("li");li.textContent=rule;return li}));$("#schoolSafety").textContent=`遵守规则 ${followed()} 次`;$("#schoolDoubt").textContent=`偏离规则 ${broken()} 次 · ${brokenRealms()} / 3 界`;$("#schoolWarning").textContent=brokenRealms()===3&&broken()>=9?"三界的裂缝已经彼此连通。保持低负担并抵达终点，可能出现手册没有记载的道路。":"遵守规则可以保持安全；若从未让别的解释进入，你只能抵达这本手册允许的结局。"}
+function renderSchool(){const s=school();$("#schoolHud").textContent=state.role?`${s.name} · 顺读 ${followed()} · 越界 ${broken()} · 裂痕 ${breakthroughRealms()}/3界`:"尚未选择解释手册";$("#schoolName").textContent=`${s.name}的解释手册`;$("#schoolScholar").textContent=`解释传统：${s.scholar}`;$("#schoolThesis").textContent=s.plainThesis;$("#schoolTool").textContent=s.tool;$("#schoolBlindSpot").textContent=s.blindSpot;$("#schoolRules").replaceChildren(...s.plainRules.map(rule=>{const li=document.createElement("li");li.textContent=rule;return li}));$("#schoolSafety").textContent=`依本手册判断 ${followed()} 次`;$("#schoolDoubt").textContent=`借用其他方法 ${broken()} 次 · 关键裂痕 ${breakthroughRealms()} / 3 界`;$("#schoolWarning").textContent=breakthroughRealms()===3?"三界各有一处证据迫使手册承认自己的盲点。保持道路张力低于5，第四本手册才可能出现。":"完全服从会保持安全，也会逐渐删去其他解释。真正的裂痕只会在关键场景中出现。"}
+function renderThreads(){
+  const active=narrativeThreads.filter(t=>decisionByCantoKey(t.source)),box=$("#threadList");$("#fractureCount").textContent=`手册裂痕 ${breakthroughs().length}处 · ${breakthroughRealms()} / 3界`;$("#threadCount").textContent=active.length?`${active.length} 条判断已进入后文`:"尚无跨歌回声";
+  if(!active.length){const empty=document.createElement("p");empty.className="thread-empty";empty.textContent="关键判断发生后，折起的页角会在这里留下去向。";box.replaceChildren(empty);return}
+  box.replaceChildren(...active.map(thread=>{const article=document.createElement("article"),source=corpus.cantos.find(c=>cantoKey(c)===thread.source),target=corpus.cantos.find(c=>cantoKey(c)===thread.target),resolved=target&&state.visited.includes(target.id),decision=decisionByCantoKey(thread.source),method=roles[decision?.method]||school();article.className=`thread-card${resolved?" is-resolved":""}`;const head=document.createElement("div"),titleEl=document.createElement("strong"),status=document.createElement("span"),body=document.createElement("p"),route=document.createElement("small");titleEl.textContent=thread.title;status.textContent=resolved?"已经回响":"页角已折起";head.append(titleEl,status);body.textContent=resolved?thread.echo[decision?.method||state.role]:`你以“${method.name}”的方法留下了这项判断。它尚未在后文显出结果。`;route.textContent=resolved&&source&&target?`${realmInfo[source.realm].abbr} ${roman(source.canto)} → ${realmInfo[target.realm].abbr} ${roman(target.canto)}`:`起于 ${source?`${realmInfo[source.realm].abbr} ${roman(source.canto)}`:thread.source} · 去向未明`;article.append(head,body,route);return article}))
+}
 function renderLines(){
   const c=current(),info=realmInfo[c.realm],lines=showAll?c.lines:c.lines.slice(0,18);$("#textRef").textContent=`${info.abbr} ${roman(c.canto)} · 1–${c.lines.length}行`;$("#alignmentState").textContent=`意大利文与英译逐行编排 · 中文译文按段落编排`;$("#toggleLines").textContent=showAll?"收起意/英":"展开意/英全歌";$("#chineseExplanation").textContent=chineseExplanation();renderChinese();
   const box=$("#lineWindow");box.replaceChildren();
@@ -255,16 +325,16 @@ function renderChinese(){
 function renderMap(){const box=$("#cantoMap");box.replaceChildren(...corpus.cantos.map((c,i)=>{const b=document.createElement("button");b.type="button";b.textContent=String(c.canto).padStart(2,"0");b.title=`${realmInfo[c.realm].zh} · ${title(c)}`;if(state.visited.includes(c.id))b.classList.add("visited");if(i===index)b.classList.add("current");b.disabled=!state.visited.includes(c.id);b.dataset.index=i;return b}));$("#visitedCount").textContent=`${state.visited.length} / 100`}
 function openManual(panel="record"){$("#compendium").hidden=false;switchPanel(panel)}function closeManual(){$("#compendium").hidden=true}
 function switchPanel(name){$$("[data-panel]").forEach(b=>b.classList.toggle("is-active",b.dataset.panel===name));$$("[data-manual-panel]").forEach(p=>{const on=p.dataset.manualPanel===name;p.hidden=!on;p.classList.toggle("is-active",on)})}
-function selectRole(key){if(!roles[key]||!corpus)return;state={role:key,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:state.musicOn};save();$("#roleGate").hidden=true;document.activeElement?.blur();music.start();renderCanto(0);openManual("school");walk()}
+function selectRole(key){if(!roles[key]||!corpus)return;state={role:key,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:state.musicOn,fragments:[]};save();$("#roleGate").hidden=true;document.activeElement?.blur();music.start();renderCanto(0);openManual("school");walk()}
 function bind(){
   $("#worldPrompt").addEventListener("click",()=>{document.activeElement?.blur();advanceStory()});$("#choiceList").addEventListener("click",e=>{const b=e.target.closest("[data-choice]");if(b)choose(Number(b.dataset.choice))});
   $("#continueJourney").addEventListener("click",continueJourney);$("#interludeContinue").addEventListener("click",finishInterlude);$("#acceptFate").addEventListener("click",renderStranding);$("#manualButton").addEventListener("click",()=>openManual("record"));$("#openArchive").addEventListener("click",()=>openManual("map"));$("#closeCompendium").addEventListener("click",closeManual);$("#showEvidence").addEventListener("click",()=>openManual("text"));$("#toggleLines").addEventListener("click",()=>{showAll=!showAll;renderLines()});$("#toggleChinese").addEventListener("click",()=>{showAllChinese=!showAllChinese;renderChinese()});$("#musicToggle").addEventListener("click",toggleMusic);
   $$("[data-panel]").forEach(b=>b.addEventListener("click",()=>switchPanel(b.dataset.panel)));$("#cantoMap").addEventListener("click",e=>{const b=e.target.closest("[data-index]");if(b&&!b.disabled){renderCanto(Number(b.dataset.index));closeManual()}});$$("[data-role]").forEach(b=>b.addEventListener("click",()=>selectRole(b.dataset.role)));
-  document.addEventListener("keydown",e=>{const typing=e.target.matches("input,select,textarea,[contenteditable=true]");if(typing)return;if(e.key==="Tab"){e.preventDefault();$("#compendium").hidden?openManual("record"):closeManual();return}if(e.key==="Escape"){closeManual();return}if(["a","A","b","B","c","C"].includes(e.key)&&phase==="choice"){e.preventDefault();choose(visibleChoiceOrder[e.key.toUpperCase().charCodeAt(0)-65]);return}if(["w","W","ArrowUp","e","E","Enter"].includes(e.key)){e.preventDefault();if(state.musicOn&&!music.started)music.start();advanceStory()}});
-  document.addEventListener("pointermove",e=>{const x=(e.clientX/innerWidth-.5)*-18,y=(e.clientY/innerHeight-.5)*-12;document.documentElement.style.setProperty("--look-x",`${x}px`);document.documentElement.style.setProperty("--look-y",`${y}px`)})
+  document.addEventListener("keydown",e=>{const typing=e.target.matches("input,select,textarea,[contenteditable=true]");if(typing)return;if(e.key==="Tab"){e.preventDefault();$("#compendium").hidden?openManual("record"):closeManual();return}if(e.key==="Escape"){closeManual();return}if(phase==="explore"&&spatialWorld?.visible&&["a","A","d","D","ArrowLeft","ArrowRight"].includes(e.key)){e.preventDefault();spatialWorld.strafe(["a","A","ArrowLeft"].includes(e.key)?-1:1);return}if(["a","A","b","B","c","C"].includes(e.key)&&phase==="choice"){e.preventDefault();choose(visibleChoiceOrder[e.key.toUpperCase().charCodeAt(0)-65]);return}if(["w","W","ArrowUp","e","E","Enter"].includes(e.key)){e.preventDefault();if(state.musicOn&&!music.started)music.start();advanceStory()}});
+  document.addEventListener("pointermove",e=>{const nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5,x=nx*-18,y=ny*-12;document.documentElement.style.setProperty("--look-x",`${x}px`);document.documentElement.style.setProperty("--look-y",`${y}px`);spatialWorld?.setLook(nx*2,ny*-2)})
 }
 function setupAtmosphere(){const canvas=$("#atmosphere");ctx=canvas.getContext("2d");const resize=()=>{const d=Math.min(devicePixelRatio,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;canvas.style.width=`${innerWidth}px`;canvas.style.height=`${innerHeight}px`;ctx.setTransform(d,0,0,d,0,0)};addEventListener("resize",resize);resize();requestAnimationFrame(drawParticles)}
 function resetParticles(realm){const count=realm==="paradiso"?80:realm==="inferno"?58:38;particles=Array.from({length:count},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,z:.2+Math.random()*.8,r:.5+Math.random()*1.8,v:.15+Math.random()*.55,realm}))}
 function drawParticles(){if(!ctx){requestAnimationFrame(drawParticles);return}ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of particles){p.y-=p.v*(.4+p.z);p.x+=Math.sin((p.y+p.z*80)*.01)*.12;if(p.y<-10){p.y=innerHeight+10;p.x=Math.random()*innerWidth}ctx.globalAlpha=.12+p.z*.55;ctx.fillStyle=p.realm==="inferno"?"#ff6a32":p.realm==="purgatorio"?"#f4d2a0":"#ffffff";ctx.beginPath();ctx.arc(p.x,p.y,p.r*p.z,0,Math.PI*2);ctx.fill()}requestAnimationFrame(drawParticles)}
-async function init(){bind();setupAtmosphere();updateMusicButton();try{const response=await fetch("corpus.json",{cache:"no-store"});if(!response.ok)throw new Error(response.status);corpus=await response.json();index=Math.max(0,Math.min(Number(state.stranded?.index??state.current)||0,99));renderCanto(index);$("#roleGate").hidden=Boolean(state.role);if(state.stranded)renderStranding()}catch{$("#promptText").textContent="档案未能载入";$("#worldPrompt").disabled=true}}
+async function init(){spatialWorld=window.DanteWorld3D?.create($("#world3d"))||null;bind();setupAtmosphere();updateMusicButton();try{const response=await fetch("corpus.json",{cache:"no-store"});if(!response.ok)throw new Error(response.status);corpus=await response.json();index=Math.max(0,Math.min(Number(state.stranded?.index??state.current)||0,99));renderCanto(index);$("#roleGate").hidden=Boolean(state.role);if(state.stranded)renderStranding()}catch{$("#promptText").textContent="档案未能载入";$("#worldPrompt").disabled=true}}
 init();
