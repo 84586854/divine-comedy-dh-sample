@@ -58,6 +58,7 @@
   const actors = {
     virgil: { name: "维吉尔", role: "引路人 · 理性仍有边界", image: "assets/character-virgil.png" },
     minos: { name: "米诺斯", role: "第二圈的审判者", image: "assets/character-minos-v1.png" },
+    pairUnknown: { name: "相伴的两道灵魂", role: "身份尚未确认", image: "assets/character-francesca-paolo.png" },
     francesca: { name: "弗兰切斯卡与保罗", role: "被风卷在一起的亡魂", image: "assets/character-francesca-paolo.png" }
   };
 
@@ -73,7 +74,8 @@
     paoloSilence: { type: "追问", title: "保罗始终没有讲述自己的版本", note: "他只哭泣。两人的共同故事由弗兰切斯卡一人组织。", ref: "Inf. V.139–140" },
     book: { type: "追问", title: "一本书参与了行动", note: "他们阅读兰斯洛特与王后接吻；文本既是镜子，也成了媒介。", ref: "Inf. V.127–138" },
     murder: { type: "追问", title: "谋杀者被指向，却没有被命名", note: "弗兰切斯卡说该隐环正等待凶手，但把死亡经过留在句外。", ref: "Inf. V.106–107" },
-    travelerPity: { type: "追问", title: "但丁的怜悯也需要被审读", note: "旅人在听完证词后昏倒；强烈反应不是解释已经完成的证明。", ref: "Inf. V.109–142" }
+    readerMetaphor: { type: "阅读", title: "比喻先把两人写成一对", note: "在两人开口以前，叙述已经用归巢的鸽子组织了读者的同情。", ref: "Inf. V.82–87" },
+    travelerPity: { type: "追问", title: "你的怜悯也需要被审读", note: "旅人在听完证词后昏倒；强烈反应不是解释已经完成的证明。", ref: "Inf. V.109–142" }
   };
 
   const state = {
@@ -265,6 +267,13 @@
     setObjective("通过米诺斯的审判席");
     play([
       {
+        type: "启程",
+        speaker: "旁白",
+        text: `你把《${manuals[role].title}》系在腰间。皮封上的字在风里变冷；维吉尔已经走到下一段石阶，示意你跟上。`,
+        left: "virgil",
+        right: null
+      },
+      {
         type: "抵达",
         speaker: "旁白",
         text: "石道突然收窄。每一个抵达这里的亡魂都必须说出自己的罪；高座上的米诺斯听完，便用尾巴绕身，圈数就是他们将坠入的深度。",
@@ -320,7 +329,6 @@
 
   function resolveGate(choice) {
     addEvidence(choice);
-    if (choice !== "guideAuthority" && manuals[state.role].preferred !== "agency") state.crossedLens = true;
     const outcomes = {
       guideAuthority: "你没有回答。维吉尔的许可压过了米诺斯的追问；审判者让开道路，却把你的沉默记在了眼里。",
       livingName: "你说出自己的名字，也说自己仍有体温。米诺斯的尾尖在石面停了一瞬：这里习惯听亡魂招供，不习惯听活人自报来意。",
@@ -390,7 +398,8 @@
       {
         type: "引路",
         speaker: "维吉尔",
-        text: "“不要只看他们被吹向哪里。看他们怎样结队、怎样说话，也看你为什么希望某一个故事是真的。”",
+        text: "“这里受罚的，是让欲望压过判断的人；永不停息的风，把生前失去尺度的冲动变成了刑罚。不要只看他们被吹向哪里，也看他们怎样结队、怎样说话。”",
+        source: "Inf. V.31–45",
         left: "virgil",
         right: null
       }
@@ -399,12 +408,12 @@
 
   function roleObservation() {
     if (state.role === "order") {
-      return { evidence: "loveGrammar", text: "你先听动词。风声里反复浮出同一种句法：不是‘我选择’，而是‘爱抓住我’、‘爱迫使我’、‘爱带领我们’。" };
+      return { evidence: "doves", text: "你不先替他们命名，只看动作：风向没有改变，两道影子却一同偏离队伍，朝你所在的岩台调整了方向。" };
     }
     if (state.role === "witness") {
-      return { evidence: "paoloSilence", text: "成双的影子中，始终只有一人的声音穿过风。另一个人靠得很近，却从未开口。" };
+      return { evidence: "paoloSilence", text: "靠近的两道影子里，女子抬头准备应答；男子始终低着脸。你先在页边给这个尚未开口的人留下一行空白。" };
     }
-    return { evidence: "book", text: "某些亡魂反复念着别人的诗句，仿佛借来的故事仍在替他们安排姿势。你记下：文本可能也是事件的一部分。" };
+    return { evidence: "readerMetaphor", text: "你正要把他们比作归巢的鸽子，却先停笔：这个比喻来自观看者，不来自他们的证词。它会在两人开口前，先把他们写成一对。" };
   }
 
   function showInvestigation() {
@@ -412,6 +421,9 @@
     $("#investigation").hidden = false;
     $("#hotspotLayer").hidden = false;
     $("#reticle").hidden = false;
+    $("#finishObservation").hidden = true;
+    $("#investigationTitle").textContent = "选择要观察的现场";
+    $("#investigationHint").textContent = "观察不会给你答案，但会改变之后能够提出的问题。";
     const layer = $("#hotspotLayer");
     const entries = Object.entries(observations);
     layer.replaceChildren(...entries.map(([id, item], index) => {
@@ -448,10 +460,14 @@
     renderBudget();
     if (id === "lens") {
       $("#investigationTitle").textContent = manuals[state.role].ability + "留下了一条页边笔记";
+    } else {
+      $("#investigationTitle").textContent = item.label + "：现场笔记";
     }
     if (state.observations >= 3) {
       $$(".hotspot").forEach((hotspot) => { hotspot.disabled = true; });
-      setTimeout(callThePair, 1100);
+      $("#investigationTitle").textContent = "你已经看见足够多的现场";
+      $("#investigationHint").textContent = "那两道影子正在靠近。准备好后，由你决定怎样称呼他们。";
+      $("#finishObservation").hidden = false;
     }
   }
 
@@ -459,6 +475,7 @@
     $("#hotspotLayer").hidden = true;
     $("#investigation").hidden = true;
     $("#reticle").hidden = true;
+    setObjective("呼唤并辨认靠近的亡魂");
     showDialogue({
       type: "风向改变",
       speaker: "维吉尔",
@@ -475,17 +492,24 @@
 
   function greetPair(kind) {
     state.rapport += kind === "suffering" ? 2 : kind === "precise" ? 1 : 0;
-    if (kind === "love") addEvidence("loveGrammar");
     setProgress(3);
     setScene("francesca");
     setObjective("听完证词，但不要替证词补全空白");
     const reaction = {
       suffering: "你的声音没有赞美，也没有指控。两道影子从风中落低，像被呼唤归巢的鸽子。",
       love: "“爱”这个词穿过风暴。两道影子立刻转向，仿佛你已经接受了他们讲述故事的方式。",
-      precise: "你没有称他们为恋人。女子在落到岩台前先报出自己的故乡；男子仍旧沉默。"
+      precise: "你没有称他们为恋人。两道影子在岩台前降下，女子先抬起脸，男子仍旧沉默。"
     }[kind];
     play([
-      { type: "相遇", speaker: "旁白", text: reaction, source: "Inf. V.73–87", left: "virgil", right: "francesca" },
+      { type: "相遇", speaker: "旁白", text: reaction, source: "Inf. V.73–87", left: "virgil", right: "pairUnknown" },
+      {
+        type: "辨认",
+        speaker: "维吉尔",
+        text: "“前面的是拉文纳的弗兰切斯卡，身后是保罗。先听她怎样说，不要让名字替你预先作答。”",
+        source: "人物身份据本歌历史语境补明",
+        left: "virgil",
+        right: "francesca"
+      },
       {
         type: "人物证词",
         speaker: "弗兰切斯卡",
@@ -517,8 +541,8 @@
 
   const questions = {
     afternoon: {
-      label: "“那个下午，具体发生了什么？”",
-      tag: "经过",
+      label: "“你说爱把你们带向死亡。你们第一次越过界限时，发生了什么？”",
+      tag: "追问起因",
       evidence: "book",
       lines: [
         {
@@ -584,6 +608,7 @@
     book: {
       label: "“如果没有兰斯洛特的故事，你们会怎样理解那个吻？”",
       tag: "校叙词",
+      lock: "先追问起因，确认那本书进入了事件",
       evidence: "book",
       role: "reader",
       lines: [
@@ -614,9 +639,10 @@
     }
   };
 
-  function questionUnlocked(question) {
+  function questionUnlocked(id, question) {
+    if (id === "book" && !state.evidence.has("book")) return false;
     if (!question.role || question.role === state.role) return true;
-    if (question.role === "order") return state.evidence.has("doves") || state.evidence.has("confession");
+    if (question.role === "order") return state.evidence.has("loveGrammar");
     if (question.role === "witness") return state.evidence.has("doves") || state.evidence.has("namedCrowd");
     return state.evidence.has("loveGrammar") || state.evidence.has("book");
   }
@@ -630,13 +656,13 @@
     const box = $("#questionChoices");
     box.replaceChildren(...Object.entries(questions).filter(([id]) => !state.asked.has(id)).map(([id, question]) => {
       const button = document.createElement("button");
-      const unlocked = questionUnlocked(question);
+      const unlocked = questionUnlocked(id, question);
       const native = !question.role || question.role === state.role;
       button.type = "button";
       button.disabled = !unlocked;
       button.innerHTML = "<span></span><small></small>";
       button.querySelector("span").textContent = question.label;
-      button.querySelector("small").textContent = unlocked ? (native ? question.tag : question.tag + " · 越出本册") : question.tag + " · 尚缺现场证据";
+      button.querySelector("small").textContent = unlocked ? (native ? question.tag : question.tag + " · 越出本册") : question.lock || question.tag + " · 尚缺现场证据";
       button.addEventListener("click", () => askQuestion(id));
       return button;
     }));
@@ -651,14 +677,27 @@
     play(question.lines, () => {
       addEvidence(question.evidence);
       if (state.questionsLeft > 0) showQuestions();
-      else showVerdict();
+      else closeTestimony();
     });
+  }
+
+  function closeTestimony() {
+    play([
+      {
+        type: "风又起了",
+        speaker: "旁白",
+        text: "弗兰切斯卡与保罗的身影已经离开岩台。下一阵风会把他们卷回队伍；你把手册按在膝上，只来得及再写下一句结论。",
+        left: null,
+        right: "francesca",
+        objective: "决定哪些事实将被带出地狱"
+      }
+    ], showVerdict);
   }
 
   function hiddenVerdictUnlocked() {
     const hasOmission = state.evidence.has("murder");
     const hasAgencyOrBook = state.evidence.has("agency") || state.evidence.has("book");
-    const hasPerson = state.evidence.has("paoloSilence") || state.evidence.has("doves");
+    const hasPerson = state.evidence.has("paoloSilence");
     return state.crossedLens && hasOmission && hasAgencyOrBook && hasPerson;
   }
 
@@ -676,19 +715,19 @@
         id: "romance",
         title: "爱把他们带向同一场死亡。",
         note: "保存痛苦与爱情的语言；省略具体行动、沉默和谋杀。",
-        meta: "风会立刻放行，但手册将失去三条证据。"
+        meta: "风会立刻放行，但最终记录只保留这段修辞。"
       },
       {
         id: "judgment",
         title: "他们曾经选择；“爱”不能替行动者免责。",
         note: "保存行动与责任；压低人物的痛苦、文本影响和历史处境。",
-        meta: "道路会稳定，但保罗仍没有获得声音。"
+        meta: "道路会稳定，但这份裁决仍无法替保罗发言。"
       },
       {
         id: "open",
         title: "她的痛苦、她的选择与她没有说出的事实必须并存。",
         note: "拒绝让任何一本手册独占记录；把矛盾留给后来的阅读者核对。",
-        meta: unlocked ? "第四页已经显现。你可以违背本册的最后一条规则。" : "尚未显现：需要追到凶手、行动或文本，并保留沉默者。"
+        meta: unlocked ? "第四页已经显现。你可以违背本册的最后一条规则。" : "尚未显现：需要追到凶手、行动或文本，并让保罗的沉默进入记录。"
       }
     ];
     $("#verdictOptions").replaceChildren(...options.map((option) => {
@@ -714,7 +753,7 @@
       romance: {
         kicker: "结局 · 被保存的传说",
         title: "风替你合上了书。",
-        body: "你完整保存了弗兰切斯卡最动人的句子。后来的人会记得爱情、鸽子和那一吻，却很难再看见谁作了决定、谁一直沉默、谁结束了两人的生命。你没有说谎；你只是让一种真相占满了全部篇幅。"
+        body: "你完整保存了弗兰切斯卡最动人的句子。后来的人会记得爱情、鸽子和那一吻，却很难再看见谁作了决定、谁一直沉默、谁结束了两人的生命。其他证据仍夹在手册里，却没有进入你交给后来者的结论。"
       },
       judgment: {
         kicker: "结局 · 稳固的裁决",
@@ -736,7 +775,7 @@
       : kind === "judgment"
         ? ["confession", "agency", "murder"]
         : [...state.evidence];
-    $("#endingRecord").replaceChildren(...kept.filter((id) => evidenceCatalog[id]).map((id) => {
+    $("#endingRecord").replaceChildren(...kept.filter((id) => evidenceCatalog[id] && state.evidence.has(id)).map((id) => {
       const chip = document.createElement("span");
       chip.textContent = evidenceCatalog[id].title;
       return chip;
@@ -770,6 +809,7 @@
     $("#ending").hidden = true;
     $("#manual").hidden = true;
     $("#hotspotLayer").hidden = true;
+    $("#finishObservation").hidden = true;
     setActors(null, null);
     setProgress(1);
     renderEvidence();
@@ -981,6 +1021,7 @@
   function bind() {
     $$("[data-role-choice]").forEach((button) => button.addEventListener("click", () => startGame(button.dataset.roleChoice)));
     $("#continueButton").addEventListener("click", advance);
+    $("#finishObservation").addEventListener("click", callThePair);
     $("#soundButton").addEventListener("click", toggleSound);
     $("#openManual").addEventListener("click", () => openManual("rules"));
     $("#closeManual").addEventListener("click", closeManual);

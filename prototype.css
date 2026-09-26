@@ -330,6 +330,18 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
 .observation-budget i { width: .5rem; height: .5rem; border: 1px solid var(--role); border-radius: 50%; }
 .observation-budget i.is-used { background: var(--role); }
 .observation-budget em { color: #8f8b84; font: normal .64rem/1 var(--sans); }
+.finish-observation {
+  width: 100%;
+  margin-top: .9rem;
+  padding: .72rem .9rem;
+  border: 1px solid color-mix(in srgb, var(--role) 65%, transparent);
+  background: color-mix(in srgb, var(--role) 16%, rgba(6,8,10,.78));
+  color: var(--paper);
+  font: 700 .72rem/1 var(--sans);
+  letter-spacing: .08em;
+  cursor: pointer;
+}
+.finish-observation:hover, .finish-observation:focus-visible { background: color-mix(in srgb, var(--role) 28%, rgba(6,8,10,.72)); }
 .hotspot-layer { position: absolute; z-index: 10; inset: 0; pointer-events: none; }
 .hotspot {
   position: absolute;
