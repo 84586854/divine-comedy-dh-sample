@@ -11,13 +11,12 @@
   <link rel="preload" as="image" href="assets/character-virgil.png" />
   <link rel="preload" as="image" href="assets/character-francesca-paolo.png" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="immersive.css?v=20260923-spatial1" />
+  <link rel="stylesheet" href="immersive.css?v=20260926-story4" />
 </head>
 <body>
   <main class="game realm-inferno" id="game" aria-label="第一人称三界旅程">
     <div class="world" id="world" aria-hidden="true">
       <img class="world-image" id="worldImage" src="assets/inferno-first-person.png" alt="" />
-      <canvas id="world3d" hidden></canvas>
       <canvas id="atmosphere"></canvas>
       <div class="depth-fog"></div><div class="vignette"></div>
     </div>
@@ -34,8 +33,6 @@
     <div class="status-orbit" aria-label="旅者状态"><span title="意志">意 <b id="willValue">55</b></span><span title="怜悯">悯 <b id="mercyValue">55</b></span><span title="辨识">识 <b id="insightValue">55</b></span><span class="burden-stat" title="道路张力">张 <b id="burdenValue">0</b></span></div>
     <div class="school-orbit" id="schoolHud">尚未选择解释手册</div>
     <div class="reticle" aria-hidden="true"><i></i><i></i></div>
-    <div class="spatial-hud" id="spatialHud" hidden><span id="spatialObjective">穿过永恒风暴</span><i><b id="spatialProgress"></b></i><small>W 前行 · A/D 侧移 · 移动鼠标环视</small></div>
-
     <figure class="character-stage" id="characterStage" hidden>
       <img id="characterPortrait" src="assets/character-virgil.png" alt="" />
       <figcaption><span id="characterRole">引路人</span><strong id="characterName">维吉尔</strong></figcaption>
@@ -50,8 +47,15 @@
       <h1 id="encounterQuestion" hidden></h1>
       <div class="choices" id="choiceList" hidden></div>
       <div class="consequence" id="consequence" hidden>
-        <p id="consequenceText"></p>
-        <div><button class="text-button" id="showEvidence" type="button">翻阅本歌文本</button><button class="stay-button" id="acceptFate" type="button" hidden>留在此处</button><button class="continue-button" id="continueJourney" type="button"><span>W</span> 继续前行</button></div>
+        <p class="aftermath" id="consequenceText"></p>
+        <section class="choice-analysis" id="choiceAnalysis" hidden>
+          <span id="analysisLabel">手册复盘</span>
+          <strong id="analysisMethod"></strong>
+          <p id="analysisWhy"></p>
+          <p class="analysis-limit" id="analysisLimit"></p>
+          <small id="analysisEvidence"></small>
+        </section>
+        <div class="consequence-actions"><button class="text-button" id="showEvidence" type="button">翻阅本歌文本</button><button class="stay-button" id="acceptFate" type="button" hidden>留在此处</button><button class="continue-button" id="continueJourney" type="button"><span>W</span> 继续前行</button></div>
       </div>
     </section>
 
@@ -140,6 +144,6 @@
       <div class="gate-card"><span class="gate-kicker">一份三语校勘稿 · 页码 1300</span><h1 id="gateTitle">文本先于你翻了一页。</h1><p>意大利文、英文和中文突然彼此错开。墨迹从屏幕流到你的手上；再抬头时，你已经站在黑暗森林里。远处的人叫你“但丁”，而脚边三本手册却写着数百年后才会出现的名字。</p><p class="gate-premise">它们都能保护你，也都会删去自己无法解释的东西。选择一种阅读方法进入旅程；真正的出口不在完全服从之中。</p><div class="roles"><button data-role="wanderer" type="button"><small>托马斯主义伦理传统</small><strong>秩序诠释者</strong><span>拆解行动、目的和责任；盲点是把人物压成类别</span></button><button data-role="witness" type="button"><small>形象论与历史现实主义</small><strong>历史见证者</strong><span>追索姓名、城邦和关系；盲点是过度相信鲜活证词</span></button><button data-role="reader" type="button"><small>奥古斯丁式皈依诗学</small><strong>回转校勘者</strong><span>修订自己的误读；盲点是把他人变成自我寓言</span></button></div></div>
     </div>
   </main>
-  <script src="encounters.js?v=20260923-foundation1"></script><script src="world3d.js?v=20260923-spatial1"></script><script src="app.js?v=20260923-spatial1"></script>
+  <script src="encounters.js?v=20260926-story4"></script><script src="app.js?v=20260926-story4"></script>
 </body>
 </html>
