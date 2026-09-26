@@ -47,6 +47,15 @@
         <figcaption><small id="characterRole"></small><strong id="characterName"></strong></figcaption>
       </figure>
 
+      <div class="observation-layer" id="observationLayer" hidden aria-label="可观察的现场"></div>
+
+      <section class="investigation" id="investigation" hidden>
+        <header><span>现场观察</span><strong id="investigationTitle">先看清发生了什么</strong></header>
+        <p id="investigationHint">选择三处现场。你看到的事实会决定之后能够提出哪些问题。</p>
+        <div class="observation-budget"><span id="observationDots"></span><em id="observationLabel">已观察 0 / 3</em></div>
+        <button id="finishObservation" type="button" hidden>继续</button>
+      </section>
+
       <section class="dialogue" id="dialogue" aria-live="polite">
         <header><span id="lineType">抵达</span><strong id="speaker">旁白</strong><i id="source"></i></header>
         <p id="lineText"></p>

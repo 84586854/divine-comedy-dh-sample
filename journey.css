@@ -65,6 +65,23 @@ kbd { border: 1px solid #ffffff30; padding: .12rem .28rem; font: .58rem/1 var(--
 .character figcaption { position: absolute; right: 0; bottom: 2rem; display: grid; gap: .25rem; padding: .6rem .8rem; border-right: 2px solid var(--role); background: #050709b8; text-align: right; }
 .character figcaption small { color: var(--role); font: .58rem/1 var(--mono); letter-spacing: .12em; }
 .character figcaption strong { font-weight: 500; }
+.observation-layer { position: absolute; z-index: 6; inset: 0; pointer-events: none; }
+.observation-hotspot { position: absolute; display: grid; grid-template-columns: 1.65rem auto; align-items: center; gap: .5rem; padding: .42rem .65rem .42rem .42rem; border: 1px solid rgba(238,233,223,.38); border-radius: 999px; background: rgba(6,8,10,.68); color: var(--paper); backdrop-filter: blur(9px); cursor: pointer; pointer-events: auto; }
+.observation-hotspot b { display: grid; place-items: center; width: 1.65rem; height: 1.65rem; border-radius: 50%; background: var(--role); color: #17130f; font: 600 .58rem/1 var(--mono); }
+.observation-hotspot span { font-size: .72rem; white-space: nowrap; }
+.observation-hotspot:hover { border-color: var(--role); }
+.observation-hotspot.is-seen { opacity: .5; }
+.investigation { position: absolute; z-index: 8; left: 2rem; bottom: 2rem; width: min(35rem, calc(100vw - 4rem)); padding: 1.1rem 1.25rem; border-top: 1px solid var(--role); background: var(--panel); backdrop-filter: blur(14px); }
+.investigation header { display: grid; gap: .3rem; }
+.investigation header span { color: var(--role); font: 600 .6rem/1 var(--mono); letter-spacing: .12em; }
+.investigation header strong { font-size: 1.08rem; font-weight: 500; }
+.investigation > p { margin: .7rem 0; color: var(--dim); font-size: .79rem; line-height: 1.65; }
+.observation-budget { display: flex; align-items: center; gap: .6rem; }
+.observation-budget > span { display: flex; gap: .3rem; }
+.observation-budget i { width: .52rem; height: .52rem; border: 1px solid var(--role); border-radius: 50%; }
+.observation-budget i.is-full { background: var(--role); }
+.observation-budget em { color: #88837a; font: normal .62rem/1 var(--mono); }
+.investigation > button { width: 100%; margin-top: .85rem; padding: .7rem; border: 1px solid var(--role); background: color-mix(in srgb, var(--role) 14%, transparent); color: var(--paper); cursor: pointer; }
 .dialogue { position: absolute; z-index: 7; left: 2rem; bottom: 2rem; width: min(43rem, calc(100vw - 4rem)); padding: 1.2rem 1.35rem; border-top: 1px solid var(--role); background: var(--panel); backdrop-filter: blur(14px); }
 .dialogue header { display: flex; align-items: center; gap: .7rem; }
 .dialogue header span { color: var(--role); font: 600 .61rem/1 var(--mono); letter-spacing: .12em; }
@@ -74,6 +91,7 @@ kbd { border: 1px solid #ffffff30; padding: .12rem .28rem; font: .58rem/1 var(--
 .choices { display: grid; gap: .55rem; }
 .choices button { display: grid; gap: .25rem; width: 100%; padding: .72rem .8rem; border: 1px solid var(--line); background: rgba(255,255,255,.025); text-align: left; cursor: pointer; }
 .choices button:hover { border-color: var(--role); background: rgba(255,255,255,.055); }
+.choices button:disabled { opacity: .42; cursor: not-allowed; border-style: dashed; }
 .choices button small { color: var(--dim); font-size: .69rem; }
 .choices button em { color: var(--role); font: normal .58rem/1 var(--mono); }
 .continue { display: block; margin-left: auto; padding: .55rem .75rem; border: 0; border-bottom: 1px solid var(--role); background: transparent; cursor: pointer; }
@@ -138,6 +156,10 @@ kbd { border: 1px solid #ffffff30; padding: .12rem .28rem; font: .58rem/1 var(--
   .chapter-heading p { max-width: 75%; font-size: .72rem; }
   .character { right: -14%; width: 72vw; height: 65%; opacity: .8; }
   .character figcaption { display: none; }
+  .investigation { left: .5rem; bottom: .5rem; width: calc(100% - 1rem); }
+  .observation-layer { inset: 10rem .5rem auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem; }
+  .observation-hotspot { position: relative; top: auto !important; left: auto !important; width: 100%; min-width: 0; transform: none; }
+  .observation-hotspot span { white-space: normal; text-align: left; }
   .dialogue { left: .5rem; bottom: .5rem; width: calc(100% - 1rem); max-height: 55%; overflow: auto; padding: .9rem; }
   .dialogue > p { min-height: 0; font-size: .9rem; }
   .journey-state { top: 6rem; right: .5rem; flex-direction: column; gap: .35rem; }
