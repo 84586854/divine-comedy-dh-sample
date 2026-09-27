@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="journey.css">
+  <link rel="stylesheet" href="journey.css?v=20260927a">
 </head>
 <body>
   <main class="arc" id="arc" data-role="" data-weather="rain">
@@ -52,6 +52,7 @@
       <section class="investigation" id="investigation" hidden>
         <header><span>现场观察</span><strong id="investigationTitle">先看清发生了什么</strong></header>
         <p id="investigationHint">选择三处现场。你看到的事实会决定之后能够提出哪些问题。</p>
+        <div class="witness-targets" id="witnessTargets" hidden aria-label="追姓名目标"></div>
         <div class="observation-budget"><span id="observationDots"></span><em id="observationLabel">已观察 0 / 3</em></div>
         <button id="finishObservation" type="button" hidden>继续</button>
       </section>
@@ -67,6 +68,7 @@
         <div><span>方向感</span><b id="safetyPips"></b></div>
         <div><span>越出本册</span><strong id="fractureCount">0</strong></div>
         <div><span>已存证据</span><strong id="evidenceCount">0</strong></div>
+        <div id="witnessAnchorState" hidden><span>见证锚点</span><strong id="witnessAnchorValue">未建立</strong></div>
       </aside>
     </section>
 
@@ -112,6 +114,6 @@
 
     <div class="toast" id="toast" hidden></div>
   </main>
-  <script src="journey.js"></script>
+  <script src="journey.js?v=20260927a"></script>
 </body>
 </html>

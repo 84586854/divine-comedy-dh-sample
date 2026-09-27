@@ -81,7 +81,14 @@
       ],
       lensObservations: {
         order: { id: "c6-action", label: "使用辨行动", position: ["22%", "28%"], title: "饥饿、取食与投泥是三种行动", note: "把欲望和动作分开，才能看见维吉尔如何借怪物的饥饿开路。", ref: "Inf. VI.13–33" },
-        witness: { id: "c6-recognition", label: "使用追姓名", position: ["22%", "28%"], title: "先为无法辨认的人留下姓名位置", note: "在任何亡魂开口以前，手册先留出空白，避免把整片泥地只记成一种罪类。", ref: "Inf. VI.34–39" },
+        witness: {
+          id: "c6-recognition", label: "使用追姓名", position: ["22%", "28%"],
+          title: "先为无法辨认的人留下姓名位置", note: "在任何亡魂开口以前，手册先留出空白，避免把整片泥地只记成一种罪类。", ref: "Inf. VI.34–39",
+          targets: [
+            { id: "mark-c6-speaker", label: "给坐起的人留一行空白", short: "坐起的人", title: "一行等待姓名的空白", note: "你先确认这里有一个具体的说话者，等他亲自填入姓名。", ref: "Inf. VI.34–54" },
+            { id: "mark-c6-crowd", label: "记录那些没有坐起的人", short: "泥中的众人", title: "泥中还有未能开口的人", note: "恰科吸引了旅人的注意，周围更多亡魂却没有得到说话的机会。", ref: "Inf. VI.34–39" }
+          ]
+        },
         reader: { id: "c6-waking", label: "使用校叙词", position: ["22%", "28%"], title: "新一歌从上一次昏厥中醒来", note: "叙述没有让怜悯停在第五歌；醒来以后，旅人必须继续判断新的痛苦。", ref: "Inf. VI.1–6" }
       },
       investigationTitle: "趁泥中的灵魂尚未开口，先看清第三圈",
@@ -129,7 +136,14 @@
       ],
       lensObservations: {
         order: { id: "c7-measure", label: "使用辨行动", position: ["22%", "22%"], title: "石头不是罪的来源", note: "真正受判断的是人如何使用可流转之物，以及行动是否仍有尺度。", ref: "Inf. VII.40–60" },
-        witness: { id: "c7-erasure", label: "使用追姓名", position: ["22%", "22%"], title: "无法命名不是无关紧要的背景", note: "当身份被财富角色吞没，刑罚继续以无名队伍的形式复制这种抹除。", ref: "Inf. VII.52–57" },
+        witness: {
+          id: "c7-erasure", label: "使用追姓名", position: ["22%", "22%"],
+          title: "无法命名不是无关紧要的背景", note: "当身份被财富角色吞没，刑罚继续以无名队伍的形式复制这种抹除。", ref: "Inf. VII.52–57",
+          targets: [
+            { id: "mark-c7-clergy", label: "为剃发者保留空白姓名", short: "无名教士", title: "身份可辨，姓名已经丢失", note: "你记录他们曾是教士、枢机和教皇，却拒绝用职位冒充姓名。", ref: "Inf. VII.37–54" },
+            { id: "mark-c7-crowds", label: "记录两队共同失去的面孔", short: "相撞的两队", title: "两支队伍都被财富角色取代", note: "紧握者与挥霍者只剩动作和口号，个人历史已无法从圆周中分离。", ref: "Inf. VII.25–57" }
+          ]
+        },
         reader: { id: "c7-symmetry", label: "使用校叙词", position: ["22%", "22%"], title: "对称构图会制造道德等同", note: "圆周把两种失衡并置，但并不意味着每个人的历史、权力与后果完全相同。", ref: "Inf. VII.22–60" }
       },
       investigationTitle: "先辨认两支队伍为何永远相撞",
@@ -176,7 +190,14 @@
       ],
       lensObservations: {
         order: { id: "c8-grip", label: "使用辨行动", position: ["20%", "24%"], title: "袭击、阻拦与报复是三件事", note: "推开伸向渡船的手可以保护通行；继续观看惩罚，则来自另一种愿望。", ref: "Inf. VIII.40–63" },
-        witness: { id: "c8-feud", label: "使用追姓名", position: ["20%", "24%"], title: "相认把私人旧怨带进审判现场", note: "一旦叫出对方的姓名，旅人也必须承认自己不是没有历史的法官。", ref: "Inf. VIII.31–61" },
+        witness: {
+          id: "c8-feud", label: "使用追姓名", position: ["20%", "24%"],
+          title: "相认把私人旧怨带进审判现场", note: "一旦叫出对方的姓名，旅人也必须承认自己不是没有历史的法官。", ref: "Inf. VIII.31–61",
+          targets: [
+            { id: "mark-c8-stranger", label: "为泥中人预留姓名位置", short: "泥中人", title: "先让对方成为一个可辨认的人", note: "你暂不把他写成抽象的愤怒者，等待相认提供身份。", ref: "Inf. VIII.31–39" },
+            { id: "mark-c8-self", label: "也写下自己的佛罗伦萨身份", short: "旅人自己", title: "审判者也来自同一座城市", note: "你把自己的城邦与旧怨写进记录，放弃假装成没有历史的旁观者。", ref: "Inf. VIII.31–61" }
+          ]
+        },
         reader: { id: "c8-pleasure", label: "使用校叙词", position: ["20%", "24%"], title: "赞许语气可能替快意披上正义外衣", note: "维吉尔的称赞与叙述者的感谢，会引导读者接受旅人的愤怒。", ref: "Inf. VIII.43–63" }
       },
       investigationTitle: "先分清袭击、旧怨与自己的反应",
@@ -223,7 +244,14 @@
       ],
       lensObservations: {
         order: { id: "c9-limit", label: "使用辨行动", position: ["18%", "25%"], title: "危险以一眼为单位", note: "闭眼必须赶在美杜莎出现以前完成；迟疑本身也会造成后果。", ref: "Inf. IX.52–60" },
-        witness: { id: "c9-names", label: "使用追姓名", position: ["18%", "25%"], title: "为威胁命名可以保留差异，但不能取消危险", note: "记录三位复仇女神，不等于获得直视美杜莎的安全许可。", ref: "Inf. IX.37–60" },
+        witness: {
+          id: "c9-names", label: "使用追姓名", position: ["18%", "25%"],
+          title: "为威胁命名可以保留差异，但不能取消危险", note: "记录三位复仇女神，不等于获得直视美杜莎的安全许可。", ref: "Inf. IX.37–60",
+          targets: [
+            { id: "mark-c9-furies", label: "分别写下三位复仇女神", short: "三位复仇女神", title: "恐怖由三个声音组成", note: "墨纪拉、阿勒克托与提西福涅被分别记录，不再合成一团威胁。", ref: "Inf. IX.37–51" },
+            { id: "mark-c9-virgil", label: "记录维吉尔遮眼的动作", short: "维吉尔的双手", title: "引路人也会恐惧并采取保护", note: "你保存维吉尔的迟疑与双手，让他不只是一条永远正确的理性原则。", ref: "Inf. IX.1–30, 55–60" }
+          ]
+        },
         reader: { id: "c9-veil", label: "使用校叙词", position: ["18%", "25%"], title: "诗人主动提醒读者寻找帷幕下的教义", note: "这条提示要求解释，却不保证任何一种寓意读法就是唯一答案。", ref: "Inf. IX.61–63" }
       },
       investigationTitle: "闭上眼以后，重新确认你仍能依靠什么",
@@ -269,7 +297,14 @@
       ],
       lensObservations: {
         order: { id: "c10-knowledge", label: "使用辨行动", position: ["21%", "24%"], title: "误解需要语法、知识缺口与迟疑共同成立", note: "一个词不会独自造成后果；亡魂不知现在、旅人使用过去时并延迟回答，三者共同完成误认。", ref: "Inf. X.61–72, 97–108" },
-        witness: { id: "c10-interruption", label: "使用追姓名", position: ["21%", "24%"], title: "父亲的声音被两段宏大政治叙述夹住", note: "如果不主动保存，卡瓦尔坎特很容易只成为法里纳塔场景中的插曲。", ref: "Inf. X.52–93" },
+        witness: {
+          id: "c10-interruption", label: "使用追姓名", position: ["21%", "24%"],
+          title: "父亲的声音被两段宏大政治叙述夹住", note: "如果不主动保存，卡瓦尔坎特很容易只成为法里纳塔场景中的插曲。", ref: "Inf. X.52–93",
+          targets: [
+            { id: "mark-c10-father", label: "保存卡瓦尔坎特的两个问题", short: "父亲的问题", title: "两个没有得到回答的问题", note: "你原样记录：圭多为什么不在？他还活着吗？", ref: "Inf. X.52–72" },
+            { id: "mark-c10-farinata", label: "记录法里纳塔没有回头", short: "法里纳塔的沉默", title: "政治雄辩没有为父亲停下", note: "卡瓦尔坎特倒回墓中时，法里纳塔没有转头，随即接回自己的党争。", ref: "Inf. X.73–93" }
+          ]
+        },
         reader: { id: "c10-tense", label: "使用校叙词", position: ["21%", "24%"], title: "解释来得晚于伤害", note: "诗先让父亲误解并倒下，到第97行以后才说明亡魂为什么不知道现在。", ref: "Inf. X.61–72, 97–108" }
       },
       investigationTitle: "卡瓦尔坎特已经倒下：回看误解如何发生",
@@ -311,10 +346,14 @@
     queueDone: null,
     evidence: new Set(),
     judgments: new Set(),
+    witnessMarks: new Map(),
     lenses: new Set(),
     observationsInChapter: 0,
     safety: 3,
     fractures: 0,
+    anchorAvailable: false,
+    anchorUsed: false,
+    anchorLabel: null,
     soundOn: false
   };
 
@@ -359,10 +398,14 @@
     state.queueDone = null;
     state.evidence = new Set();
     state.judgments = new Set();
+    state.witnessMarks = new Map();
     state.lenses = new Set();
     state.observationsInChapter = 0;
     state.safety = 3;
     state.fractures = 0;
+    state.anchorAvailable = false;
+    state.anchorUsed = false;
+    state.anchorLabel = null;
   }
 
   function startArc(role) {
@@ -413,6 +456,18 @@
     }));
     $("#fractureCount").textContent = state.fractures;
     $("#evidenceCount").textContent = state.evidence.size;
+    const anchor = $("#witnessAnchorState");
+    anchor.hidden = state.role !== "witness";
+    anchor.classList.remove("is-ready", "is-used");
+    if (state.anchorAvailable) {
+      anchor.classList.add("is-ready");
+      $("#witnessAnchorValue").textContent = "就绪 · " + state.anchorLabel;
+    } else if (state.anchorUsed) {
+      anchor.classList.add("is-used");
+      $("#witnessAnchorValue").textContent = "已消耗";
+    } else {
+      $("#witnessAnchorValue").textContent = "未建立";
+    }
   }
 
   function setCharacter(character) {
@@ -430,6 +485,9 @@
   function enterChapter(index) {
     state.chapter = index;
     state.observationsInChapter = 0;
+    state.anchorAvailable = false;
+    state.anchorUsed = false;
+    state.anchorLabel = null;
     const chapter = chapters[index];
     $("#interlude").hidden = true;
     $("#play").hidden = false;
@@ -442,8 +500,11 @@
     setCharacter(chapter.character);
     $("#observationLayer").hidden = true;
     $("#investigation").hidden = true;
+    $("#witnessTargets").hidden = true;
+    $("#witnessTargets").replaceChildren();
     $("#dialogue").hidden = false;
     renderProgress();
+    renderState();
     renderSources();
     play(chapter.intro, showInvestigation);
   }
@@ -499,8 +560,11 @@
       button.innerHTML = "<span></span><small></small><em></em>";
       button.querySelector("span").textContent = choice.label;
       button.querySelector("small").textContent = unlocked ? choice.hint : "观察现场后才能提出这项判断";
+      const protectedCrossing = state.role === "witness" && state.anchorAvailable && !aligned;
       button.querySelector("em").textContent = unlocked
-        ? (aligned ? manuals[choice.lens].title + " · 安全" : manuals[choice.lens].title + " · 越出本册")
+        ? (aligned
+          ? manuals[choice.lens].title + " · 安全"
+          : manuals[choice.lens].title + (protectedCrossing ? " · 消耗见证锚点" : " · 越出本册"))
         : manuals[choice.lens].title + " · 尚缺证据";
       button.addEventListener("click", () => choose(choice));
       return button;
@@ -519,6 +583,8 @@
     $("#observationLayer").hidden = false;
     $("#investigation").hidden = false;
     $("#finishObservation").hidden = true;
+    $("#witnessTargets").hidden = true;
+    $("#witnessTargets").replaceChildren();
     $("#investigationTitle").textContent = chapter.investigationTitle;
     $("#investigationHint").textContent = chapter.investigationHint;
     const items = observationSet();
@@ -540,6 +606,40 @@
 
   function observe(item, button) {
     if (button.classList.contains("is-seen") || state.observationsInChapter >= 3) return;
+    if (state.role === "witness" && item.lens === "witness" && item.targets?.length) {
+      showWitnessTargets(item, button);
+      return;
+    }
+    commitObservation(item, button);
+  }
+
+  function showWitnessTargets(item, hotspot) {
+    const targets = $("#witnessTargets");
+    $("#investigationTitle").textContent = "追姓名：你要替谁留下位置？";
+    $("#investigationHint").textContent = "这条记录会成为本歌的见证锚点。越出见证之书一次时，它能替你保住方向。";
+    $$(".observation-hotspot").forEach((button) => { button.disabled = true; });
+    targets.hidden = false;
+    targets.replaceChildren(...item.targets.map((target) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.innerHTML = "<strong></strong><small></small>";
+      button.querySelector("strong").textContent = target.label;
+      button.querySelector("small").textContent = target.note;
+      button.addEventListener("click", () => {
+        state.witnessMarks.set(chapters[state.chapter].id, target.id);
+        state.anchorAvailable = true;
+        state.anchorUsed = false;
+        state.anchorLabel = target.short;
+        targets.hidden = true;
+        targets.replaceChildren();
+        commitObservation({ ...target, lens: "witness" }, hotspot);
+        showToast("追姓名：" + target.short + "成为本歌的见证锚点。");
+      });
+      return button;
+    }));
+  }
+
+  function commitObservation(item, button) {
     const chapter = chapters[state.chapter];
     button.classList.add("is-seen");
     state.observationsInChapter += 1;
@@ -560,6 +660,10 @@
       $("#investigationTitle").textContent = chapter.readyTitle;
       $("#investigationHint").textContent = chapter.readyHint;
       $("#finishObservation").hidden = false;
+    } else {
+      $$(".observation-hotspot").forEach((hotspot) => {
+        hotspot.disabled = hotspot.classList.contains("is-seen");
+      });
     }
   }
 
@@ -586,13 +690,20 @@
     state.evidence.add(choice.evidence);
     state.judgments.add(choice.evidence);
     state.lenses.add(choice.lens);
+    const protectedCrossing = !aligned && state.role === "witness" && state.anchorAvailable;
     if (aligned) {
       state.safety = Math.min(3, state.safety + 1);
       showToast(manuals[state.role].title + "确认：这条判断符合本册规则。");
     } else {
-      state.safety = Math.max(0, state.safety - 1);
       state.fractures += 1;
-      showToast("你越出了本册：方向感下降，但另一种事实进入记录。");
+      if (protectedCrossing) {
+        state.anchorAvailable = false;
+        state.anchorUsed = true;
+        showToast("见证锚点已消耗：" + state.anchorLabel + "使你越出本册时保持方向。");
+      } else {
+        state.safety = Math.max(0, state.safety - 1);
+        showToast("你越出了本册：方向感下降，但另一种事实进入记录。");
+      }
     }
     renderState();
     renderEvidence();
@@ -702,7 +813,8 @@
   }
 
   function renderResultRecord() {
-    $("#resultRecord").replaceChildren(...[...state.judgments].map((id) => {
+    const record = [...new Set([...state.witnessMarks.values(), ...state.judgments])];
+    $("#resultRecord").replaceChildren(...record.map((id) => {
       const span = document.createElement("span");
       span.textContent = evidenceCatalog[id].title;
       return span;
