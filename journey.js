@@ -846,6 +846,7 @@
 
   function renderSources() {
     const sources = chapters[state.chapter].sources;
+    $("#atlasTextLink").href = "atlas.html?v=reader2&realm=inferno&canto=" + (state.chapter + 6) + "&return=journey.html";
     $("#sourceList").replaceChildren(...sources.map((source) => {
       const article = document.createElement("article");
       article.innerHTML = "<small></small><p lang=\"it\"></p><p lang=\"en\"></p><p lang=\"zh-CN\"></p>";

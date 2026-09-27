@@ -18,6 +18,9 @@ francesca:"assets/character-francesca-paolo.png",ulysses:"assets/character-ulyss
 inferno:"assets/character-infernal-soul.png",purgatorio:"assets/character-penitent.png",paradiso:"assets/character-celestial.png"
 };
 const storageKey="dante-immersive-v6";
+const atlasParams=new URLSearchParams(location.search);
+const readerMode=atlasParams.get("legacy")!=="1";
+const readerReturn=atlasParams.get("return")==="index.html"?"index.html":"journey.html";
 let corpus=null,index=0,phase="explore",pendingIndex=null,showAll=false,showAllChinese=false,particles=[],ctx=null,dialogueHistory=[],visibleChoiceOrder=[0,1,2];
 let state=loadState();
 
@@ -267,8 +270,8 @@ function updateMusicButton(){const b=$("#musicToggle");b.setAttribute("aria-pres
 function toggleMusic(){state.musicOn=!state.musicOn;save();state.musicOn?music.start():music.stop();updateMusicButton()}
 
 function renderCanto(next){
-  index=Math.max(0,Math.min(next,corpus.cantos.length-1));state.current=index;const c=current(),info=realmInfo[c.realm];
-  if(!state.visited.includes(c.id))state.visited.push(c.id);save();phase="explore";pendingIndex=null;showAll=false;showAllChinese=false;dialogueHistory=[];$("#interlude").hidden=true;
+  index=Math.max(0,Math.min(next,corpus.cantos.length-1));const c=current(),info=realmInfo[c.realm];
+  if(!readerMode){state.current=index;if(!state.visited.includes(c.id))state.visited.push(c.id);save()}phase="explore";pendingIndex=null;showAll=false;showAllChinese=false;dialogueHistory=[];$("#interlude").hidden=true;
   $("#continueJourney").innerHTML="<span>W</span> 继续前行";$("#continueJourney").onclick=null;$("#acceptFate").hidden=true;$("#showEvidence").textContent="翻阅本歌文本";
   $("#game").className=`game realm-${c.realm}`;$("#worldImage").src=info.image;$("#realmLabel").textContent=info.en;$("#placeTitle").textContent=title();
   $("#routeCount").textContent=`${String(c.global).padStart(3,"0")} / 100`;$("#routeBar").style.width=`${c.global}%`;
@@ -355,19 +358,36 @@ function renderChinese(){
   paragraphs.forEach((paragraph)=>{const p=document.createElement("p");p.textContent=paragraph.text;if(paragraph.notes.length){const sup=document.createElement("sup"),start=notes.length+1;paragraph.notes.forEach(note=>notes.push(note));sup.textContent=paragraph.notes.length===1?`〔${start}〕`:`〔${start}–${notes.length}〕`;p.append(sup)}box.append(p)});
   const noteBox=$("#translatorNotes"),list=$("#translatorNotesList");list.replaceChildren(...notes.map((note,i)=>{const li=document.createElement("li");li.value=i+1;li.textContent=note;return li}));noteBox.hidden=!notes.length;$("#translatorNotesSummary").textContent=`王维克译者注（当前显示 ${notes.length} 条）`;
 }
-function renderMap(){const box=$("#cantoMap");box.replaceChildren(...corpus.cantos.map((c,i)=>{const b=document.createElement("button");b.type="button";b.textContent=String(c.canto).padStart(2,"0");b.title=`${realmInfo[c.realm].zh} · ${title(c)}`;if(state.visited.includes(c.id))b.classList.add("visited");if(i===index)b.classList.add("current");b.disabled=!state.visited.includes(c.id);b.dataset.index=i;return b}));$("#visitedCount").textContent=`${state.visited.length} / 100`}
-function openManual(panel="record"){$("#compendium").hidden=false;switchPanel(panel)}function closeManual(){$("#compendium").hidden=true}
+function renderMap(){const box=$("#cantoMap");box.replaceChildren(...corpus.cantos.map((c,i)=>{const b=document.createElement("button"),available=readerMode||state.visited.includes(c.id);b.type="button";b.textContent=String(c.canto).padStart(2,"0");b.title=`${realmInfo[c.realm].zh} · ${title(c)}`;if(available)b.classList.add("visited");if(i===index)b.classList.add("current");b.disabled=!available;b.dataset.index=i;return b}));$("#visitedCount").textContent=readerMode?"100 / 100 可查阅":`${state.visited.length} / 100`}
+function openManual(panel="record"){$("#compendium").hidden=false;switchPanel(panel)}function closeManual(){if(readerMode){location.href=readerReturn;return}$("#compendium").hidden=true}
 function switchPanel(name){$$("[data-panel]").forEach(b=>b.classList.toggle("is-active",b.dataset.panel===name));$$("[data-manual-panel]").forEach(p=>{const on=p.dataset.manualPanel===name;p.hidden=!on;p.classList.toggle("is-active",on)})}
+function requestedReaderIndex(){
+  const realm=["inferno","purgatorio","paradiso"].includes(atlasParams.get("realm"))?atlasParams.get("realm"):"inferno";
+  const canto=Math.max(1,Number(atlasParams.get("canto"))||1);
+  const found=corpus.cantos.findIndex(entry=>entry.realm===realm&&entry.canto===canto);
+  return found>=0?found:0;
+}
+function prepareReader(){
+  document.body.classList.add("reader-only");
+  document.title="百歌文本档案｜《神曲》三语阅读";
+  $("#game").setAttribute("aria-label","《神曲》百歌三语文本档案");
+  $("#roleGate").hidden=true;
+  $(".compendium header span").textContent="TEXTUAL ARCHIVE · 100 CANTOS";
+  $(".compendium h2").textContent="百歌文本档案";
+  $("#closeCompendium").textContent="返回游戏";
+  $("#closeCompendium").setAttribute("aria-label","返回游戏");
+  $("[data-manual-panel='map'] .map-head p").textContent="选择任一歌，直接核对三语文本、中文提要与译者注。";
+}
 function selectRole(key){if(!roles[key]||!corpus)return;state={role:key,visited:[],decisions:{},detours:{},stranded:null,current:0,musicOn:state.musicOn,fragments:[]};save();$("#roleGate").hidden=true;document.activeElement?.blur();music.start();renderCanto(0);openManual("school");walk()}
 function bind(){
   $("#worldPrompt").addEventListener("click",()=>{document.activeElement?.blur();advanceStory()});$("#choiceList").addEventListener("click",e=>{const b=e.target.closest("[data-choice]");if(b)choose(Number(b.dataset.choice))});
   $("#continueJourney").addEventListener("click",continueJourney);$("#interludeContinue").addEventListener("click",finishInterlude);$("#acceptFate").addEventListener("click",renderStranding);$("#manualButton").addEventListener("click",()=>openManual("record"));$("#openArchive").addEventListener("click",()=>openManual("map"));$("#closeCompendium").addEventListener("click",closeManual);$("#showEvidence").addEventListener("click",()=>openManual("text"));$("#toggleLines").addEventListener("click",()=>{showAll=!showAll;renderLines()});$("#toggleChinese").addEventListener("click",()=>{showAllChinese=!showAllChinese;renderChinese()});$("#musicToggle").addEventListener("click",toggleMusic);
-  $$("[data-panel]").forEach(b=>b.addEventListener("click",()=>switchPanel(b.dataset.panel)));$("#cantoMap").addEventListener("click",e=>{const b=e.target.closest("[data-index]");if(b&&!b.disabled){renderCanto(Number(b.dataset.index));closeManual()}});$$("[data-role]").forEach(b=>b.addEventListener("click",()=>selectRole(b.dataset.role)));
-  document.addEventListener("keydown",e=>{const typing=e.target.matches("input,select,textarea,[contenteditable=true]");if(typing)return;if(e.key==="Tab"){e.preventDefault();$("#compendium").hidden?openManual("record"):closeManual();return}if(e.key==="Escape"){closeManual();return}if(["a","A","b","B","c","C"].includes(e.key)&&phase==="choice"){e.preventDefault();choose(visibleChoiceOrder[e.key.toUpperCase().charCodeAt(0)-65]);return}if(["w","W","ArrowUp","e","E","Enter"].includes(e.key)){e.preventDefault();if(state.musicOn&&!music.started)music.start();advanceStory()}});
+  $$("[data-panel]").forEach(b=>b.addEventListener("click",()=>switchPanel(b.dataset.panel)));$("#cantoMap").addEventListener("click",e=>{const b=e.target.closest("[data-index]");if(b&&!b.disabled){renderCanto(Number(b.dataset.index));readerMode?openManual("text"):closeManual()}});$$("[data-role]").forEach(b=>b.addEventListener("click",()=>selectRole(b.dataset.role)));
+  document.addEventListener("keydown",e=>{const typing=e.target.matches("input,select,textarea,[contenteditable=true]");if(typing)return;if(readerMode){if(e.key==="Escape"){e.preventDefault();closeManual()}return}if(e.key==="Tab"){e.preventDefault();$("#compendium").hidden?openManual("record"):closeManual();return}if(e.key==="Escape"){closeManual();return}if(["a","A","b","B","c","C"].includes(e.key)&&phase==="choice"){e.preventDefault();choose(visibleChoiceOrder[e.key.toUpperCase().charCodeAt(0)-65]);return}if(["w","W","ArrowUp","e","E","Enter"].includes(e.key)){e.preventDefault();if(state.musicOn&&!music.started)music.start();advanceStory()}});
   document.addEventListener("pointermove",e=>{const nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5,x=nx*-18,y=ny*-12;document.documentElement.style.setProperty("--look-x",`${x}px`);document.documentElement.style.setProperty("--look-y",`${y}px`)})
 }
 function setupAtmosphere(){const canvas=$("#atmosphere");ctx=canvas.getContext("2d");const resize=()=>{const d=Math.min(devicePixelRatio,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;canvas.style.width=`${innerWidth}px`;canvas.style.height=`${innerHeight}px`;ctx.setTransform(d,0,0,d,0,0)};addEventListener("resize",resize);resize();requestAnimationFrame(drawParticles)}
 function resetParticles(realm){const count=realm==="paradiso"?80:realm==="inferno"?58:38;particles=Array.from({length:count},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,z:.2+Math.random()*.8,r:.5+Math.random()*1.8,v:.15+Math.random()*.55,realm}))}
 function drawParticles(){if(!ctx){requestAnimationFrame(drawParticles);return}ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of particles){p.y-=p.v*(.4+p.z);p.x+=Math.sin((p.y+p.z*80)*.01)*.12;if(p.y<-10){p.y=innerHeight+10;p.x=Math.random()*innerWidth}ctx.globalAlpha=.12+p.z*.55;ctx.fillStyle=p.realm==="inferno"?"#ff6a32":p.realm==="purgatorio"?"#f4d2a0":"#ffffff";ctx.beginPath();ctx.arc(p.x,p.y,p.r*p.z,0,Math.PI*2);ctx.fill()}requestAnimationFrame(drawParticles)}
-async function init(){bind();setupAtmosphere();updateMusicButton();try{const response=await fetch("corpus.json",{cache:"no-store"});if(!response.ok)throw new Error(response.status);corpus=await response.json();index=Math.max(0,Math.min(Number(state.stranded?.index??state.current)||0,99));renderCanto(index);$("#roleGate").hidden=Boolean(state.role);if(state.stranded)renderStranding()}catch{$("#promptText").textContent="档案未能载入";$("#worldPrompt").disabled=true}}
+async function init(){bind();if(!readerMode)setupAtmosphere();updateMusicButton();try{const response=await fetch("corpus.json",{cache:"no-store"});if(!response.ok)throw new Error(response.status);corpus=await response.json();if(readerMode){prepareReader();index=requestedReaderIndex();renderCanto(index);openManual("text");return}index=Math.max(0,Math.min(Number(state.stranded?.index??state.current)||0,99));renderCanto(index);$("#roleGate").hidden=Boolean(state.role);if(state.stranded)renderStranding()}catch{$("#promptText").textContent="档案未能载入";$("#worldPrompt").disabled=true}}
 init();

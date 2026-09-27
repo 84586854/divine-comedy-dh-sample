@@ -239,6 +239,53 @@ body:has(.compendium:not([hidden])) .manual-rig { visibility: hidden; }
 .record-dialogue span { color: #584b3a; }
 .fate-status { margin-top: 1rem; padding-top: .7rem; border-top: 1px solid rgba(60, 43, 26, .18); color: #8b3e2a; font: 700 .72rem/1.4 ui-monospace, monospace; }
 .compendium nav { grid-template-columns: repeat(6, 1fr); }
+
+html:has(body.reader-only),
+body.reader-only {
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+  background: #17120d;
+}
+
+body.reader-only .world,
+body.reader-only .hud-top,
+body.reader-only .status-orbit,
+body.reader-only .school-orbit,
+body.reader-only .reticle,
+body.reader-only .world-prompt,
+body.reader-only .encounter,
+body.reader-only .interlude,
+body.reader-only .character-stage,
+body.reader-only .manual-rig,
+body.reader-only .movement-help,
+body.reader-only .role-gate,
+body.reader-only [data-panel="record"],
+body.reader-only [data-panel="school"],
+body.reader-only [data-panel="threads"] { display: none !important; }
+
+body.reader-only .game {
+  height: auto;
+  min-height: 100svh;
+  overflow: visible;
+  padding: 1rem;
+  background: radial-gradient(circle at 50% 0, #33281d 0, #17120d 48rem);
+}
+
+body.reader-only .compendium {
+  position: relative;
+  inset: auto;
+  width: min(1180px, 100%);
+  min-height: calc(100svh - 2rem);
+  margin: 0 auto;
+  overflow: visible;
+  animation: none;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .5);
+}
+
+body.reader-only .compendium nav { grid-template-columns: repeat(3, 1fr); }
+body.reader-only .compendium header button { padding: .45rem .65rem; border: 1px solid rgba(60,43,26,.28); font-size: .78rem; }
+body.reader-only .manual-panel { min-height: 0; }
 .roles small, .roles strong, .roles span { display: block; }
 .roles small { margin-bottom: .45rem; color: var(--accent); font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .12em; }
 .roles span { line-height: 1.55; }
