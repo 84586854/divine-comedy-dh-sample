@@ -361,6 +361,54 @@
     soundOn: false
   };
 
+  const journeyStorageKey = "dante-inferno-6-10-v2";
+
+  function readJourneyState() {
+    try { return JSON.parse(localStorage.getItem(journeyStorageKey) || "null"); }
+    catch { return null; }
+  }
+
+  function primeEvidenceCatalog() {
+    chapters.forEach((chapter) => {
+      const items = [...chapter.observations, ...Object.values(chapter.lensObservations || {})];
+      items.forEach((item) => {
+        evidenceCatalog[item.id] = { lens: item.lens || "site", title: item.title, note: item.note, ref: item.ref };
+        (item.targets || []).forEach((target) => {
+          evidenceCatalog[target.id] = { lens: "witness", title: target.title, note: target.note, ref: target.ref };
+        });
+      });
+    });
+  }
+
+  function saveJourneyState() {
+    try {
+      localStorage.setItem(journeyStorageKey, JSON.stringify({
+        version: 2,
+        role: state.role,
+        chapter: state.chapter,
+        evidence: [...state.evidence],
+        judgments: [...state.judgments],
+        witnessMarks: [...state.witnessMarks.entries()],
+        lenses: [...state.lenses],
+        safety: state.safety,
+        fractures: state.fractures,
+        soundOn: state.soundOn
+      }));
+    } catch { /* Local previews can deny storage. */ }
+  }
+
+  function restoreJourneyState(saved) {
+    if (!saved || saved.role !== state.role) return;
+    state.chapter = Math.max(0, Math.min(Number(saved.chapter) || 0, chapters.length - 1));
+    state.evidence = new Set((saved.evidence || []).filter((id) => evidenceCatalog[id]));
+    state.judgments = new Set((saved.judgments || []).filter((id) => evidenceCatalog[id]));
+    state.witnessMarks = new Map((saved.witnessMarks || []).filter(([,id]) => evidenceCatalog[id]));
+    state.lenses = new Set((saved.lenses || []).filter((id) => manuals[id]));
+    state.safety = Math.max(0, Math.min(Number(saved.safety) || 3, 3));
+    state.fractures = Math.max(0, Number(saved.fractures) || 0);
+    state.soundOn = Boolean(saved.soundOn);
+  }
+
   function savedRole() {
     try { return localStorage.getItem("dante_manual"); } catch { return null; }
   }
@@ -371,6 +419,7 @@
 
   function renderGate() {
     const previous = savedRole();
+    const saved = readJourneyState();
     $("#gateText").textContent = previous && manuals[previous]
       ? `你仍带着《${manuals[previous].title}》。遵守它能保持方向；借用别册的方法会承担风险，也会补进本册遗漏的事实。`
       : "选择一本手册。遵守它能保持方向；借用别册的方法会承担风险，也会补进本册遗漏的事实。";
@@ -381,7 +430,7 @@
       button.querySelector("span").textContent = manual.glyph + " · " + manual.ability;
       button.querySelector("strong").textContent = manual.title;
       button.querySelector("small").textContent = manual.intro;
-      button.addEventListener("click", () => startArc(id));
+      button.addEventListener("click", () => startArc(id, false));
       return button;
     }));
     const actions = $("#gateActions");
@@ -389,8 +438,9 @@
     if (previous && manuals[previous]) {
       const keep = document.createElement("button");
       keep.type = "button";
-      keep.textContent = "继续使用《" + manuals[previous].title + "》";
-      keep.addEventListener("click", () => startArc(previous));
+      const canResume = saved?.role === previous && (Number(saved.chapter) > 0 || (saved.evidence || []).length > 0 || (saved.judgments || []).length > 0);
+      keep.textContent = canResume ? `继续${chapters[saved.chapter].canto} · 《${manuals[previous].title}》` : `从第六歌重新使用《${manuals[previous].title}》`;
+      keep.addEventListener("click", () => startArc(previous, canResume));
       actions.append(keep);
     }
   }
@@ -412,9 +462,10 @@
     state.anchorLabel = null;
   }
 
-  function startArc(role) {
+  function startArc(role, resume = false) {
     resetState();
     state.role = role;
+    if (resume) restoreJourneyState(readJourneyState());
     saveRole(role);
     $("#arc").dataset.role = role;
     $("#roleGate").hidden = true;
@@ -424,7 +475,7 @@
     renderProgress();
     renderState();
     startSound();
-    enterChapter(0);
+    enterChapter(state.chapter);
   }
 
   function configureManual() {
@@ -510,6 +561,7 @@
     renderProgress();
     renderState();
     renderSources();
+    saveJourneyState();
     play(chapter.intro, showInvestigation);
   }
 
@@ -659,6 +711,7 @@
     renderObservationBudget();
     renderEvidence();
     renderState();
+    saveJourneyState();
     if (state.observationsInChapter >= 3) {
       $$(".observation-hotspot").forEach((hotspot) => { hotspot.disabled = true; });
       $("#investigationTitle").textContent = chapter.readyTitle;
@@ -711,6 +764,7 @@
     }
     renderState();
     renderEvidence();
+    saveJourneyState();
     const outcome = choice.result
       ? { ...choice.result }
       : { type: "选择的后果", speaker: "页边记录", text: choice.outcome, source: evidenceCatalog[choice.evidence].ref };
@@ -846,7 +900,7 @@
 
   function renderSources() {
     const sources = chapters[state.chapter].sources;
-    $("#atlasTextLink").href = "atlas.html?v=reader2&realm=inferno&canto=" + (state.chapter + 6) + "&return=journey.html";
+    $("#atlasTextLink").href = "atlas.html?v=reader3&realm=inferno&canto=" + (state.chapter + 6) + "&return=journey.html";
     $("#sourceList").replaceChildren(...sources.map((source) => {
       const article = document.createElement("article");
       article.innerHTML = "<small></small><p lang=\"it\"></p><p lang=\"en\"></p><p lang=\"zh-CN\"></p>";
@@ -980,6 +1034,7 @@
     });
   }
 
+  primeEvidenceCatalog();
   renderGate();
   bind();
 })();

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="description" content="《神曲》地狱篇第十一歌至天堂篇第三十三歌：三种解释手册、九十个互动关卡与可核对的百歌文本档案。" />
+  <title>余下的路｜《神曲》互动旅程</title>
+  <link rel="preload" as="image" href="assets/journey-cosmos-v1.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pilgrimage.css?v=20261001b" />
+</head>
+<body>
+  <main class="pilgrimage" id="pilgrimage" data-realm="inferno" data-arc="inferno-violence" data-phase="gate">
+    <canvas id="atmosphere" aria-hidden="true"></canvas>
+    <div class="world" id="world" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="hud">
+      <a class="brand" href="index.html"><small>LA COMMEDIA · 90 CANTI</small><strong>余下的路</strong></a>
+      <div class="route" aria-label="旅程进度"><span id="realmLabel">地狱篇</span><b id="cantoLabel">XI</b><i><em id="routeFill"></em></i><span id="progressLabel">11 / 100</span></div>
+      <nav>
+        <button id="soundButton" type="button" aria-pressed="false">声音 <span>关闭</span></button>
+        <button id="mapButton" type="button">路书</button>
+        <a id="archiveLink" href="atlas.html?v=reader3&amp;realm=inferno&amp;canto=11&amp;return=pilgrimage.html">原文</a>
+      </nav>
+    </header>
+
+    <section class="gate" id="gate">
+      <div class="gate-copy">
+        <p class="eyebrow">THE ROAD AFTER THE FIERY TOMBS</p>
+        <h1>地狱还没有结束。<br />但道路已经开始改变你。</h1>
+        <p>火墓之后，维吉尔将解释地狱的结构。此后每一次观察都会决定你能问什么，每一次判断也会在更远的篇章里留下回声。</p>
+        <div class="mission-brief" aria-label="旅程目标">
+          <article><span>你的身份</span><strong>携带手册的见证者</strong><p>你仍活着，必须穿过余下三界，把人物、现场与自己的判断带回人间。</p></article>
+          <article><span>每歌行动</span><strong>遭遇 → 调查 → 行动 → 后果</strong><p>先弄清发生了什么，再从可用行动中选择；结果会改变定力、张力与三种旅程印记。</p></article>
+          <article><span>通关条件</span><strong>抵达终点，而不是只求安全</strong><p>遵守手册最安全；在三个世界各识破一次手册盲区，才可能看见隐藏结局。</p></article>
+        </div>
+        <p class="mark-legend">三种旅程印记会决定你最终带回怎样的记录：行动，记录你是否承担并执行；见证，记录你保留了多少具体人物与关系；洞察，记录你是否修正了自己的读法。</p>
+        <div class="carry" id="carry"></div>
+        <div class="gate-actions">
+          <button class="primary" id="beginButton" type="button">从第十一歌继续</button>
+          <button id="selectArcButton" type="button">选择篇章弧</button>
+        </div>
+      </div>
+      <div class="gate-index">
+        <span>三界</span><strong>90</strong><small>个可游玩关卡</small>
+        <span>解释路径</span><strong>3</strong><small>种有限而真实的方法</small>
+        <span>文本档案</span><strong>100</strong><small>歌意中英对读入口</small>
+      </div>
+    </section>
+
+    <section class="arc-select" id="arcSelect" hidden aria-label="选择篇章弧">
+      <header><div><p class="eyebrow">JOURNEY ARCS</p><h2>选择一段路重新进入</h2></div><button id="closeArcSelect" type="button">返回</button></header>
+      <div class="arc-grid" id="arcGrid"></div>
+    </section>
+
+    <section class="play" id="play" hidden>
+      <aside class="chapter-mark"><span id="arcNumber">I</span><p><small id="arcRealm">INFERNO</small><strong id="arcTitle">暴力的尺度</strong></p></aside>
+
+      <figure class="character" id="character">
+        <img id="characterImage" src="assets/character-virgil.png" alt="" />
+        <figcaption><strong id="characterName">维吉尔</strong><span id="characterRole">引路人</span></figcaption>
+      </figure>
+
+      <div class="encounter-stack">
+        <aside class="mission-hud" aria-label="当前任务与旅程状态">
+          <div class="mission-copy"><span id="missionStep">1 / 4 · 遭遇</span><strong id="missionObjective">先弄清你抵达了哪里。</strong></div>
+          <ol class="mission-progress" aria-label="本歌进度"><li data-stage="story">遭遇</li><li data-stage="investigation">调查</li><li data-stage="decision">行动</li><li data-stage="outcome">后果</li></ol>
+          <div class="journey-stats"><span>定力 <b id="safetyValue">3</b>/5</span><span>张力 <b id="strainValue">0</b>/6</span><span>裂痕 <b id="fractureValue">0</b>/3</span><span>修订 <b id="revisionValue">2</b></span></div>
+        </aside>
+
+        <section class="story-card" id="storyCard" aria-live="polite">
+          <header><span id="beatType">抵达</span><strong id="speaker">旁白</strong><i id="sourceRef">Inf. XI</i></header>
+          <p id="storyText"></p>
+          <div class="story-actions"><button id="storyContinue" type="button">继续 <kbd>Space</kbd></button></div>
+        </section>
+
+        <section class="investigation" id="investigation" hidden>
+          <header><div><p class="eyebrow" id="mechanicLabel">现场核对</p><h2 id="investigationTitle">先确认你看见了什么</h2></div><span id="taskProgress">0 / 2</span></header>
+          <p id="investigationInstruction"></p>
+          <div class="evidence-board" id="evidenceBoard"></div>
+          <p class="investigation-feedback" id="investigationFeedback" aria-live="polite">先查看记录，再决定带哪些事实进入判断。</p>
+          <button class="primary" id="finishInvestigation" type="button" disabled>带着记录采取行动</button>
+        </section>
+
+        <section class="decision" id="decision" hidden>
+          <header><p class="eyebrow">选择你的行动</p><h2 id="decisionQuestion"></h2></header>
+          <div class="choice-list" id="choiceList"></div>
+        </section>
+
+        <section class="outcome" id="outcome" hidden>
+          <header><p class="eyebrow" id="outcomeKicker">行动后的现场</p><h2 id="outcomeTitle"></h2></header>
+          <p class="outcome-scene" id="outcomeScene"></p>
+          <div class="effect-strip" id="outcomeEffects" aria-label="本次行动影响"></div>
+          <div class="analysis-grid">
+            <article><span>为什么会这样</span><p id="outcomeAnalysis"></p></article>
+            <article><span>它将留下什么</span><p id="outcomeLegacy"></p></article>
+          </div>
+          <div class="outcome-actions"><button id="reviseButton" type="button">消耗一次修订</button><button class="primary" id="nextButton" type="button">继续前行</button></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="interlude" id="interlude" hidden>
+      <p class="eyebrow" id="interludeRoute"></p>
+      <blockquote><q id="interludeQuote"></q><cite id="interludeSource"></cite></blockquote>
+      <p id="interludeNote"></p>
+      <button class="primary" id="interludeContinue" type="button">进入下一歌</button>
+    </section>
+
+    <section class="ending" id="ending" hidden>
+      <p class="eyebrow" id="endingKicker"></p><h1 id="endingTitle"></h1><p id="endingBody"></p>
+      <div class="ending-record" id="endingRecord"></div>
+      <div class="ending-actions"><button id="endingReplay" type="button">从篇章弧重走</button><button id="changeManualButton" type="button">换一本手册</button><a href="atlas.html?v=reader3&amp;realm=paradiso&amp;canto=33&amp;return=pilgrimage.html">核对百歌档案</a></div>
+    </section>
+
+    <button class="manual-button" id="manualButton" type="button" aria-label="打开随身手册"><img src="assets/traveler-hands-manual.png" alt="" /><span><b id="manualButtonTitle">随身手册</b><em id="manualButtonNote">尚未写入本歌记录</em></span></button>
+
+    <aside class="manual" id="manual" hidden aria-label="随身手册">
+      <header><div><p class="eyebrow">FIELD MANUAL</p><h2 id="manualTitle">解释手册</h2></div><button id="closeManual" type="button" aria-label="合上手册">×</button></header>
+      <nav><button class="is-active" data-tab="rule" type="button">规则</button><button data-tab="record" type="button">本歌</button><button data-tab="threads" type="button">回声</button><button data-tab="map" type="button">路书</button></nav>
+      <div class="manual-page is-active" data-panel="rule"><p id="manualSchool"></p><blockquote id="manualThesis"></blockquote><ol id="manualRules"></ol><div class="blind"><span>这本手册看不见</span><p id="manualBlind"></p></div></div>
+      <div class="manual-page" data-panel="record" hidden><p class="folio" id="recordRef"></p><h3 id="recordTitle"></h3><div id="recordEvidence"></div><div class="verdict" id="recordVerdict">尚未作出判断。</div><a class="manual-source" id="manualSourceLink" href="atlas.html?v=reader3&amp;realm=inferno&amp;canto=11&amp;return=pilgrimage.html">核对本歌意大利文、英文与中文译文</a></div>
+      <div class="manual-page" data-panel="threads" hidden><p>前面的判断不会消失。它们会在后面的歌中改变问题和解释。</p><div class="thread-list" id="threadList"></div></div>
+      <div class="manual-page" data-panel="map" hidden><div class="manual-stats" id="manualStats"></div><div class="mini-map" id="miniMap"></div></div>
+    </aside>
+
+    <div class="toast" id="toast" hidden></div>
+    <div class="key-help"><span><kbd>Space</kbd> 推进</span><span><kbd>A/B/C</kbd> 判断</span><span><kbd>Tab</kbd> 手册</span><span><kbd>M</kbd> 声音</span></div>
+  </main>
+  <script src="encounters.js?v=20260927d"></script>
+  <script src="pilgrimage-v2.js?v=20261001b"></script>
+</body>
+</html>

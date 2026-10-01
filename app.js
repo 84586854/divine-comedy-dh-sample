@@ -20,7 +20,7 @@ inferno:"assets/character-infernal-soul.png",purgatorio:"assets/character-penite
 const storageKey="dante-immersive-v6";
 const atlasParams=new URLSearchParams(location.search);
 const readerMode=atlasParams.get("legacy")!=="1";
-const readerReturn=atlasParams.get("return")==="index.html"?"index.html":"journey.html";
+const readerReturn=["index.html","journey.html","pilgrimage.html"].includes(atlasParams.get("return"))?atlasParams.get("return"):"journey.html";
 let corpus=null,index=0,phase="explore",pendingIndex=null,showAll=false,showAllChinese=false,particles=[],ctx=null,dialogueHistory=[],visibleChoiceOrder=[0,1,2];
 let state=loadState();
 
